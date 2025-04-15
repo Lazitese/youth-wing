@@ -16,6 +16,81 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@aqaqikaliti" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <style>
+      .container-gov {
+        width: 100%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
+      .nav-link {
+        @apply px-3 py-2 rounded-md transition-colors relative;
+      }
+      
+      .nav-link-active {
+        @apply font-medium;
+      }
+      
+      :root {
+        --color-gov-dark: #354F52;
+        --color-gov-medium: #52796F;
+        --color-gov-light: #84A98C;
+        --color-gov-accent: #2F3E46;
+        --color-gov-gold: #D6AD60;
+        --color-gov-gold-light: #e5c785;
+      }
+      
+      .text-gov-dark { color: var(--color-gov-dark); }
+      .text-gov-medium { color: var(--color-gov-medium); }
+      .text-gov-light { color: var(--color-gov-light); }
+      .text-gov-accent { color: var(--color-gov-accent); }
+      .text-gov-gold { color: var(--color-gov-gold); }
+      
+      .bg-gov-dark { background-color: var(--color-gov-dark); }
+      .bg-gov-medium { background-color: var(--color-gov-medium); }
+      .bg-gov-light { background-color: var(--color-gov-light); }
+      .bg-gov-accent { background-color: var(--color-gov-accent); }
+      .bg-gov-gold { background-color: var(--color-gov-gold); }
+      .bg-gov-gold-light { background-color: var(--color-gov-gold-light); }
+      
+      .border-gov-dark { border-color: var(--color-gov-dark); }
+      .border-gov-medium { border-color: var(--color-gov-medium); }
+      .border-gov-light { border-color: var(--color-gov-light); }
+      .border-gov-accent { border-color: var(--color-gov-accent); }
+      .border-gov-gold { border-color: var(--color-gov-gold); }
+      
+      .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+      
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .animate-pulse-soft {
+        animation: pulseSoft 2s infinite;
+      }
+      
+      @keyframes pulseSoft {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
+    </style>
   </head>
 
   <body>
