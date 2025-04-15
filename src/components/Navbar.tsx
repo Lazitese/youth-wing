@@ -31,30 +31,30 @@ const Navbar = () => {
       <div className="container-gov flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="flex items-center space-x-2">
-          <div className="w-10 h-10 bg-gov-dark text-white rounded-md flex items-center justify-center font-display font-bold text-xl">SC</div>
+          <div className="w-10 h-10 bg-gov-dark text-white rounded-md flex items-center justify-center font-display font-bold text-xl">AQ</div>
           <span className={`font-display font-bold text-xl ${isScrolled ? "text-gov-dark" : "text-white"}`}>
-            SubCity <span className="text-gov-accent">GOV</span>
+            አቃቂ ቃሊቲ <span className="text-gov-accent">ክ/ከተማ</span>
           </span>
         </a>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1">
-          <a href="#" className="nav-link nav-link-active">Home</a>
+          <a href="#" className="nav-link nav-link-active">መነሻ</a>
           <div className="relative group">
             <button className="nav-link flex items-center">
-              Services <ChevronDown className="ml-1 h-4 w-4" />
+              የአባላት ምዝገባ <ChevronDown className="ml-1 h-4 w-4" />
             </button>
             <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right">
-              <a href="#" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">Business Registration</a>
-              <a href="#" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">ID Services</a>
-              <a href="#" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">Land Management</a>
-              <a href="#" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">Tax Payment</a>
+              <a href="#" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">አዲስ ምዝገባ</a>
+              <a href="#" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">የአባልነት መረጃ</a>
+              <a href="#" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">ምርጫዎች</a>
+              <a href="#" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">መመሪያዎች</a>
             </div>
           </div>
-          <a href="#" className="nav-link">News</a>
-          <a href="#" className="nav-link">Projects</a>
-          <a href="#" className="nav-link">About Us</a>
-          <a href="#" className="nav-link">Contact</a>
+          <a href="#" className="nav-link">ጥቆማ</a>
+          <a href="#" className="nav-link">ሰነዶች</a>
+          <a href="#" className="nav-link">ስለ እኛ</a>
+          <a href="#" className="nav-link">አግኙን</a>
         </div>
 
         {/* Right Side - Action Buttons */}
@@ -67,7 +67,7 @@ const Navbar = () => {
             <span className="absolute -top-1 -right-1 h-4 w-4 bg-gov-accent rounded-full flex items-center justify-center text-[10px] text-white">3</span>
           </Button>
           <Button className="bg-gov-gold text-gov-dark hover:bg-gov-gold-light transition-colors duration-300">
-            Login
+            ግባ
           </Button>
         </div>
 
@@ -87,14 +87,14 @@ const Navbar = () => {
         } overflow-hidden`}
       >
         <div className="container-gov py-4 flex flex-col space-y-4">
-          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">Home</a>
-          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">Services</a>
-          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">News</a>
-          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">Projects</a>
-          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">About Us</a>
-          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">Contact</a>
+          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">መነሻ</a>
+          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">የአባላት ምዝገባ</a>
+          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">ጥቆማ</a>
+          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">ሰነዶች</a>
+          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">ስለ እኛ</a>
+          <a href="#" className="text-gov-dark font-medium py-2 border-b border-gray-100">አግኙን</a>
           <Button className="w-full bg-gov-gold text-gov-dark hover:bg-gov-gold-light">
-            Login
+            ግባ
           </Button>
         </div>
       </div>

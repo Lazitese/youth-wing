@@ -71,22 +71,22 @@ const Hero = () => {
       <div className="city-skyline"></div>
       
       <div className="container-gov relative z-10 pt-16 text-center">
-        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 animate-fade-in">
-          Welcome to <span className="text-gov-gold">SubCity</span> Government
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
+          የአቃቂ ቃሊቲ ክፍለ ከተማ <span className="text-gov-gold">ብልጽግና ፓርቲ</span> ሴቶች ክንፍ ቅርንጫፍ ጽ/ቤት
         </h1>
         
         <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-10 opacity-90 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-          Building a connected, transparent and efficient government for all citizens
+          የሴቶች ኃይልን ማበረታታት፣ አቅምን ማሳደግ፣ የህዝብን ተወካይነት ማሳካት
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in" style={{ animationDelay: "0.4s" }}>
           <Button className="btn-gold px-8 py-6 text-lg group" size="lg">
-            <span>Explore Services</span>
+            <span>አግኙን</span>
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
           
           <Button variant="outline" className="border-white text-white hover:bg-white/10 px-8 py-6 text-lg" size="lg">
-            Report an Issue
+            አባላት ምዝገባ
           </Button>
         </div>
         
@@ -99,8 +99,8 @@ const Hero = () => {
               </svg>
             </div>
             <div className="text-left">
-              <p className="text-sm text-white/80">Residency</p>
-              <p className="font-semibold">Housing Services</p>
+              <p className="text-sm text-white/80">አኩሪ አመራር</p>
+              <p className="font-semibold">ተሳትፎ እና አጋርነት</p>
             </div>
           </div>
           
@@ -112,8 +112,8 @@ const Hero = () => {
               </svg>
             </div>
             <div className="text-left">
-              <p className="text-sm text-white/80">Time-saving</p>
-              <p className="font-semibold">Quick Services</p>
+              <p className="text-sm text-white/80">እኩልነት</p>
+              <p className="font-semibold">የሴቶች ማህበራዊ እኩልነት</p>
             </div>
           </div>
           
@@ -127,8 +127,8 @@ const Hero = () => {
               </svg>
             </div>
             <div className="text-left">
-              <p className="text-sm text-white/80">Planning</p>
-              <p className="font-semibold">Events Calendar</p>
+              <p className="text-sm text-white/80">መሰረታዊ</p>
+              <p className="font-semibold">ተጠሪነትና መረጋጋት</p>
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@ const Hero = () => {
       {/* Scroll down indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer animate-float">
         <a href="#services" className="flex flex-col items-center text-white/80 hover:text-white">
-          <span className="text-sm mb-2">Scroll Down</span>
+          <span className="text-sm mb-2">ታች ይመልከቱ</span>
           <ChevronDown className="h-6 w-6" />
         </a>
       </div>

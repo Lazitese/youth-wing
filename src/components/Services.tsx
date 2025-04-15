@@ -19,43 +19,43 @@ const AnimatedCard = ({ children, delay = 0 }: { children: React.ReactNode; dela
 const services = [
   {
     id: 1,
-    title: "Business Registration",
-    description: "Register your business, renew licenses, and access permits all in one place.",
+    title: "የሴቶች ማሰልጠኛ ፕሮግራሞች",
+    description: "የሥራ ዕድልን ለማስፋት እና የሴቶችን ተሳትፎ ለማጎልበት የተዘጋጁ ልዩ ልዩ ስልጠናዎች።",
     icon: <Briefcase className="h-8 w-8 text-gov-accent" />,
     bgColor: "bg-gradient-to-br from-white to-blue-50",
   },
   {
     id: 2,
-    title: "ID & Documentation",
-    description: "Apply for or renew identification cards and access vital documents.",
+    title: "የጤና አጠባበቅ ማዕከሎች",
+    description: "ለሴቶች ልዩ ጥንቃቄ የሚሹ የጤና እንክብካቤ አገልግሎቶች እና የግንዛቤ ማስጨበጫ ፕሮግራሞች።",
     icon: <FileText className="h-8 w-8 text-gov-accent" />,
     bgColor: "bg-gradient-to-br from-white to-emerald-50",
   },
   {
     id: 3,
-    title: "Building Permits",
-    description: "Submit applications for construction and renovation permits.",
+    title: "ሴቶች ለሴቶች ሥራዎች",
+    description: "ሴቶች በሴቶች የሚመሩ የገቢ ማስገኛ ሥራዎችን ለመጀመር እና ለማሳደግ የተዘጋጁ አስፈላጊ ድጋፎች።",
     icon: <Building className="h-8 w-8 text-gov-accent" />,
     bgColor: "bg-gradient-to-br from-white to-amber-50",
   },
   {
     id: 4,
-    title: "Community Programs",
-    description: "Discover and register for community events, workshops, and initiatives.",
+    title: "ተማሪ ልጆች ድጋፍ",
+    description: "ለተማሪ ሴት ልጆች የትምህርት ቁሳቁሶች፣ የትምህርት ክፍያ እና የምክር አገልግሎቶች።",
     icon: <Users className="h-8 w-8 text-gov-accent" />,
     bgColor: "bg-gradient-to-br from-white to-purple-50",
   },
   {
     id: 5,
-    title: "Tax Services",
-    description: "Pay property taxes, file returns, and access tax-related information.",
+    title: "የመንገድ እና ትምህርት ፕሮጀክቶች",
+    description: "በሴቶች ለሴቶች የሚመሩ የመንገድ ፅዳት፣ የኮምፒውተር ክህሎቶች እና ሌሎች ማሻሻያዎች።",
     icon: <FileCheck className="h-8 w-8 text-gov-accent" />,
     bgColor: "bg-gradient-to-br from-white to-red-50",
   },
   {
     id: 6,
-    title: "Land Management",
-    description: "Access land records, file for property transfers, and check zoning regulations.",
+    title: "ማህበራዊ ፍትህ ፕሮግራሞች",
+    description: "ለሴቶች እኩልነት እና ፍትህ የሚደረጉ ልዩ ልዩ የህግ ድጋፎች እና የመብት ተሟጋችነት ሥራዎች።",
     icon: <Map className="h-8 w-8 text-gov-accent" />,
     bgColor: "bg-gradient-to-br from-white to-indigo-50",
   },
@@ -69,11 +69,10 @@ const Services = () => {
       <div className="container-gov">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gov-dark mb-4">
-            Our <span className="text-gov-accent">Services</span>
+            <span className="text-gov-accent">ፕሮግራሞቻችን</span>
           </h2>
           <p className="text-gray-600 text-lg">
-            Access a wide range of government services designed to make your life easier and
-            your interactions with the administration more efficient.
+            የሴቶችን ኢኮኖሚያዊ፣ ማህበራዊ እና የፖለቲካ ተሳትፎ ለማሳደግ የተዘጋጁ ልዩ ልዩ ፕሮግራሞች እና አገልግሎቶች
           </p>
         </div>
 
@@ -94,7 +93,7 @@ const Services = () => {
                   <h3 className="text-xl font-bold text-gov-dark mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-4">{service.description}</p>
                   <Button variant="ghost" className="text-gov-accent hover:text-gov-accent/80 hover:bg-gov-accent/5 px-0 group">
-                    Learn More
+                    ተጨማሪ ይመልከቱ
                     <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </div>
@@ -105,7 +104,7 @@ const Services = () => {
 
         <div className="flex justify-center mt-12">
           <Button className="btn-primary px-8 py-6" size="lg">
-            View All Services
+            ሁሉንም ፕሮግራሞች ይመልከቱ
           </Button>
         </div>
       </div>
