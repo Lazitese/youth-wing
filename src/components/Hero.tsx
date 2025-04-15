@@ -68,7 +68,10 @@ const Hero = () => {
       <div ref={particlesContainer} className="particles"></div>
       
       {/* City Skyline */}
-      <div className="city-skyline"></div>
+      <div className="city-skyline absolute bottom-0 w-full h-24 bg-contain bg-repeat-x bg-bottom" style={{ 
+        backgroundImage: 'url("https://i.imgur.com/Ks3gIuP.png")',
+        opacity: 0.2
+      }}></div>
       
       <div className="container-gov relative z-10 pt-16 text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">

@@ -8,6 +8,9 @@ import Index from "./pages/Index";
 import QretaForm from "./pages/QretaForm";
 import AbalatMzgebaForm from "./pages/AbalatMzgebaForm";
 import ReportForm from "./pages/ReportForm";
+import AllPrograms from "./pages/AllPrograms";
+import AllNews from "./pages/AllNews";
+import AllAchievements from "./pages/AllAchievements";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +26,9 @@ const App = () => (
           <Route path="/qreta" element={<QretaForm />} />
           <Route path="/abalat-mzgeba" element={<AbalatMzgebaForm />} />
           <Route path="/report" element={<ReportForm />} />
+          <Route path="/programs" element={<AllPrograms />} />
+          <Route path="/news" element={<AllNews />} />
+          <Route path="/achievements" element={<AllAchievements />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

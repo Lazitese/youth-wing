@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { ChevronRight, FileText, Building, Users, Briefcase, FileCheck, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 // Since we're not installing framer-motion, we'll create a custom component
 // that mimics the motion.div with CSS animations
@@ -103,9 +104,11 @@ const Services = () => {
         </div>
 
         <div className="flex justify-center mt-12">
-          <Button className="btn-primary px-8 py-6" size="lg">
-            ሁሉንም ፕሮግራሞች ይመልከቱ
-          </Button>
+          <Link to="/programs">
+            <Button className="btn-primary px-8 py-6" size="lg">
+              ሁሉንም ፕሮግራሞች ይመልከቱ
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
