@@ -266,13 +266,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      
-      {/* Decorative bottom wave */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-        <svg className="w-full h-20" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 0L48 8.3C96 17 192 33 288 53.3C384 73.7 480 98.3 576 93.3C672 88.3 768 53.7 864 40.7C960 28 1056 37 1152 46.7C1248 56.3 1344 66.7 1392 71.3L1440 76V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V0Z" fill="white"/>
-        </svg>
-      </div>
     </section>
   );
 };
