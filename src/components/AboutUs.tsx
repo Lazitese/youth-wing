@@ -20,23 +20,22 @@ const AboutUs = () => {
               ትምህርት፣ ስልጠና፣ የስራ ዕድል፣ የጤና እንክብካቤ እና ሌሎች አገልግሎቶችን በማቅረብ፣ አካባቢያችን ውስጥ ሴቶች በሁሉም መስኮች እንዲሳተፉ እና እንዲበረታቱ ለማድረግ ጠንክረን እንሰራለን። ሴቶችን ሲጠቀሙ ማህበረሰቦች ይበለጽጋሉ ብለን እናምናለን።
             </p>
             
-            <Button className="bg-gov-accent text-white hover:bg-gov-accent/90 group relative overflow-hidden">
-              <span className="relative z-10">ተጨማሪ ይወቁ</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-gov-accent to-gov-light opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            <Button className="bg-gov-accent text-white hover:bg-gov-accent/90 group">
+              <span>ተጨማሪ ይወቁ</span>
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
           </div>
           
-          <div className="relative rounded-lg overflow-hidden shadow-xl animate-fade-in-up group" style={{ animationDelay: "0.2s" }}>
+          <div className="relative rounded-lg overflow-hidden shadow-xl animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <div className="aspect-w-16 aspect-h-9 bg-gov-light/10">
               <img 
-                src="/placeholder.svg" 
+                src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" 
                 alt="የክፍለ ከተማው ሴቶች አመራሮች" 
-                className="w-full h-full object-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-cover rounded-lg"
               />
             </div>
             
-            <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-gov-dark/90 to-transparent text-white transform transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
+            <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-gov-dark/90 to-transparent text-white">
               <h3 className="text-xl font-bold mb-2">አመራር</h3>
               <p className="opacity-90">የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ አመራሮች</p>
             </div>

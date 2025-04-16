@@ -24,9 +24,12 @@ const Projects = () => {
             >
               <div className="h-48 bg-gray-200">
                 <img 
-                  src={`/placeholder.svg`} 
+                  src={`/images/project-${index}.jpg`} 
                   alt={`የሴቶች ክንፍ ፕሮጀክት ${index}`}
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = "/placeholder.svg";
+                  }}
                 />
               </div>
               <div className="p-6">
@@ -36,6 +39,13 @@ const Projects = () => {
                   {index === 2 && "የሴቶችን የሙያ ክህሎት ለማሳደግ የሚደረግ ስልጠና"}
                   {index === 3 && "የሴቶችን የንግድ እውቀት ለማሳደግ የሚያግዝ የምክር አገልግሎት"}
                 </p>
+                <div className="flex justify-end">
+                  <Link to={`/projects`}>
+                    <Button variant="ghost" className="flex items-center gap-1 text-gov-accent">
+                      ተጨማሪ <ArrowRight size={16} />
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
