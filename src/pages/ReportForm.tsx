@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -14,9 +15,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const reportFormSchema = z.object({
-  reportType: z.string().min(1, { message: "የሪፖርት ዓይነት መምረጥ አለብዎት" }),
-  description: z.string().min(10, { message: "ቢያንስ 10 ፊደላት መጻፍ አለብዎት" }),
-  location: z.string().min(1, { message: "አካባቢ ማስገባት አለብዎት" }),
+  full_name: z.string().min(2, { message: "ሙሉ ስም መጻፍ አለብዎት" }),
+  phone: z.string().min(10, { message: "የሞባይል ቁጥር ትክክለኛ አይደለም" }),
+  email: z.string().email({ message: "የኢሜይል አድራሻ ትክክለኛ አይደለም" }).optional().or(z.literal('')),
+  report_type: z.string().min(1, { message: "የሪፖርት ዓይነት መምረጥ አለብዎት" }),
+  woreda: z.string().min(1, { message: "ወረዳ ማስገባት አለብዎት" }),
+  kebele: z.string().min(1, { message: "ቀበሌ ማስገባት አለብዎት" }),
+  report_details: z.string().min(10, { message: "ቢያንስ 10 ፊደላት መጻፍ አለብዎት" }),
   attachment: z.any().optional(),
 });
 
@@ -29,9 +34,13 @@ const ReportForm = () => {
   const form = useForm<ReportFormValues>({
     resolver: zodResolver(reportFormSchema),
     defaultValues: {
-      reportType: "",
-      description: "",
-      location: "",
+      full_name: "",
+      phone: "",
+      email: "",
+      report_type: "",
+      woreda: "",
+      kebele: "",
+      report_details: "",
     },
   });
 
@@ -39,8 +48,22 @@ const ReportForm = () => {
     setIsSubmitting(true);
     
     try {
-      // We'll integrate with Supabase later
-      console.log("Form submitted:", data);
+      // Insert into Supabase
+      const { error } = await supabase
+        .from('report_submissions')
+        .insert({
+          full_name: data.full_name,
+          phone: data.phone,
+          email: data.email || null,
+          woreda: data.woreda,
+          kebele: data.kebele,
+          report_type: data.report_type,
+          report_details: data.report_details,
+        });
+      
+      if (error) {
+        throw error;
+      }
       
       toast({
         title: "ሪፖርትዎ ተልኳል",
@@ -76,9 +99,53 @@ const ReportForm = () => {
             <CardContent className="pt-6 pb-8">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="full_name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ሙሉ ስም</FormLabel>
+                          <FormControl>
+                            <Input placeholder="ሙሉ ስምዎን ያስገቡ" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ስልክ ቁጥር</FormLabel>
+                          <FormControl>
+                            <Input placeholder="የሞባይል ስልክ ቁጥርዎን ያስገቡ" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
                   <FormField
                     control={form.control}
-                    name="reportType"
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>ኢሜይል (አማራጭ)</FormLabel>
+                        <FormControl>
+                          <Input placeholder="ኢሜይል አድራሻዎን ያስገቡ" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="report_type"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>የሪፖርት ዓይነት</FormLabel>
@@ -107,9 +174,39 @@ const ReportForm = () => {
                     )}
                   />
                   
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="woreda"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ወረዳ</FormLabel>
+                          <FormControl>
+                            <Input placeholder="ለምሳሌ፡ ወረዳ 04" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="kebele"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ቀበሌ</FormLabel>
+                          <FormControl>
+                            <Input placeholder="ለምሳሌ፡ ቀበሌ 02" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
                   <FormField
                     control={form.control}
-                    name="description"
+                    name="report_details"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>ዝርዝር መግለጫ</FormLabel>
@@ -122,23 +219,6 @@ const ReportForm = () => {
                         </FormControl>
                         <FormDescription>
                           ሁኔታውን በዝርዝር ይግለፁ
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="location"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>አካባቢ</FormLabel>
-                        <FormControl>
-                          <Input placeholder="ለምሳሌ፡ ወረዳ 04 ከቀበሌ 02 አጠገብ" {...field} />
-                        </FormControl>
-                        <FormDescription>
-                          ሪፖርት የሚደረገው ጉዳይ የተከሰተበት ቦታ
                         </FormDescription>
                         <FormMessage />
                       </FormItem>

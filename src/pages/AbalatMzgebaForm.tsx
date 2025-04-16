@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -11,17 +12,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const abalatMzgebaFormSchema = z.object({
-  fullName: z.string().min(2, { message: "ሙሉ ስም መጻፍ አለብዎት" }),
+  full_name: z.string().min(2, { message: "ሙሉ ስም መጻፍ አለብዎት" }),
   age: z.string().refine((val) => {
     const age = parseInt(val);
     return !isNaN(age) && age >= 18 && age <= 100;
   }, { message: "እድሜዎ ከ18 አመት በላይ መሆን አለበት" }),
   phone: z.string().min(10, { message: "የሞባይል ቁጥር ትክክለኛ አይደለም" }),
-  email: z.string().email({ message: "የኢሜይል አድራሻ ትክክለኛ አይደለም" }).optional(),
-  woredaKebele: z.string().min(2, { message: "ወረዳ እና ቀበሌ መጻፍ አለብዎት" }),
-  reason: z.string().min(10, { message: "ለምን አባል መሆን እንደሚፈልጉ ይግለጹ" }),
+  email: z.string().email({ message: "የኢሜይል አድራሻ ትክክለኛ አይደለም" }).optional().or(z.literal('')),
+  woreda: z.string().min(1, { message: "ወረዳ ማስገባት አለብዎት" }),
+  kebele: z.string().min(1, { message: "ቀበሌ ማስገባት አለብዎት" }),
+  education_level: z.string().min(2, { message: "የትምህርት ደረጃዎን መጻፍ አለብዎት" }),
+  occupation: z.string().min(2, { message: "ሙያዎን መጻፍ አለብዎት" }),
   photo: z.any().optional(),
 });
 
@@ -34,12 +38,14 @@ const AbalatMzgebaForm = () => {
   const form = useForm<AbalatMzgebaFormValues>({
     resolver: zodResolver(abalatMzgebaFormSchema),
     defaultValues: {
-      fullName: "",
+      full_name: "",
       age: "",
       phone: "",
       email: "",
-      woredaKebele: "",
-      reason: "",
+      woreda: "",
+      kebele: "",
+      education_level: "",
+      occupation: "",
     },
   });
 
@@ -47,8 +53,24 @@ const AbalatMzgebaForm = () => {
     setIsSubmitting(true);
     
     try {
-      // We'll integrate with Supabase later
-      console.log("Form submitted:", data);
+      // Insert into Supabase
+      const { error } = await supabase
+        .from('abalat_mzgeba_submissions')
+        .insert({
+          full_name: data.full_name,
+          phone: data.phone,
+          email: data.email || null,
+          woreda: data.woreda,
+          kebele: data.kebele,
+          age: parseInt(data.age),
+          education_level: data.education_level,
+          occupation: data.occupation,
+          status: 'pending',
+        });
+      
+      if (error) {
+        throw error;
+      }
       
       toast({
         title: "ምዝገባው ተልኳል",
@@ -86,7 +108,7 @@ const AbalatMzgebaForm = () => {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <FormField
                     control={form.control}
-                    name="fullName"
+                    name="full_name"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>ሙሉ ስም</FormLabel>
@@ -98,24 +120,24 @@ const AbalatMzgebaForm = () => {
                     )}
                   />
                   
-                  <FormField
-                    control={form.control}
-                    name="age"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>እድሜ</FormLabel>
-                        <FormControl>
-                          <Input type="number" placeholder="እድሜዎን ያስገቡ" {...field} />
-                        </FormControl>
-                        <FormDescription>
-                          እድሜዎ ቢያንስ 18 አመት መሆን አለበት
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="age"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>እድሜ</FormLabel>
+                          <FormControl>
+                            <Input type="number" placeholder="እድሜዎን ያስገቡ" {...field} />
+                          </FormControl>
+                          <FormDescription>
+                            እድሜዎ ቢያንስ 18 አመት መሆን አለበት
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
                     <FormField
                       control={form.control}
                       name="phone"
@@ -129,15 +151,45 @@ const AbalatMzgebaForm = () => {
                         </FormItem>
                       )}
                     />
+                  </div>
+                  
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>ኢሜይል (አማራጭ)</FormLabel>
+                        <FormControl>
+                          <Input placeholder="ኢሜይል አድራሻዎን ያስገቡ" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="woreda"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ወረዳ</FormLabel>
+                          <FormControl>
+                            <Input placeholder="ለምሳሌ፡ ወረዳ 03" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                     
                     <FormField
                       control={form.control}
-                      name="email"
+                      name="kebele"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>ኢሜይል (አማራጭ)</FormLabel>
+                          <FormLabel>ቀበሌ</FormLabel>
                           <FormControl>
-                            <Input placeholder="ኢሜይል አድራሻዎን ያስገቡ" {...field} />
+                            <Input placeholder="ለምሳሌ፡ ቀበሌ 01" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -145,43 +197,52 @@ const AbalatMzgebaForm = () => {
                     />
                   </div>
                   
-                  <FormField
-                    control={form.control}
-                    name="woredaKebele"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>ወረዳ/ቀበሌ</FormLabel>
-                        <FormControl>
-                          <Input placeholder="ለምሳሌ፡ ወረዳ 03 ቀበሌ 01" {...field} />
-                        </FormControl>
-                        <FormDescription>
-                          የሚኖሩበትን ወረዳ እና ቀበሌ ያስገቡ
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="reason"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>የአባልነት ምክንያት</FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder="ለምን አባል መሆን እንደሚፈልጉ ይግለጹ..." 
-                            className="min-h-[120px]"
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormDescription>
-                          ለምን የብልጽግና ፓርቲ አባል መሆን እንደሚፈልጉ ያብራሩ
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="education_level"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>የትምህርት ደረጃ</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="የትምህርት ደረጃዎን ይምረጡ" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="primary">የመጀመሪያ ደረጃ</SelectItem>
+                              <SelectItem value="secondary">ሁለተኛ ደረጃ</SelectItem>
+                              <SelectItem value="certificate">ሰርተፊኬት</SelectItem>
+                              <SelectItem value="diploma">ዲፕሎማ</SelectItem>
+                              <SelectItem value="degree">ዲግሪ</SelectItem>
+                              <SelectItem value="masters">ማስተርስ</SelectItem>
+                              <SelectItem value="phd">ዶክተሬት</SelectItem>
+                              <SelectItem value="other">ሌላ</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="occupation"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ሙያ</FormLabel>
+                          <FormControl>
+                            <Input placeholder="ሙያዎን ያስገቡ" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   
                   <FormField
                     control={form.control}

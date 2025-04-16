@@ -1,5 +1,6 @@
 
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
@@ -31,6 +32,16 @@ const Index = () => {
       <News />
       <Footer />
       <FloatingActionButton />
+      
+      {/* Admin Login Link - Positioned at bottom right */}
+      <div className="fixed bottom-4 right-4 z-10">
+        <Link 
+          to="/admin/login" 
+          className="text-xs text-gray-500 hover:text-gray-600 hover:underline"
+        >
+          አስተዳዳሪ
+        </Link>
+      </div>
     </div>
   );
 };

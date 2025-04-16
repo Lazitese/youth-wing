@@ -12,6 +12,9 @@ import AllPrograms from "./pages/AllPrograms";
 import AllNews from "./pages/AllNews";
 import AllAchievements from "./pages/AllAchievements";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/admin/Login";
+import Dashboard from "./pages/admin/Dashboard";
+import Setup from "./pages/admin/Setup";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +32,12 @@ const App = () => (
           <Route path="/programs" element={<AllPrograms />} />
           <Route path="/news" element={<AllNews />} />
           <Route path="/achievements" element={<AllAchievements />} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/setup" element={<Setup />} />
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

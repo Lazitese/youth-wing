@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -14,9 +15,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const qretaFormSchema = z.object({
+  full_name: z.string().min(2, { message: "ሙሉ ስም መጻፍ አለብዎት" }),
+  phone: z.string().min(10, { message: "የሞባይል ቁጥር ትክክለኛ አይደለም" }),
+  email: z.string().email({ message: "የኢሜይል አድራሻ ትክክለኛ አይደለም" }).optional().or(z.literal('')),
   category: z.string().min(1, { message: "ምድብ መምረጥ አለብዎት" }),
-  description: z.string().min(10, { message: "ቢያንስ 10 ፊደላት መጻፍ አለብዎት" }),
-  area: z.string().min(1, { message: "አካባቢ/ወረዳ ማስገባት አለብዎት" }),
+  woreda: z.string().min(1, { message: "ወረዳ ማስገባት አለብዎት" }),
+  kebele: z.string().min(1, { message: "ቀበሌ ማስገባት አለብዎት" }),
+  message: z.string().min(10, { message: "ቢያንስ 10 ፊደላት መጻፍ አለብዎት" }),
   file: z.any().optional(),
 });
 
@@ -29,9 +34,13 @@ const QretaForm = () => {
   const form = useForm<QretaFormValues>({
     resolver: zodResolver(qretaFormSchema),
     defaultValues: {
+      full_name: "",
+      phone: "",
+      email: "",
       category: "",
-      description: "",
-      area: "",
+      woreda: "",
+      kebele: "",
+      message: "",
     },
   });
 
@@ -39,8 +48,21 @@ const QretaForm = () => {
     setIsSubmitting(true);
     
     try {
-      // We'll integrate with Supabase later
-      console.log("Form submitted:", data);
+      // Insert into Supabase
+      const { error } = await supabase
+        .from('qreta_submissions')
+        .insert({
+          full_name: data.full_name,
+          phone: data.phone,
+          email: data.email || null,
+          woreda: data.woreda,
+          kebele: data.kebele,
+          message: data.message,
+        });
+      
+      if (error) {
+        throw error;
+      }
       
       toast({
         title: "ጥቆማዎ ተልኳል",
@@ -76,6 +98,50 @@ const QretaForm = () => {
             <CardContent className="pt-6 pb-8">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="full_name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ሙሉ ስም</FormLabel>
+                          <FormControl>
+                            <Input placeholder="ሙሉ ስምዎን ያስገቡ" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ስልክ ቁጥር</FormLabel>
+                          <FormControl>
+                            <Input placeholder="የሞባይል ስልክ ቁጥርዎን ያስገቡ" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>ኢሜይል (አማራጭ)</FormLabel>
+                        <FormControl>
+                          <Input placeholder="ኢሜይል አድራሻዎን ያስገቡ" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
                   <FormField
                     control={form.control}
                     name="category"
@@ -107,9 +173,39 @@ const QretaForm = () => {
                     )}
                   />
                   
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="woreda"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ወረዳ</FormLabel>
+                          <FormControl>
+                            <Input placeholder="ለምሳሌ፡ ወረዳ 05" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="kebele"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>ቀበሌ</FormLabel>
+                          <FormControl>
+                            <Input placeholder="ለምሳሌ፡ ቀበሌ 07" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
                   <FormField
                     control={form.control}
-                    name="description"
+                    name="message"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>ዝርዝር መግለጫ</FormLabel>
@@ -122,23 +218,6 @@ const QretaForm = () => {
                         </FormControl>
                         <FormDescription>
                           ጉዳዩን በዝርዝር ይግለፁ
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="area"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>አካባቢ/ወረዳ</FormLabel>
-                        <FormControl>
-                          <Input placeholder="ለምሳሌ፡ ወረዳ 05" {...field} />
-                        </FormControl>
-                        <FormDescription>
-                          የሚኖሩበትን ወረዳ ወይም አካባቢ ይጻፉ
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
