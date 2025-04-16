@@ -41,28 +41,11 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1">
           <Link to="/" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} nav-link-active hover:text-gov-gold-light`}>መነሻ</Link>
-          <div className="relative group">
-            <button className={`nav-link flex items-center ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>
-              የአባላት ምዝገባ <ChevronDown className="ml-1 h-4 w-4" />
-            </button>
-            <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right">
-              <Link to="/abalat-mzgeba" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">አዲስ ምዝገባ</Link>
-              <a href="#" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">የአባልነት መረጃ</a>
-              <a href="#" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">ምርጫዎች</a>
-              <a href="#" className="block px-4 py-2 text-sm text-gov-dark hover:bg-gov-light/10">መመሪያዎች</a>
-            </div>
-          </div>
+          <Link to="/abalat-mzgeba" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>የአባላት ምዝገባ</Link>
           <Link to="/qreta" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>ጥቆማ</Link>
-          <Link to="/report" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>ሪፖርት</Link>
-          <a href="#" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>ስለ እኛ</a>
-          <a href="#" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>አግኙን</a>
-        </div>
-
-        {/* Right Side - Login Button Only */}
-        <div className="hidden md:flex items-center space-x-4">
-          <Button className="bg-gov-gold text-gov-dark hover:bg-gov-gold-light transition-colors duration-300">
-            ግባ
-          </Button>
+          <Link to="/projects" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>ፕሮጀክቶች</Link>
+          <Link to="/sle-egna" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>ስለ እኛ</Link>
+          <Link to="/contact" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>አግኙን</Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -84,12 +67,9 @@ const Navbar = () => {
           <Link to="/" className="text-gov-gold font-medium py-2 border-b border-gray-100">መነሻ</Link>
           <Link to="/abalat-mzgeba" className="text-gov-gold font-medium py-2 border-b border-gray-100">የአባላት ምዝገባ</Link>
           <Link to="/qreta" className="text-gov-gold font-medium py-2 border-b border-gray-100">ጥቆማ</Link>
-          <Link to="/report" className="text-gov-gold font-medium py-2 border-b border-gray-100">ሪፖርት</Link>
-          <a href="#" className="text-gov-gold font-medium py-2 border-b border-gray-100">ስለ እኛ</a>
-          <a href="#" className="text-gov-gold font-medium py-2 border-b border-gray-100">አግኙን</a>
-          <Button className="w-full bg-gov-gold text-gov-dark hover:bg-gov-gold-light">
-            ግባ
-          </Button>
+          <Link to="/projects" className="text-gov-gold font-medium py-2 border-b border-gray-100">ፕሮጀክቶች</Link>
+          <Link to="/sle-egna" className="text-gov-gold font-medium py-2 border-b border-gray-100">ስለ እኛ</Link>
+          <Link to="/contact" className="text-gov-gold font-medium py-2 border-b border-gray-100">አግኙን</Link>
         </div>
       </div>
     </nav>

@@ -8,13 +8,12 @@ import Index from "./pages/Index";
 import QretaForm from "./pages/QretaForm";
 import AbalatMzgebaForm from "./pages/AbalatMzgebaForm";
 import ReportForm from "./pages/ReportForm";
-import AllPrograms from "./pages/AllPrograms";
-import AllNews from "./pages/AllNews";
-import AllAchievements from "./pages/AllAchievements";
+import ProjectsPage from "./pages/ProjectsPage";
+import SleEgnaPage from "./pages/SleEgnaPage";
+import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
-import Setup from "./pages/admin/Setup";
 
 const queryClient = new QueryClient();
 
@@ -29,14 +28,13 @@ const App = () => (
           <Route path="/qreta" element={<QretaForm />} />
           <Route path="/abalat-mzgeba" element={<AbalatMzgebaForm />} />
           <Route path="/report" element={<ReportForm />} />
-          <Route path="/programs" element={<AllPrograms />} />
-          <Route path="/news" element={<AllNews />} />
-          <Route path="/achievements" element={<AllAchievements />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/sle-egna" element={<SleEgnaPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           
           {/* Admin Routes */}
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path="/admin/setup" element={<Setup />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

@@ -48,8 +48,14 @@ const AbalatSubmissions = () => {
           throw error;
         }
 
-        setSubmissions(data || []);
-        setFilteredSubmissions(data || []);
+        // Cast the status to match the TypeScript type
+        const typedData = data?.map(item => ({
+          ...item,
+          status: item.status as 'pending' | 'accepted' | 'rejected'
+        })) || [];
+
+        setSubmissions(typedData);
+        setFilteredSubmissions(typedData);
       } catch (error) {
         console.error("Error fetching submissions:", error);
         toast({

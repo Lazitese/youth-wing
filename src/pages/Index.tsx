@@ -5,13 +5,13 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Stats from "@/components/Stats";
-import News from "@/components/News";
 import Footer from "@/components/Footer";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import AboutUs from "@/components/AboutUs";
 import Principles from "@/components/Principles";
 import Objectives from "@/components/Objectives";
 import Achievements from "@/components/Achievements";
+import Projects from "@/components/Projects";
 
 const Index = () => {
   // Change page title on mount
@@ -27,9 +27,9 @@ const Index = () => {
       <Principles />
       <Objectives />
       <Services />
+      <Projects />
       <Achievements />
       <Stats />
-      <News />
       <Footer />
       <FloatingActionButton />
       
