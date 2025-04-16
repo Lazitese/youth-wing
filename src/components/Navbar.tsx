@@ -1,51 +1,35 @@
 
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white shadow-md py-2"
-          : "bg-transparent py-4"
-      }`}
-    >
+    <nav className="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-gov-dark shadow-md py-2">
       <div className="container-gov flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
-          <div className="w-10 h-10 bg-gov-dark text-white rounded-md flex items-center justify-center font-display font-bold text-xl">AQ</div>
-          <span className={`font-display font-bold text-xl ${isScrolled ? "text-gov-dark" : "text-white"}`}>
+          <div className="w-10 h-10 bg-white text-gov-dark rounded-md flex items-center justify-center font-display font-bold text-xl">AQ</div>
+          <span className="font-display font-bold text-xl text-white">
             አቃቂ ቃሊቲ <span className="text-gov-accent">ክ/ከተማ</span>
           </span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1">
-          <Link to="/" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} nav-link-active hover:text-gov-gold-light`}>መነሻ</Link>
-          <Link to="/abalat-mzgeba" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>የአባላት ምዝገባ</Link>
-          <Link to="/qreta" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>ጥቆማ</Link>
-          <Link to="/projects" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>ፕሮጀክቶች</Link>
-          <Link to="/sle-egna" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>ስለ እኛ</Link>
-          <Link to="/contact" className={`nav-link ${isScrolled ? "text-gov-gold" : "text-white"} hover:text-gov-gold-light`}>አግኙን</Link>
+          <Link to="/" className="nav-link text-white nav-link-active hover:text-gov-gold-light">መነሻ</Link>
+          <Link to="/abalat-mzgeba" className="nav-link text-white hover:text-gov-gold-light">የአባላት ምዝገባ</Link>
+          <Link to="/qreta" className="nav-link text-white hover:text-gov-gold-light">ጥቆማ</Link>
+          <Link to="/projects" className="nav-link text-white hover:text-gov-gold-light">ፕሮጀክቶች</Link>
+          <Link to="/sle-egna" className="nav-link text-white hover:text-gov-gold-light">ስለ እኛ</Link>
+          <Link to="/contact" className="nav-link text-white hover:text-gov-gold-light">አግኙን</Link>
         </div>
 
         {/* Mobile Menu Button */}
