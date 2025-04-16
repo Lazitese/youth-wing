@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { CheckCircle, Trophy, Users, BookOpen, Lightbulb, Heart } from "lucide-react";
 
 const SleEgnaPage = () => {
   useEffect(() => {
@@ -24,71 +25,176 @@ const SleEgnaPage = () => {
             </p>
           </div>
           
-          {/* Section 1 - Introduction */}
-          <div className="bg-white rounded-lg shadow-md p-8 mb-12">
+          {/* Section 1 - Introduction with Ribbon */}
+          <div className="relative bg-white rounded-lg shadow-md p-8 mb-12 overflow-hidden">
+            <div className="absolute -right-12 top-8 bg-gov-accent text-white px-16 py-2 transform rotate-45 z-10">
+              <span className="font-bold">ከ2013 ዓ.ም ጀምሮ</span>
+            </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div className="order-2 md:order-1">
                 <h2 className="text-2xl font-bold text-gov-dark mb-4">የሴቶች ክንፍ ምንድን ነው?</h2>
                 <p className="text-gray-600 mb-4">
                   የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ በአቃቂ ቃሊቲ ክፍለ ከተማ ውስጥ የሚገኙ ሴቶችን ድምፅ ለማሰማት፣ መብታቸውን ለማስከበር እና በሁሉም የህይወት ዘርፎች እንዲሳተፉ ለማድረግ የተቋቋመ ድርጅት ነው።
                 </p>
-                <p className="text-gray-600">
+                <p className="text-gray-600 mb-4">
                   ይህ ክንፍ በመላው ክፍለ ከተማ ውስጥ የሚገኙ ሴቶችን በማስተባበር፣ በሰብዓዊ መብት ዙሪያ ትምህርት በመስጠት፣ በፖለቲካ እና የማህበራዊ እንቅስቃሴዎች ውስጥ እንዲሳተፉ በማድረግ እና ለኢኮኖሚያዊ እድገታቸው በሚያስፈልጉ ነገሮች ድጋፍ በማድረግ ላይ ይገኛል።
                 </p>
+                <div className="flex flex-wrap gap-3 mt-6">
+                  <span className="bg-gov-accent/20 text-gov-accent px-3 py-1 rounded-full text-sm font-medium">የሴቶች መብት</span>
+                  <span className="bg-gov-gold/20 text-gov-dark px-3 py-1 rounded-full text-sm font-medium">ፖለቲካዊ ተሳትፎ</span>
+                  <span className="bg-gov-medium/20 text-gov-medium px-3 py-1 rounded-full text-sm font-medium">ኢኮኖሚያዊ አቅም</span>
+                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">ማህበራዊ እኩልነት</span>
+                </div>
               </div>
               <div className="order-1 md:order-2">
-                <img 
-                  src="/images/women-wing-1.jpg" 
-                  alt="የሴቶች ክንፍ ምስል"
-                  className="w-full h-80 object-cover rounded-lg shadow-md"
-                  onError={(e) => {
-                    e.currentTarget.src = "/placeholder.svg";
-                  }}
-                />
+                <div className="w-full h-80 bg-gray-200 rounded-lg shadow-md relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                    <span className="text-lg">የሴቶች ክንፍ ምስል</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           
-          {/* Section 2 - History */}
+          {/* Section 2 - Timeline History */}
           <div className="bg-white rounded-lg shadow-md p-8 mb-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <h2 className="text-2xl font-bold text-gov-dark mb-6 text-center">የሴቶች ክንፍ ታሪካዊ ጉዞ</h2>
+            
+            <div className="relative border-l-2 border-gov-accent pl-8 ml-4 space-y-10 py-4">
+              <div className="absolute w-4 h-4 bg-gov-accent rounded-full -left-[9px] top-0"></div>
+              
               <div>
-                <img 
-                  src="/images/women-wing-2.jpg" 
-                  alt="የሴቶች ክንፍ ታሪክ"
-                  className="w-full h-80 object-cover rounded-lg shadow-md"
-                  onError={(e) => {
-                    e.currentTarget.src = "/placeholder.svg";
-                  }}
-                />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-gov-dark mb-4">የሴቶች ክንፍ ታሪክ</h2>
-                <p className="text-gray-600 mb-4">
-                  የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ ከዘመናት በፊት ጀምሮ የነበረ ሲሆን፣ በጊዜ ሂደት እየተጠናከረ እና እያደገ የመጣ ነው። የሴቶችን ፖለቲካዊ፣ ማህበራዊ እና ኢኮኖሚያዊ ችግሮችን ለመፍታት በጥልቀት በመስራት ላይ ይገኛል።
+                <div className="absolute w-4 h-4 bg-gov-accent rounded-full -left-[9px]"></div>
+                <h3 className="text-xl font-bold text-gov-dark">2013 ዓ.ም - መጀመሪያ</h3>
+                <p className="text-gray-600 mt-2">
+                  የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ በ2013 ዓ.ም ተመሰረተ። በዚህ ጊዜ የሴቶችን ተሳትፎ ለማሳደግ የተለያዩ ፕሮግራሞችን በማካሄድ ጀመረ።
                 </p>
-                <p className="text-gray-600">
-                  ማህበራችን በአመራር ቦታዎች ላይ የሴቶችን ተሳትፎ ለማሳደግ፣ በኢኮኖሚ ዘርፍ የሴቶችን አቅም ለማሳደግ እና በትምህርት ዙሪያ ያሉ የፆታ ልዩነቶችን ለማጥፋት ከፍተኛ ጥረት ሲያደርግ ቆይቷል። ይህም በክፍለ ከተማው ውስጥ ለሚታዩ ለውጦች ትልቅ አስተዋጽኦ አድርጓል።
+              </div>
+              
+              <div>
+                <div className="absolute w-4 h-4 bg-gov-accent rounded-full -left-[9px]"></div>
+                <h3 className="text-xl font-bold text-gov-dark">2014 ዓ.ም - ዕድገት</h3>
+                <p className="text-gray-600 mt-2">
+                  ከ1000 በላይ ሴቶች በክፍለ ከተማ ደረጃ ተደራጅተው ለሴቶች መብት ማስከበር እና ተሳትፎ ማሳደግ የሚያስችሉ ፕሮግራሞችን አዘጋጁ። በዚህ ወቅት የሴቶች የልማት ማህበራት ተመሰረቱ።
+                </p>
+              </div>
+              
+              <div>
+                <div className="absolute w-4 h-4 bg-gov-accent rounded-full -left-[9px]"></div>
+                <h3 className="text-xl font-bold text-gov-dark">2015 ዓ.ም - ስኬት</h3>
+                <p className="text-gray-600 mt-2">
+                  በ10 ወረዳዎች ውስጥ 5000+ ሴቶች በተለያዩ የልማት ስራዎች ተሳትፈዋል። የሴቶችን ፖለቲካዊ ተሳትፎ ለማሳደግ የተለያዩ ስልጠናዎች ተሰጥተዋል። በኢኮኖሚያዊ አቅም ግንባታ ዙሪያም በተለያዩ ስራዎች ተሳትፈዋል።
+                </p>
+              </div>
+              
+              <div>
+                <div className="absolute w-4 h-4 bg-gov-accent rounded-full -left-[9px]"></div>
+                <h3 className="text-xl font-bold text-gov-dark">አሁን - ራዕይ 2030</h3>
+                <p className="text-gray-600 mt-2">
+                  አሁን የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ በሁሉም የመንግስት መዋቅሮች ቢያንስ 50% የሴቶች ተሳትፎ ለማረጋገጥ በመስራት ላይ ይገኛል። በተጨማሪም ሴቶች በኢኮኖሚያዊ ዘርፎች ውስጥ ባለ ሙሉ ተሳትፎ እንዲኖራቸው ለማድረግ እየሰራ ነው።
+                </p>
+                <div className="mt-4 flex items-center gap-2">
+                  <div className="h-2 flex-grow bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-gov-accent w-3/4"></div>
+                  </div>
+                  <span className="text-sm font-semibold text-gov-accent">75%</span>
+                </div>
+              </div>
+              
+              <div className="absolute w-4 h-4 bg-gov-accent rounded-full -left-[9px] bottom-0"></div>
+            </div>
+          </div>
+          
+          {/* Section 3 - Core Values */}
+          <div className="bg-white rounded-lg shadow-md p-8 mb-12">
+            <h2 className="text-2xl font-bold text-gov-dark mb-8 text-center">የድርጅታችን መሰረታዊ እሴቶች</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-gov-accent">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-gov-accent/10 rounded-full p-3">
+                    <Heart className="h-8 w-8 text-gov-accent" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-gov-dark text-center mb-3">ግልፅነት</h3>
+                <p className="text-gray-600 text-center">
+                  በሁሉም ውሳኔዎች እና አሰራሮች ላይ ግልፅነትን እናራምዳለን። ይህም በክፍለ ከተማው ውስጥ ግልጽ እና ፍትሃዊ አሰራር እንዲኖር ያስችላል።
+                </p>
+              </div>
+              
+              <div className="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-gov-gold">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-gov-gold/10 rounded-full p-3">
+                    <Trophy className="h-8 w-8 text-gov-gold" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-gov-dark text-center mb-3">ውጤታማነት</h3>
+                <p className="text-gray-600 text-center">
+                  በሁሉም ተግባራት ላይ ውጤታማነትን እናስቀድማለን። በአነስተኛ ሀብት ከፍተኛ ውጤት ለማምጣት እንጥራለን።
+                </p>
+              </div>
+              
+              <div className="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-gov-medium">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-gov-medium/10 rounded-full p-3">
+                    <Users className="h-8 w-8 text-gov-medium" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-gov-dark text-center mb-3">ተሳትፎ</h3>
+                <p className="text-gray-600 text-center">
+                  የሴቶችን ተሳትፎ በሁሉም ዘርፎች ለማራመድ እንሰራለን። በርካታ ሴቶች በውሳኔ አሰጣጥ ላይ እንዲሳተፉ እናበረታታለን።
+                </p>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+              <div className="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-purple-500">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-purple-100 rounded-full p-3">
+                    <BookOpen className="h-8 w-8 text-purple-500" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-gov-dark text-center mb-3">ትምህርት</h3>
+                <p className="text-gray-600 text-center">
+                  ሴቶች ትምህርት እንዲያገኙ እና የራሳቸውን ችሎታ እንዲያዳብሩ እናበረታታለን። ትምህርት ለማህበራዊ እድገት ወሳኝ መሳሪያ ነው።
+                </p>
+              </div>
+              
+              <div className="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-green-500">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-green-100 rounded-full p-3">
+                    <CheckCircle className="h-8 w-8 text-green-500" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-gov-dark text-center mb-3">ተጠያቂነት</h3>
+                <p className="text-gray-600 text-center">
+                  ሁሉም የድርጅታችን አባላት ለሚሰሯቸው ስራዎች ተጠያቂ እንዲሆኑ እናደርጋለን። ተጠያቂነት ለውጤታማነት መሰረት ነው።
+                </p>
+              </div>
+              
+              <div className="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-orange-500">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-orange-100 rounded-full p-3">
+                    <Lightbulb className="h-8 w-8 text-orange-500" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-gov-dark text-center mb-3">ፈጠራ</h3>
+                <p className="text-gray-600 text-center">
+                  ለሴቶች ችግሮች አዳዲስ መፍትሄዎችን ለማፈላለግ ፈጠራን እናበረታታለን። ፈጠራ ለቀጣይነት ያለው እድገት ወሳኝ ነው።
                 </p>
               </div>
             </div>
           </div>
           
-          {/* Section 3 - Leadership */}
+          {/* Section 4 - Leadership */}
           <div className="bg-white rounded-lg shadow-md p-8 mb-12">
             <h2 className="text-2xl font-bold text-gov-dark mb-6 text-center">የሴቶች ክንፍ አመራሮች</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3].map((index) => (
-                <div key={index} className="text-center">
-                  <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
-                    <img 
-                      src={`/images/leader-${index}.jpg`} 
-                      alt={`አመራር ${index}`}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.src = "/placeholder.svg";
-                      }}
-                    />
+                <div key={index} className="text-center bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+                    <span className="text-gray-400 text-lg">የአመራር ፎቶ</span>
                   </div>
                   <h3 className="text-xl font-bold text-gov-dark">
                     {index === 1 && "ወ/ሮ አበባ መኮንን"}
@@ -101,50 +207,67 @@ const SleEgnaPage = () => {
                     {index === 3 && "የሴቶች ክንፍ ጸሐፊ"}
                   </p>
                   <p className="text-gray-600 mt-2">
-                    {index === 1 && "ከ10 አመት በላይ የፖለቲካ ልምድ ያላቸው ሲሆን፣ በሴቶች መብት ማስከበር ዙሪያ በተለይ ይሰራሉ።"}
-                    {index === 2 && "ከ8 አመት በላይ የሲቪል ማህበራት ልምድ ያላቸው ሲሆን፣ በሴቶች ትምህርት ዙሪያ በተለይ ይሰራሉ።"}
-                    {index === 3 && "ከ5 አመት በላይ የሴቶች ኢኮኖሚ አቅም ግንባታ ልምድ ያላቸው ሲሆን፣ በሴቶች ኢኮኖሚያዊ ጉዳዮች ዙሪያ ይሰራሉ።"}
+                    {index === 1 && "ከ15 አመት በላይ የፖለቲካ ልምድ ያላቸው ሲሆን፣ በሴቶች መብት ማስከበር ዙሪያ በተለይ ይሰራሉ። የአቃቂ ቃሊቲ ክ/ከተማ ምክር ቤት አባል ናቸው።"}
+                    {index === 2 && "ከ12 አመት በላይ የሲቪል ማህበራት ልምድ ያላቸው ሲሆን፣ በሴቶች ትምህርት ዙሪያ በተለይ ይሰራሉ። የሴቶች ትምህርት ማስተባበሪያ ኮሚቴ አባል ናቸው።"}
+                    {index === 3 && "ከ10 አመት በላይ የሴቶች ኢኮኖሚ አቅም ግንባታ ልምድ ያላቸው ሲሆን፣ የሴቶች ኢኮኖሚያዊ ጉዳዮች ኮሚቴ ሰብሳቢ ናቸው። በሴቶች ኢኮኖሚያዊ ጉዳዮች ዙሪያ ይሰራሉ።"}
                   </p>
                 </div>
               ))}
             </div>
           </div>
           
-          {/* Section 4 - Achievements */}
+          {/* Section 5 - Achievements Highlight */}
           <div className="bg-white rounded-lg shadow-md p-8">
             <h2 className="text-2xl font-bold text-gov-dark mb-6 text-center">ዋና ዋና ውጤቶች</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <h3 className="text-xl font-bold text-gov-dark mb-3">የፖለቲካ ተሳትፎ</h3>
-                <p className="text-gray-600 mb-4">
-                  በክፍለ ከተማው ውስጥ ባሉ የመንግስት መዋቅሮች የሴቶችን ተሳትፎ ከ15% ወደ 42% ማሳደግ ተችሏል። ይህም በመላው ኢትዮጵያ ካሉ ክፍለ ከተሞች አንዱ ከፍተኛ ውጤት ነው።
-                </p>
-                <div className="h-48 bg-gray-200 rounded-lg overflow-hidden">
-                  <img 
-                    src="/images/achievement-1.jpg" 
-                    alt="የፖለቲካ ተሳትፎ"
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src = "/placeholder.svg";
-                    }}
-                  />
+            
+            <div className="flex flex-col md:flex-row gap-8">
+              <div className="flex-1 bg-gov-dark rounded-lg overflow-hidden shadow-md">
+                <div className="h-48 bg-gray-300 relative">
+                  <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+                    የፖለቲካ ተሳትፎ ምስል
+                  </div>
+                </div>
+                <div className="p-6 text-white">
+                  <h3 className="text-xl font-bold mb-3 text-gov-gold">የፖለቲካ ተሳትፎ</h3>
+                  <p className="mb-4 text-white/80">
+                    በክፍለ ከተማው ውስጥ ባሉ የመንግስት መዋቅሮች የሴቶችን ተሳትፎ ከ15% ወደ 42% ማሳደግ ተችሏል። ይህም በመላው ኢትዮጵያ ካሉ ክፍለ ከተሞች አንዱ ከፍተኛ ውጤት ነው።
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <div className="w-12 h-12 bg-gov-gold/20 rounded-full flex items-center justify-center">
+                      42%
+                    </div>
+                    <div>
+                      <div className="h-2 w-48 bg-white/20 rounded-full overflow-hidden">
+                        <div className="h-full bg-gov-gold w-5/12"></div>
+                      </div>
+                      <div className="text-xs mt-1 text-white/70">ቀድሞ: 15% → አሁን: 42%</div>
+                    </div>
+                  </div>
                 </div>
               </div>
               
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <h3 className="text-xl font-bold text-gov-dark mb-3">የኢኮኖሚ አቅም ግንባታ</h3>
-                <p className="text-gray-600 mb-4">
-                  ባለፉት 3 አመታት ውስጥ ከ5,000 በላይ ሴቶች የራሳቸውን ንግድ እንዲጀምሩ እና ገቢያቸውን በ200% እንዲያሳድጉ ድጋፍ ተደርጓል።
-                </p>
-                <div className="h-48 bg-gray-200 rounded-lg overflow-hidden">
-                  <img 
-                    src="/images/achievement-2.jpg" 
-                    alt="የኢኮኖሚ አቅም ግንባታ"
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src = "/placeholder.svg";
-                    }}
-                  />
+              <div className="flex-1 bg-gov-medium rounded-lg overflow-hidden shadow-md">
+                <div className="h-48 bg-gray-300 relative">
+                  <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+                    የኢኮኖሚ አቅም ግንባታ ምስል
+                  </div>
+                </div>
+                <div className="p-6 text-white">
+                  <h3 className="text-xl font-bold mb-3 text-gov-gold">የኢኮኖሚ አቅም ግንባታ</h3>
+                  <p className="mb-4 text-white/80">
+                    ባለፉት 3 አመታት ውስጥ ከ5,000 በላይ ሴቶች የራሳቸውን ንግድ እንዲጀምሩ እና ገቢያቸውን በ200% እንዲያሳድጉ ድጋፍ ተደርጓል።
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <div className="w-12 h-12 bg-gov-gold/20 rounded-full flex items-center justify-center">
+                      5K+
+                    </div>
+                    <div>
+                      <div className="h-2 w-48 bg-white/20 rounded-full overflow-hidden">
+                        <div className="h-full bg-gov-gold w-8/12"></div>
+                      </div>
+                      <div className="text-xs mt-1 text-white/70">የሴቶች ንግድ: +200% በገቢ ዕድገት</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

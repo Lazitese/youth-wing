@@ -1,8 +1,7 @@
 
 import { useState } from "react";
-import { ChevronRight, FileText, Building, Users, Briefcase, FileCheck, Map } from "lucide-react";
+import { Building, Users, Briefcase, FileCheck, Map, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 
 // Since we're not installing framer-motion, we'll create a custom component
 // that mimics the motion.div with CSS animations
@@ -93,22 +92,10 @@ const Services = () => {
                   </div>
                   <h3 className="text-xl font-bold text-gov-dark mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-4">{service.description}</p>
-                  <Button variant="ghost" className="text-gov-accent hover:text-gov-accent/80 hover:bg-gov-accent/5 px-0 group">
-                    ተጨማሪ ይመልከቱ
-                    <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
                 </div>
               </div>
             </AnimatedCard>
           ))}
-        </div>
-
-        <div className="flex justify-center mt-12">
-          <Link to="/programs">
-            <Button className="btn-primary px-8 py-6" size="lg">
-              ሁሉንም ፕሮግራሞች ይመልከቱ
-            </Button>
-          </Link>
         </div>
       </div>
     </section>

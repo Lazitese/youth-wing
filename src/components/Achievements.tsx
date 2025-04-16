@@ -1,8 +1,7 @@
 
 import { useState } from "react";
-import { ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Achievements = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -12,21 +11,21 @@ const Achievements = () => {
       id: 1,
       title: "የሴቶች የገቢ ማስገኛ ስልጠና",
       description: "በአምስት ወረዳዎች ውስጥ 500+ ሴቶች በተለያዩ የገቢ ማስገኛ ስልጠናዎች ላይ ተሳትፈዋል",
-      image: "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1984&q=80",
+      image: "/placeholder.svg",
       stats: "500+ ሴቶች"
     },
     {
       id: 2,
       title: "ለሴት ተማሪዎች የትምህርት ቁሳቁስ ድጋፍ",
       description: "ከ1000 በላይ ለሆኑ ሴት ተማሪዎች የትምህርት ቁሳቁስን በነጻ የማደል ፕሮግራም ተካሂዷል",
-      image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      image: "/placeholder.svg",
       stats: "1000+ ተማሪዎች"
     },
     {
       id: 3,
       title: "የሴቶች ጤና ግንዛቤ ማስጨበጫ",
       description: "በ10 ወረዳዎች ውስጥ የተካሄደ የሴቶችን ጤና በተመለከተ ግንዛቤ ለማስጨበጥ የተዘጋጀ ፕሮግራም",
-      image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      image: "/placeholder.svg",
       stats: "2000+ ሴቶች"
     }
   ];
@@ -64,10 +63,6 @@ const Achievements = () => {
                 </div>
                 <h3 className="text-xl font-bold text-gov-dark mb-2">{achievement.title}</h3>
                 <p className="text-gray-600 mb-4">{achievement.description}</p>
-                <Button variant="ghost" className="text-gov-accent hover:text-gov-accent/80 hover:bg-gov-accent/5 px-0 group">
-                  ተጨማሪ ይመልከቱ
-                  <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
               </div>
             </div>
           ))}

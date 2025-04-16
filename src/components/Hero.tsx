@@ -1,7 +1,8 @@
 
 import { useEffect, useRef } from "react";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const particlesContainer = useRef<HTMLDivElement>(null);
@@ -67,12 +68,6 @@ const Hero = () => {
       {/* Animated Particles */}
       <div ref={particlesContainer} className="particles"></div>
       
-      {/* City Skyline */}
-      <div className="city-skyline absolute bottom-0 w-full h-24 bg-contain bg-repeat-x bg-bottom" style={{ 
-        backgroundImage: 'url("https://i.imgur.com/Ks3gIuP.png")',
-        opacity: 0.2
-      }}></div>
-      
       <div className="container-gov relative z-10 pt-16 text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
           የአቃቂ ቃሊቲ ክፍለ ከተማ <span className="text-gov-gold">ብልጽግና ፓርቲ</span> ሴቶች ክንፍ ቅርንጫፍ ጽ/ቤት
@@ -83,14 +78,18 @@ const Hero = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-          <Button className="btn-gold px-8 py-6 text-lg group" size="lg">
-            <span>አግኙን</span>
-            <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-          </Button>
+          <Link to="/contact">
+            <Button className="btn-gold px-8 py-6 text-lg group" size="lg">
+              <span>አግኙን</span>
+              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
           
-          <Button variant="outline" className="border-white text-white hover:bg-white/10 px-8 py-6 text-lg" size="lg">
-            አባላት ምዝገባ
-          </Button>
+          <Link to="/abalat-mzgeba">
+            <Button variant="outline" className="border-white text-gov-accent hover:bg-white/10 px-8 py-6 text-lg" size="lg">
+              አባላት ምዝገባ
+            </Button>
+          </Link>
         </div>
         
         <div className="hidden md:flex flex-wrap justify-center gap-10 animate-fade-in" style={{ animationDelay: "0.6s" }}>
@@ -135,14 +134,6 @@ const Hero = () => {
             </div>
           </div>
         </div>
-      </div>
-      
-      {/* Scroll down indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer animate-float">
-        <a href="#services" className="flex flex-col items-center text-white/80 hover:text-white">
-          <span className="text-sm mb-2">ታች ይመልከቱ</span>
-          <ChevronDown className="h-6 w-6" />
-        </a>
       </div>
     </section>
   );

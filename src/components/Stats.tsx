@@ -79,28 +79,28 @@ const Stats = () => {
       <div className="container-gov">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gov-dark mb-4">
-            የከተማው <span className="text-gov-accent">ተጽዕኖ</span>
+            የሴቶች ክንፍ <span className="text-gov-accent">ተጽዕኖ</span>
           </h2>
           <p className="text-gray-600 text-lg">
-            የኛ ቁርጠኝነት ለዕድገት፣ ለግልጽነት እና ለአገልግሎት በማህበረሰባችን ውስጥ ለውጥ እያመጣ ይገኛል
+            የኛ ቁርጠኝነት ለሴቶች ዕድገት፣ ለጾታ እኩልነት እና ለሴቶች ተሳትፎ በማህበረሰባችን ውስጥ ለውጥ እያመጣ ይገኛል
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="bg-gradient-to-br from-white to-gray-50 rounded-lg shadow-sm p-6 animate-fade-in-up card-hover">
-            <StatItem value={250000} label="የተገለገሉ ዜጎች" suffix="+" />
+            <StatItem value={5000} label="የሰለጠኑ ሴቶች" suffix="+" />
           </div>
 
           <div className="bg-gradient-to-br from-white to-blue-50 rounded-lg shadow-sm p-6 animate-fade-in-up card-hover" style={{ animationDelay: "0.2s" }}>
-            <StatItem value={98} label="የእርካታ መጠን" suffix="%" />
+            <StatItem value={42} label="የሴቶች አመራር ተሳትፎ" suffix="%" />
           </div>
 
           <div className="bg-gradient-to-br from-white to-green-50 rounded-lg shadow-sm p-6 animate-fade-in-up card-hover" style={{ animationDelay: "0.4s" }}>
-            <StatItem value={12500} label="የተመዘገቡ ንግዶች" suffix="+" />
+            <StatItem value={3500} label="የተደገፉ ሴት ተማሪዎች" suffix="+" />
           </div>
 
           <div className="bg-gradient-to-br from-white to-amber-50 rounded-lg shadow-sm p-6 animate-fade-in-up card-hover" style={{ animationDelay: "0.6s" }}>
-            <StatItem value={4} label="አማካይ የአገልግሎት ጊዜ" suffix=" ደቂቃዎች" />
+            <StatItem value={25} label="የሴቶች ስራ ማህበራት" suffix=" +" />
           </div>
         </div>
 
@@ -113,8 +113,8 @@ const Stats = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-gov-dark">ማህበረሰብ-ተኮር</h3>
-                <p className="text-sm text-gray-600">ዜጎችን በእያንዳንዱ ውሳኔ ውስጥ በቅድሚያ ማስቀመጥ</p>
+                <h3 className="font-bold text-gov-dark">ሴቶች-ተኮር</h3>
+                <p className="text-sm text-gray-600">ሴቶችን በእያንዳንዱ ውሳኔ ውስጥ በቅድሚያ ማስቀመጥ</p>
               </div>
             </div>
             
@@ -125,8 +125,8 @@ const Stats = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-gov-dark">ደህንነት እና አስተማማኝነት</h3>
-                <p className="text-sm text-gray-600">የተጠበቁ ዳታዎች እና ግልጽ አሰራሮች</p>
+                <h3 className="font-bold text-gov-dark">የሴቶች መብቶች</h3>
+                <p className="text-sm text-gray-600">በሁሉም ዘርፍ የሴቶች ተሳትፎ መጠበቅ</p>
               </div>
             </div>
             
@@ -144,8 +144,8 @@ const Stats = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-gov-dark">ሁልጊዜ ተደራሽ</h3>
-                <p className="text-sm text-gray-600">ዲጂታል አገልግሎቶች 24/7 ይገኛሉ</p>
+                <h3 className="font-bold text-gov-dark">ፍትሀዊ ምደባ</h3>
+                <p className="text-sm text-gray-600">በሁሉም መዋቅሮች ሴቶች እኩል ተጠቃሚ ማድረግ</p>
               </div>
             </div>
           </div>

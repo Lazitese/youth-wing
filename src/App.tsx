@@ -14,6 +14,7 @@ import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
+import AllAchievements from "./pages/AllAchievements";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/sle-egna" element={<SleEgnaPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/achievements" element={<AllAchievements />} />
           
           {/* Admin Routes */}
           <Route path="/admin/login" element={<Login />} />
