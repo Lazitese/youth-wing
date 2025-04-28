@@ -8,9 +8,7 @@ import Stats from "@/components/Stats";
 import Footer from "@/components/Footer";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import AboutUs from "@/components/AboutUs";
-import Principles from "@/components/Principles";
-import Objectives from "@/components/Objectives";
-import Achievements from "@/components/Achievements";
+import PartyVisionStructure from "@/components/PartyVisionStructure";
 import Projects from "@/components/Projects";
 
 const Index = () => {
@@ -24,11 +22,9 @@ const Index = () => {
       <Navbar />
       <Hero />
       <AboutUs />
-      <Principles />
-      <Objectives />
+      <PartyVisionStructure />
       <Services />
       <Projects />
-      <Achievements />
       <Stats />
       <Footer />
       <FloatingActionButton />
