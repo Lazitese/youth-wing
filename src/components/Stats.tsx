@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 
 type StatItemProps = {
@@ -63,76 +62,72 @@ const StatItem = ({ value, label, prefix = "", suffix = "", duration = 2000 }: S
 
   return (
     <div ref={counterRef} className="text-center">
-      <div className="text-4xl md:text-5xl font-bold mb-2 text-gov-dark">
+      <div className="text-4xl md:text-5xl font-bold mb-3 text-gov-dark">
         {prefix}
-        {count}
+        {count.toLocaleString()}
         {suffix}
       </div>
-      <div className="text-gray-600">{label}</div>
+      <div className="text-gray-600 font-medium">{label}</div>
     </div>
   );
 };
 
 const Stats = () => {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-20 bg-gradient-to-b from-white to-gray-50">
       <div className="container-gov">
-        <div className="max-w-3xl mx-auto text-center mb-12">
+        <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gov-dark mb-4">
-            የሴቶች ክንፍ <span className="text-gov-accent">ተጽዕኖ</span>
+            የብልፅግና ፓርቲ <span className="text-gov-accent">በቁጥር</span>
           </h2>
           <p className="text-gray-600 text-lg">
-            የኛ ቁርጠኝነት ለሴቶች ዕድገት፣ ለጾታ እኩልነት እና ለሴቶች ተሳትፎ በማህበረሰባችን ውስጥ ለውጥ እያመጣ ይገኛል
+            የኛ ቁርጠኝነት ለብልፅግና ዕድገት፣ ለዜጎች እኩልነት እና ለሁሉም ዜጎች ተሳትፎ በማህበረሰባችን ውስጥ ለውጥ እያመጣ ይገኛል
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="bg-gradient-to-br from-white to-gray-50 rounded-lg shadow-sm p-6 animate-fade-in-up card-hover">
-            <StatItem value={5000} label="የሰለጠኑ ሴቶች" suffix="+" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="bg-white rounded-xl shadow-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-t-4 border-gov-gold">
+            <StatItem value={29777} label="የአባላት ቁጥር" />
           </div>
 
-          <div className="bg-gradient-to-br from-white to-blue-50 rounded-lg shadow-sm p-6 animate-fade-in-up card-hover" style={{ animationDelay: "0.2s" }}>
-            <StatItem value={42} label="የሴቶች አመራር ተሳትፎ" suffix="%" />
+          <div className="bg-white rounded-xl shadow-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-t-4 border-gov-accent" style={{ animationDelay: "0.2s" }}>
+            <StatItem value={807} label="የብልፅግና ቤተሰብ" />
           </div>
 
-          <div className="bg-gradient-to-br from-white to-green-50 rounded-lg shadow-sm p-6 animate-fade-in-up card-hover" style={{ animationDelay: "0.4s" }}>
-            <StatItem value={3500} label="የተደገፉ ሴት ተማሪዎች" suffix="+" />
-          </div>
-
-          <div className="bg-gradient-to-br from-white to-amber-50 rounded-lg shadow-sm p-6 animate-fade-in-up card-hover" style={{ animationDelay: "0.6s" }}>
-            <StatItem value={25} label="የሴቶች ስራ ማህበራት" suffix=" +" />
+          <div className="bg-white rounded-xl shadow-lg p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-t-4 border-gov-medium" style={{ animationDelay: "0.4s" }}>
+            <StatItem value={131} label="የብልፅግና ህብረት" />
           </div>
         </div>
 
-        <div className="mt-16 bg-gov-dark/5 rounded-xl p-6 md:p-8 animate-fade-in">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex items-center space-x-4">
-              <div className="rounded-full bg-gov-gold/20 p-3">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gov-gold">
+        <div className="mt-20 bg-gov-dark rounded-xl p-8 md:p-10 shadow-lg animate-fade-in text-white">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div className="flex items-center space-x-5">
+              <div className="rounded-full bg-gov-gold/30 p-4">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gov-gold">
                   <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"></path>
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-gov-dark">ሴቶች-ተኮር</h3>
-                <p className="text-sm text-gray-600">ሴቶችን በእያንዳንዱ ውሳኔ ውስጥ በቅድሚያ ማስቀመጥ</p>
+                <h3 className="font-bold text-white text-xl">ዜጎች-ተኮር</h3>
+                <p className="text-gray-300">የኢትዮጵያን ዜጎች በእያንዳንዱ ውሳኔ ውስጥ በቅድሚያ ማስቀመጥ</p>
               </div>
             </div>
             
-            <div className="flex items-center space-x-4">
-              <div className="rounded-full bg-gov-accent/20 p-3">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gov-accent">
+            <div className="flex items-center space-x-5">
+              <div className="rounded-full bg-gov-accent/30 p-4">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gov-accent">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-gov-dark">የሴቶች መብቶች</h3>
-                <p className="text-sm text-gray-600">በሁሉም ዘርፍ የሴቶች ተሳትፎ መጠበቅ</p>
+                <h3 className="font-bold text-white text-xl">ብልፅግና ለሁሉም</h3>
+                <p className="text-gray-300">በሁሉም ዘርፎች ሁሉም ዜጎች ተጠቃሚ መሆን</p>
               </div>
             </div>
             
-            <div className="flex items-center space-x-4">
-              <div className="rounded-full bg-gov-medium/20 p-3">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gov-medium">
+            <div className="flex items-center space-x-5">
+              <div className="rounded-full bg-gov-medium/30 p-4">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gov-medium">
                   <path d="M12 2v4"></path>
                   <path d="M12 18v4"></path>
                   <path d="m4.93 4.93 2.83 2.83"></path>
@@ -144,8 +139,8 @@ const Stats = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-gov-dark">ፍትሀዊ ምደባ</h3>
-                <p className="text-sm text-gray-600">በሁሉም መዋቅሮች ሴቶች እኩል ተጠቃሚ ማድረግ</p>
+                <h3 className="font-bold text-white text-xl">ፍትሀዊ ምደባ</h3>
+                <p className="text-gray-300">በሁሉም መዋቅሮች ዜጎች እኩል ተጠቃሚ ማድረግ</p>
               </div>
             </div>
           </div>

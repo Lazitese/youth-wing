@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -58,10 +57,10 @@ const ProjectsPage = () => {
         <div className="container-gov">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-bold text-gov-dark mb-4">
-              የሴቶች ክንፍ <span className="text-gov-accent">ፕሮጀክቶች</span>
+              የብልፅግና ፓርቲ የሴቶች ክንፍ <span className="text-gov-accent">ፕሮጀክቶች</span>
             </h1>
             <p className="text-gray-600 text-lg">
-              የሴቶች ክንፍ የተለያዩ ፕሮጀክቶችን በመተግበር በአቃቂ ቃሊቲ ክፍለ ከተማ ውስጥ ለሚኖሩ ሴቶች ድጋፍ በማድረግ ላይ ይገኛል
+            የብልፅግና ፓርቲ የሴቶች ክንፍ የተለያዩ ፕሮጀክቶችን በመተግበር በአቃቂ ቃሊቲ ክፍለ ከተማ ውስጥ ለሚኖሩ ሴቶች ድጋፍ በማድረግ ላይ ይገኛል
             </p>
           </div>
           

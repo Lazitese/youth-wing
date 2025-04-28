@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -74,7 +73,7 @@ const Hero = () => {
         </h1>
         
         <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-10 opacity-90 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-          የሴቶች ኃይልን ማበረታታት፣ አቅምን ማሳደግ፣ የህዝብን ተወካይነት ማሳካት
+          የሴቶችን ኢኮኖሚያዊ , ፖለቲካዊ እና ማህበራዊ ተጠቃሚነት ማረጋገጥ
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in" style={{ animationDelay: "0.4s" }}>

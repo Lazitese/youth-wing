@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -33,8 +32,15 @@ const AdminHeader = () => {
     <header className="bg-gov-dark text-white shadow-md">
       <div className="container-gov max-w-7xl mx-auto py-4 px-4">
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <h1 className="text-xl font-bold">የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ</h1>
+          <div className="flex items-center space-x-3">
+            <img 
+              src="/images/prosperity-party-logo.svg" 
+              alt="Prosperity Party Logo" 
+              className="h-10 w-auto"
+            />
+            <h1 className="text-xl font-bold">
+              <span className="text-gov-gold">ብልጽግና ፓርቲ</span> ሴቶች ክንፍ
+            </h1>
           </div>
           
           {/* Desktop menu */}

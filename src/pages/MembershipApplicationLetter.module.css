@@ -1,0 +1,25 @@
+.letterInput {
+  @apply border-b border-gray-300 focus:border-gov-primary;
+  @apply bg-transparent;
+  @apply px-1 py-0.5;
+  @apply focus:ring-0 focus:outline-none;
+  @apply placeholder:text-gray-400;
+  transition: border-color 0.2s ease;
+}
+
+.letterInput[type="date"] {
+  @apply font-sans;
+}
+
+.letterInput.error {
+  @apply border-red-500;
+}
+
+.errorMessage {
+  @apply text-red-500 text-sm mt-1;
+}
+
+.letter {
+  @apply leading-loose;
+  font-family: "Noto Sans Ethiopic", system-ui, -apple-system, sans-serif;
+} 

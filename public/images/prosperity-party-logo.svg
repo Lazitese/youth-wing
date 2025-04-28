@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 500 500">
+  <!-- Rays of light -->
+  <g fill="#FDD835">
+    <rect x="242" y="30" width="16" height="70" transform="rotate(0, 250, 65)"/>
+    <rect x="242" y="30" width="16" height="60" transform="rotate(20, 250, 65)"/>
+    <rect x="242" y="30" width="16" height="60" transform="rotate(40, 250, 65)"/>
+    <rect x="242" y="30" width="16" height="70" transform="rotate(60, 250, 65)"/>
+    <rect x="242" y="30" width="16" height="60" transform="rotate(80, 250, 65)"/>
+    <rect x="242" y="30" width="16" height="60" transform="rotate(100, 250, 65)"/>
+    <rect x="242" y="30" width="16" height="70" transform="rotate(120, 250, 65)"/>
+    <rect x="242" y="30" width="16" height="60" transform="rotate(140, 250, 65)"/>
+    <rect x="242" y="30" width="16" height="60" transform="rotate(160, 250, 65)"/>
+  </g>
+  
+  <!-- Figures -->
+  <g>
+    <!-- Yellow figure -->
+    <path fill="#FDD835" d="M250,100 C265,100 275,120 275,140 C275,170 265,190 250,190 C235,190 225,170 225,140 C225,120 235,100 250,100 Z"/>
+    <path fill="#FDD835" d="M250,190 L275,240 L225,240 Z"/>
+    
+    <!-- Blue figure -->
+    <path fill="#2196F3" d="M190,130 C205,130 215,150 215,170 C215,200 205,220 190,220 C175,220 165,200 165,170 C165,150 175,130 190,130 Z"/>
+    <path fill="#2196F3" d="M190,220 L215,270 L165,270 Z"/>
+    
+    <!-- Red/Pink figure -->
+    <path fill="#E91E63" d="M310,130 C325,130 335,150 335,170 C335,200 325,220 310,220 C295,220 285,200 285,170 C285,150 295,130 310,130 Z"/>
+    <path fill="#E91E63" d="M310,220 L335,270 L285,270 Z"/>
+  </g>
+  
+  <!-- Hands -->
+  <g fill="#000000">
+    <path d="M150,290 C120,290 100,310 90,330 C80,350 80,370 90,380 C100,390 120,390 130,380 C140,370 150,360 170,350 L190,340 L170,330 C150,320 130,290 150,290 Z"/>
+    <path d="M350,290 C380,290 400,310 410,330 C420,350 420,370 410,380 C400,390 380,390 370,380 C360,370 350,360 330,350 L310,340 L330,330 C350,320 370,290 350,290 Z"/>
+  </g>
+</svg> 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#354F52"/>
+  
+  <!-- Logo -->
+  <g transform="translate(400, 120) scale(2)">
+    <!-- Rays of light -->
+    <g fill="#FDD835">
+      <rect x="142" y="10" width="16" height="70" transform="rotate(0, 150, 45)"/>
+      <rect x="142" y="10" width="16" height="60" transform="rotate(20, 150, 45)"/>
+      <rect x="142" y="10" width="16" height="60" transform="rotate(40, 150, 45)"/>
+      <rect x="142" y="10" width="16" height="70" transform="rotate(60, 150, 45)"/>
+      <rect x="142" y="10" width="16" height="60" transform="rotate(80, 150, 45)"/>
+      <rect x="142" y="10" width="16" height="60" transform="rotate(100, 150, 45)"/>
+      <rect x="142" y="10" width="16" height="70" transform="rotate(120, 150, 45)"/>
+      <rect x="142" y="10" width="16" height="60" transform="rotate(140, 150, 45)"/>
+      <rect x="142" y="10" width="16" height="60" transform="rotate(160, 150, 45)"/>
+    </g>
+    
+    <!-- Figures -->
+    <g>
+      <!-- Yellow figure -->
+      <path fill="#FDD835" d="M150,80 C165,80 175,100 175,120 C175,150 165,170 150,170 C135,170 125,150 125,120 C125,100 135,80 150,80 Z"/>
+      <path fill="#FDD835" d="M150,170 L175,220 L125,220 Z"/>
+      
+      <!-- Blue figure -->
+      <path fill="#2196F3" d="M90,110 C105,110 115,130 115,150 C115,180 105,200 90,200 C75,200 65,180 65,150 C65,130 75,110 90,110 Z"/>
+      <path fill="#2196F3" d="M90,200 L115,250 L65,250 Z"/>
+      
+      <!-- Red/Pink figure -->
+      <path fill="#E91E63" d="M210,110 C225,110 235,130 235,150 C235,180 225,200 210,200 C195,200 185,180 185,150 C185,130 195,110 210,110 Z"/>
+      <path fill="#E91E63" d="M210,200 L235,250 L185,250 Z"/>
+    </g>
+    
+    <!-- Hands -->
+    <g fill="#000000">
+      <path d="M50,270 C20,270 0,290 -10,310 C-20,330 -20,350 -10,360 C0,370 20,370 30,360 C40,350 50,340 70,330 L90,320 L70,310 C50,300 30,270 50,270 Z"/>
+      <path d="M250,270 C280,270 300,290 310,310 C320,330 320,350 310,360 C300,370 280,370 270,360 C260,350 250,340 230,330 L210,320 L230,310 C250,300 270,270 250,270 Z"/>
+    </g>
+  </g>
+  
+  <!-- Text -->
+  <text x="600" y="520" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">የብልጽግና ፓርቲ ሴቶች ክንፍ</text>
+</svg> 

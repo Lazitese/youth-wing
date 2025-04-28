@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100">
+  <!-- Simplified favicon version of the logo -->
+  
+  <!-- Rays of light (simplified) -->
+  <g fill="#FDD835">
+    <rect x="48" y="10" width="4" height="15" transform="rotate(0, 50, 25)"/>
+    <rect x="48" y="10" width="4" height="15" transform="rotate(45, 50, 25)"/>
+    <rect x="48" y="10" width="4" height="15" transform="rotate(90, 50, 25)"/>
+    <rect x="48" y="10" width="4" height="15" transform="rotate(135, 50, 25)"/>
+  </g>
+  
+  <!-- Figures (simplified) -->
+  <g>
+    <!-- Yellow figure -->
+    <path fill="#FDD835" d="M50,30 C55,30 58,35 58,40 C58,45 55,50 50,50 C45,50 42,45 42,40 C42,35 45,30 50,30 Z"/>
+    <path fill="#FDD835" d="M50,50 L58,60 L42,60 Z"/>
+    
+    <!-- Blue figure -->
+    <path fill="#2196F3" d="M38,35 C43,35 46,40 46,45 C46,50 43,55 38,55 C33,55 30,50 30,45 C30,40 33,35 38,35 Z"/>
+    <path fill="#2196F3" d="M38,55 L46,65 L30,65 Z"/>
+    
+    <!-- Red/Pink figure -->
+    <path fill="#E91E63" d="M62,35 C67,35 70,40 70,45 C70,50 67,55 62,55 C57,55 54,50 54,45 C54,40 57,35 62,35 Z"/>
+    <path fill="#E91E63" d="M62,55 L70,65 L54,65 Z"/>
+  </g>
+  
+  <!-- Hands (simplified) -->
+  <g fill="#000000">
+    <path d="M30,70 C24,70 20,75 18,80 C16,85 16,90 18,92 C20,94 24,94 26,92 C28,90 30,88 34,85 L38,82 L34,80 C30,78 26,70 30,70 Z"/>
+    <path d="M70,70 C76,70 80,75 82,80 C84,85 84,90 82,92 C80,94 76,94 74,92 C72,90 70,88 66,85 L62,82 L66,80 C70,78 74,70 70,70 Z"/>
+  </g>
+</svg> 
