@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 const ProjectsPage = () => {
   useEffect(() => {
-    document.title = "ፕሮጀክቶች | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
+    document.title = "በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ የተሰሩ ሰው ተኮር ተግባራት | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
     window.scrollTo(0, 0);
   }, []);
 
@@ -50,46 +50,39 @@ const ProjectsPage = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      
-      <div className="pt-24 pb-16">
-        <div className="container-gov">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-gov-dark mb-4">
-              የብልፅግና ፓርቲ የሴቶች ክንፍ <span className="text-gov-accent">ፕሮጀክቶች</span>
-            </h1>
-            <p className="text-gray-600 text-lg">
-            የብልፅግና ፓርቲ የሴቶች ክንፍ የተለያዩ ፕሮጀክቶችን በመተግበር በአቃቂ ቃሊቲ ክፍለ ከተማ ውስጥ ለሚኖሩ ሴቶች ድጋፍ በማድረግ ላይ ይገኛል
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.map((project) => (
-              <div 
-                key={project.id} 
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                <div className="h-64 bg-gray-200">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src = "/placeholder.svg";
-                    }}
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gov-dark mb-3">{project.title}</h3>
-                  <p className="text-gray-600">{project.description}</p>
-                </div>
+      <div className="container-gov py-24">
+        <h1 className="text-4xl font-bold text-center mb-4">
+          በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ <span className="text-gov-accent">የተሰሩ ሰው ተኮር ተግባራት</span>
+        </h1>
+        <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+          የብልጽግና ፓርቲ የሴቶች ክንፍ የተለያዩ የተግባር ፕሮጀክቶችን በመተግበር በልቀቱ ቀዳሚ ለሆኑ ሴቶች ድጋፍ ሰጥቷል
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {projects.map((project) => (
+            <div 
+              key={project.id} 
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <div className="h-64 bg-gray-200">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = "/placeholder.svg";
+                  }}
+                />
               </div>
-            ))}
-          </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gov-dark mb-3">{project.title}</h3>
+                <p className="text-gray-600">{project.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      
       <Footer />
     </div>
   );
