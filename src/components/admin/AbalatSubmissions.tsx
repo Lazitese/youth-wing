@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -8,7 +7,20 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { format } from "date-fns";
-import { Check, Download, Eye, Search, X } from "lucide-react";
+import { 
+  Check, 
+  Download, 
+  Eye, 
+  Search, 
+  X, 
+  User, 
+  Phone, 
+  Mail, 
+  MapPin, 
+  Calendar, 
+  BookOpen, 
+  Briefcase 
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 interface AbalatSubmission {
@@ -194,14 +206,42 @@ const AbalatSubmissions = () => {
   };
 
   // Render status badge with appropriate color
-  const StatusBadge = ({ status }: { status: 'pending' | 'accepted' | 'rejected' }) => {
+  const StatusBadge = ({ status, size = "default" }: { status: 'pending' | 'accepted' | 'rejected', size?: "default" | "large" }) => {
+    const iconSize = size === "large" ? 16 : 14;
+    const paddingClass = size === "large" ? "px-4 py-2" : "";
+    const textClass = size === "large" ? "text-sm" : "text-xs";
+    
     switch (status) {
       case 'pending':
-        return <Badge variant="outline" className="bg-yellow-50 border-yellow-200 text-yellow-700">በመጠባበቅ ላይ</Badge>;
+        return (
+          <Badge 
+            variant="outline" 
+            className={`bg-yellow-50 border border-yellow-200 text-yellow-700 flex items-center gap-1.5 ${paddingClass} ${textClass}`}
+          >
+            <Calendar size={iconSize} className="text-yellow-600" />
+            በመጠባበቅ ላይ
+          </Badge>
+        );
       case 'accepted':
-        return <Badge variant="outline" className="bg-green-50 border-green-200 text-green-700">ተቀባይነት አግኝቷል</Badge>;
+        return (
+          <Badge 
+            variant="outline" 
+            className={`bg-green-50 border border-green-200 text-green-700 flex items-center gap-1.5 ${paddingClass} ${textClass}`}
+          >
+            <Check size={iconSize} className="text-green-600" />
+            ተቀባይነት አግኝቷል
+          </Badge>
+        );
       case 'rejected':
-        return <Badge variant="outline" className="bg-red-50 border-red-200 text-red-700">ተቀባይነት አላገኘም</Badge>;
+        return (
+          <Badge 
+            variant="outline" 
+            className={`bg-red-50 border border-red-200 text-red-700 flex items-center gap-1.5 ${paddingClass} ${textClass}`}
+          >
+            <X size={iconSize} className="text-red-600" />
+            ተቀባይነት አላገኘም
+          </Badge>
+        );
       default:
         return null;
     }
@@ -319,96 +359,143 @@ const AbalatSubmissions = () => {
 
       {/* Details Dialog */}
       <Dialog open={detailsOpen} onOpenChange={setDetailsOpen}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-white rounded-xl p-0">
           {selectedSubmission && (
             <>
-              <DialogHeader>
-                <DialogTitle className="text-xl">የምዝገባ ዝርዝር</DialogTitle>
-                <DialogDescription>
-                  የተመዘገበው በ {format(new Date(selectedSubmission.created_at), "MMMM dd, yyyy HH:mm")}
-                </DialogDescription>
-              </DialogHeader>
-              
-              <div className="flex justify-between items-center mt-4">
-                <StatusBadge status={selectedSubmission.status} />
-                
-                {selectedSubmission.status === 'pending' && (
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => updateStatus(selectedSubmission.id, 'rejected')}
-                      disabled={updatingStatus}
-                      className="gap-1 border-red-200 text-red-600 hover:bg-red-50"
-                    >
-                      <X size={14} />
-                      ውድቅ አድርግ
-                    </Button>
-                    <Button
-                      size="sm"
-                      onClick={() => updateStatus(selectedSubmission.id, 'accepted')}
-                      disabled={updatingStatus}
-                      className="gap-1 bg-green-600 hover:bg-green-700"
-                    >
-                      <Check size={14} />
-                      ተቀበል
-                    </Button>
+              <div className="bg-gradient-to-r from-gov-accent/10 to-gray-50 p-6 border-b">
+                <div className="flex items-center gap-3">
+                  <div className="bg-gov-accent text-white p-2 rounded-full">
+                    <User size={24} />
                   </div>
-                )}
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-gray-500">ሙሉ ስም</p>
-                  <p>{selectedSubmission.full_name}</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-gray-500">ስልክ</p>
-                  <p>{selectedSubmission.phone}</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-gray-500">ኢሜይል</p>
-                  <p>{selectedSubmission.email || "N/A"}</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-gray-500">ወረዳ/ቀበሌ</p>
-                  <p>{selectedSubmission.woreda}/{selectedSubmission.kebele}</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-gray-500">እድሜ</p>
-                  <p>{selectedSubmission.age}</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-gray-500">የትምህርት ደረጃ</p>
-                  <p>{selectedSubmission.education_level}</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-gray-500">ሙያ</p>
-                  <p>{selectedSubmission.occupation}</p>
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl text-gray-900 font-bold">{selectedSubmission.full_name}</DialogTitle>
+                    <DialogDescription className="text-gray-600 flex items-center gap-2">
+                      <Calendar size={14} />
+                      የተመዘገበው በ {format(new Date(selectedSubmission.created_at), "MMMM dd, yyyy HH:mm")}
+                    </DialogDescription>
+                  </DialogHeader>
                 </div>
               </div>
               
-              <div className="flex justify-end gap-4 mt-6">
-                <Button
-                  variant="outline"
-                  onClick={() => setDetailsOpen(false)}
-                >
-                  ዝጋ
-                </Button>
+              <div className="p-6">
+                <div className="mb-6 pb-4 border-b flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                  <StatusBadge status={selectedSubmission.status} size="large" />
+                  
+                  {selectedSubmission.status === 'pending' && (
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => updateStatus(selectedSubmission.id, 'rejected')}
+                        disabled={updatingStatus}
+                        className="gap-1 border-red-200 text-red-600 hover:bg-red-50"
+                      >
+                        <X size={14} />
+                        ውድቅ አድርግ
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => updateStatus(selectedSubmission.id, 'accepted')}
+                        disabled={updatingStatus}
+                        className="gap-1 bg-green-600 hover:bg-green-700"
+                      >
+                        <Check size={14} />
+                        ተቀበል
+                      </Button>
+                    </div>
+                  )}
+                </div>
                 
-                <Button
-                  onClick={() => exportToCsv(selectedSubmission)}
-                  className="bg-gov-accent hover:bg-gov-accent/90 gap-2"
-                >
-                  <Download size={16} />
-                  CSV ወርድ
-                </Button>
+                <h3 className="text-lg font-semibold mb-4 text-gray-700">የግል መረጃ</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
+                        <User size={18} className="text-gov-accent" />
+                      </div>
+                      <h3 className="text-sm font-semibold text-gray-700">ሙሉ ስም</h3>
+                    </div>
+                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.full_name}</p>
+                  </div>
+                  
+                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
+                        <Phone size={18} className="text-gov-accent" />
+                      </div>
+                      <h3 className="text-sm font-semibold text-gray-700">ስልክ</h3>
+                    </div>
+                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.phone}</p>
+                  </div>
+                  
+                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
+                        <Mail size={18} className="text-gov-accent" />
+                      </div>
+                      <h3 className="text-sm font-semibold text-gray-700">ኢሜይል</h3>
+                    </div>
+                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.email || "N/A"}</p>
+                  </div>
+                  
+                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
+                        <MapPin size={18} className="text-gov-accent" />
+                      </div>
+                      <h3 className="text-sm font-semibold text-gray-700">ወረዳ/ቀበሌ</h3>
+                    </div>
+                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.woreda}/{selectedSubmission.kebele}</p>
+                  </div>
+                  
+                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
+                        <Calendar size={18} className="text-gov-accent" />
+                      </div>
+                      <h3 className="text-sm font-semibold text-gray-700">እድሜ</h3>
+                    </div>
+                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.age}</p>
+                  </div>
+                  
+                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
+                        <BookOpen size={18} className="text-gov-accent" />
+                      </div>
+                      <h3 className="text-sm font-semibold text-gray-700">የትምህርት ደረጃ</h3>
+                    </div>
+                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.education_level}</p>
+                  </div>
+                  
+                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow md:col-span-2">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
+                        <Briefcase size={18} className="text-gov-accent" />
+                      </div>
+                      <h3 className="text-sm font-semibold text-gray-700">ሙያ</h3>
+                    </div>
+                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.occupation}</p>
+                  </div>
+                </div>
+                
+                <div className="flex justify-end gap-4 mt-6 pt-6 border-t border-gray-100">
+                  <Button
+                    variant="outline"
+                    onClick={() => setDetailsOpen(false)}
+                    className="font-medium"
+                  >
+                    ዝጋ
+                  </Button>
+                  
+                  <Button
+                    onClick={() => exportToCsv(selectedSubmission)}
+                    className="bg-gov-accent hover:bg-gov-accent/90 gap-2 font-medium"
+                  >
+                    <Download size={16} />
+                    CSV ወርድ
+                  </Button>
+                </div>
               </div>
             </>
           )}

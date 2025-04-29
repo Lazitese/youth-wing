@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -10,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { LogIn } from "lucide-react";
 
 const loginFormSchema = z.object({
   email: z.string().email({ message: "ኢሜይል አድራሻው ትክክለኛ አይደለም" }),
@@ -74,12 +74,23 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center bg-gray-50">
+    <div className="flex flex-col min-h-screen items-center justify-center bg-gray-50 p-4">
+      <div className="text-center mb-8">
+        <img 
+          src="/images/prosperity-party-logo.svg" 
+          alt="Prosperity Party Logo" 
+          className="h-16 w-auto mx-auto mb-3"
+        />
+        <h1 className="text-2xl font-bold">
+          <span className="text-gov-gold">ብልጽግና ፓርቲ</span> <span className="text-gov-dark">ሴቶች ክንፍ</span>
+        </h1>
+      </div>
+      
       <div className="w-full max-w-md">
-        <Card className="shadow-lg animate-fade-in-up">
-          <CardHeader className="bg-gov-medium text-white">
+        <Card className="shadow-lg border-t-4 border-t-gov-accent animate-fade-in-up">
+          <CardHeader className="bg-white text-gov-dark pb-2">
             <CardTitle className="text-2xl font-bold">አስተዳዳሪ ግባ</CardTitle>
-            <CardDescription className="text-white/80">
+            <CardDescription className="text-gray-500">
               ወደ አስተዳዳሪ ዳሽቦርድ ለመግባት የመለያ መረጃዎን ያስገቡ
             </CardDescription>
           </CardHeader>
@@ -93,7 +104,12 @@ const Login = () => {
                     <FormItem>
                       <FormLabel>ኢሜይል</FormLabel>
                       <FormControl>
-                        <Input placeholder="ኢሜይል አድራሻዎን ያስገቡ" {...field} />
+                        <Input 
+                          placeholder="ኢሜይል አድራሻዎን ያስገቡ" 
+                          autoComplete="email"
+                          className="border-gray-300 focus:border-gov-accent focus:ring-gov-accent"
+                          {...field} 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -110,6 +126,8 @@ const Login = () => {
                         <Input 
                           type="password" 
                           placeholder="የይለፍ ቃልዎን ያስገቡ" 
+                          autoComplete="current-password"
+                          className="border-gray-300 focus:border-gov-accent focus:ring-gov-accent"
                           {...field} 
                         />
                       </FormControl>
@@ -120,11 +138,21 @@ const Login = () => {
                 
                 <Button
                   type="submit"
-                  className="w-full bg-gov-accent hover:bg-gov-accent/90"
+                  className="w-full bg-gov-accent hover:bg-gov-accent/90 gap-2 mt-2"
                   disabled={isSubmitting}
                 >
+                  <LogIn size={16} />
                   {isSubmitting ? "እየገባ ነው..." : "ግባ"}
                 </Button>
+                
+                <div className="text-center text-sm text-gray-500 mt-4">
+                  <a 
+                    href="/" 
+                    className="hover:text-gov-accent transition-colors"
+                  >
+                    ወደ ዋና ገጽ ተመለስ
+                  </a>
+                </div>
               </form>
             </Form>
           </CardContent>

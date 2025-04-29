@@ -1,14 +1,10 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import QretaSubmissions from "@/components/admin/QretaSubmissions";
-import AbalatSubmissions from "@/components/admin/AbalatSubmissions";
-import ReportSubmissions from "@/components/admin/ReportSubmissions";
-import AdminHeader from "@/components/admin/AdminHeader";
+import AdminSidebar from "@/components/admin/AdminSidebar";
 import DashboardStats from "@/components/admin/DashboardStats";
 import { Session } from "@supabase/supabase-js";
+import { cn } from "@/lib/utils";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -59,7 +55,7 @@ const Dashboard = () => {
   
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gov-accent mx-auto"></div>
           <p className="mt-4 text-gov-dark">በመጫን ላይ...</p>
@@ -69,36 +65,55 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <AdminHeader />
+    <div className="min-h-screen bg-gray-50 flex">
+      <AdminSidebar />
       
-      <div className="container-gov max-w-7xl mx-auto py-8 px-4">
-        <h1 className="text-3xl font-bold text-gov-dark mb-8">አስተዳዳሪ ዳሽቦርድ</h1>
-        
-        <DashboardStats />
-        
-        <div className="mt-10">
-          <Tabs defaultValue="qreta" className="w-full">
-            <TabsList className="grid grid-cols-3 mb-6">
-              <TabsTrigger value="qreta">ጥቆማዎች</TabsTrigger>
-              <TabsTrigger value="abalat">የአባላት ምዝገባዎች</TabsTrigger>
-              <TabsTrigger value="reports">ሪፖርቶች</TabsTrigger>
-            </TabsList>
+      <main className={cn(
+        "flex-1 transition-all duration-300 ease-in-out",
+        "lg:ml-64" // Default sidebar width
+      )}>
+        <div className="p-6 lg:p-8">
+          <div className="max-w-7xl mx-auto">
+            {/* Header section */}
+            <div className="mb-8 mt-12 lg:mt-2">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 tracking-tight">አስተዳዳሪ ዳሽቦርድ</h1>
+                  <p className="text-gray-500 mt-1.5">እንኳን ደህና መጡ፣ እዚህ ገጽ ላይ ሁሉንም ስታቲስቲክስ መመልከት ይችላሉ።</p>
+                </div>
+              </div>
+            </div>
             
-            <TabsContent value="qreta">
-              <QretaSubmissions />
-            </TabsContent>
+            {/* Stats Cards */}
+            <div className="mb-10">
+              <DashboardStats />
+            </div>
             
-            <TabsContent value="abalat">
-              <AbalatSubmissions />
-            </TabsContent>
-            
-            <TabsContent value="reports">
-              <ReportSubmissions />
-            </TabsContent>
-          </Tabs>
+            {/* Additional dashboard content */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-300">
+                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                  <span className="w-1.5 h-5 bg-blue-500 rounded-full mr-2.5 inline-block"></span>
+                  የቅርብ ጊዜ እንቅስቃሴዎች
+                </h2>
+                <div className="text-gray-600 pt-2">
+                  <p>ቅርብ ጊዜ እንቅስቃሴዎች የሉም።</p>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-300">
+                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                  <span className="w-1.5 h-5 bg-emerald-500 rounded-full mr-2.5 inline-block"></span>
+                  ዛሬ እድሳት ያላቸው ነገሮች
+                </h2>
+                <div className="text-gray-600 pt-2">
+                  <p>ዛሬ እድሳት የሚፈልጉ ነገሮች የሉም።</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

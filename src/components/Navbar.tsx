@@ -1,15 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAboutMenuOpen, setIsAboutMenuOpen] = useState(false);
+  const aboutMenuRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  const toggleAboutMenu = () => {
+    setIsAboutMenuOpen(!isAboutMenuOpen);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (aboutMenuRef.current && !aboutMenuRef.current.contains(event.target as Node)) {
+        setIsAboutMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -40,7 +59,34 @@ const Navbar = () => {
           <Link to="/abalat-mzgeba" className={`nav-link ${isActive('/abalat-mzgeba') ? 'nav-link-active' : ''}`}>የአባላት ምዝገባ</Link>
           <Link to="/qreta" className={`nav-link ${isActive('/qreta') ? 'nav-link-active' : ''}`}>ጥቆማ</Link>
           <Link to="/projects" className={`nav-link ${isActive('/projects') ? 'nav-link-active' : ''}`}>ተግባራት</Link>
-          <Link to="/sle-egna" className={`nav-link ${isActive('/sle-egna') ? 'nav-link-active' : ''}`}>ስለ እኛ</Link>
+          
+          {/* About Us with Submenu */}
+          <div className="relative" ref={aboutMenuRef}>
+            <button 
+              onClick={toggleAboutMenu}
+              className={`nav-link flex items-center ${isActive('/sle-egna') || isActive('/documents') ? 'nav-link-active' : ''}`}
+            >
+              ስለ እኛ <ChevronDown className={`h-4 w-4 ml-1 transition-transform ${isAboutMenuOpen ? 'rotate-180' : ''}`} />
+            </button>
+            
+            {isAboutMenuOpen && (
+              <div className="absolute top-full left-0 mt-1 bg-white rounded-md shadow-lg py-2 w-48 z-20">
+                <Link 
+                  to="/sle-egna"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gov-light hover:text-gov-dark"
+                >
+                  ስለ እኛ መረጃ
+                </Link>
+                <Link 
+                  to="/documents"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gov-light hover:text-gov-dark"
+                >
+                  ሰነዶች
+                </Link>
+              </div>
+            )}
+          </div>
+          
           <Link to="/contact" className={`nav-link ${isActive('/contact') ? 'nav-link-active' : ''}`}>አግኙን</Link>
         </div>
 
@@ -64,7 +110,8 @@ const Navbar = () => {
           <Link to="/abalat-mzgeba" className={`font-medium py-2 border-b border-gov-dark/20 ${isActive('/abalat-mzgeba') ? 'text-gov-gold-light font-semibold' : 'text-gov-gold'}`}>የአባላት ምዝገባ</Link>
           <Link to="/qreta" className={`font-medium py-2 border-b border-gov-dark/20 ${isActive('/qreta') ? 'text-gov-gold-light font-semibold' : 'text-gov-gold'}`}>ጥቆማ</Link>
           <Link to="/projects" className={`font-medium py-2 border-b border-gov-dark/20 ${isActive('/projects') ? 'text-gov-gold-light font-semibold' : 'text-gov-gold'}`}>ተግባራት</Link>
-          <Link to="/sle-egna" className={`font-medium py-2 border-b border-gov-dark/20 ${isActive('/sle-egna') ? 'text-gov-gold-light font-semibold' : 'text-gov-gold'}`}>ስለ እኛ</Link>
+          <Link to="/sle-egna" className={`font-medium py-2 border-b border-gov-dark/20 ${isActive('/sle-egna') ? 'text-gov-gold-light font-semibold' : 'text-gov-gold'}`}>ስለ እኛ መረጃ</Link>
+          <Link to="/documents" className={`font-medium py-2 border-b border-gov-dark/20 ${isActive('/documents') ? 'text-gov-gold-light font-semibold' : 'text-gov-gold'}`}>ሰነዶች</Link>
           <Link to="/contact" className={`font-medium py-2 border-b border-gov-dark/20 ${isActive('/contact') ? 'text-gov-gold-light font-semibold' : 'text-gov-gold'}`}>አግኙን</Link>
         </div>
       </div>

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -23,7 +22,7 @@ const abalatMzgebaFormSchema = z.object({
   phone: z.string().min(10, { message: "የሞባይል ቁጥር ትክክለኛ አይደለም" }),
   email: z.string().email({ message: "የኢሜይል አድራሻ ትክክለኛ አይደለም" }).optional().or(z.literal('')),
   woreda: z.string().min(1, { message: "ወረዳ ማስገባት አለብዎት" }),
-  kebele: z.string().min(1, { message: "ቀበሌ ማስገባት አለብዎት" }),
+  kebele: z.string().min(1, { message: "ብሎክ ማስገባት አለብዎት" }),
   education_level: z.string().min(2, { message: "የትምህርት ደረጃዎን መጻፍ አለብዎት" }),
   occupation: z.string().min(2, { message: "ሙያዎን መጻፍ አለብዎት" }),
   photo: z.any().optional(),
@@ -187,9 +186,9 @@ const AbalatMzgebaForm = () => {
                       name="kebele"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>ቀበሌ</FormLabel>
+                          <FormLabel>ብሎክ</FormLabel>
                           <FormControl>
-                            <Input placeholder="ለምሳሌ፡ ቀበሌ 01" {...field} />
+                            <Input placeholder="ለምሳሌ፡ ብሎክ 01" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

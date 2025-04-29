@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -20,7 +19,7 @@ const qretaFormSchema = z.object({
   email: z.string().email({ message: "የኢሜይል አድራሻ ትክክለኛ አይደለም" }).optional().or(z.literal('')),
   category: z.string().min(1, { message: "ምድብ መምረጥ አለብዎት" }),
   woreda: z.string().min(1, { message: "ወረዳ ማስገባት አለብዎት" }),
-  kebele: z.string().min(1, { message: "ቀበሌ ማስገባት አለብዎት" }),
+  kebele: z.string().min(1, { message: "ብሎክ ማስገባት አለብዎት" }),
   message: z.string().min(10, { message: "ቢያንስ 10 ፊደላት መጻፍ አለብዎት" }),
   file: z.any().optional(),
 });
@@ -193,9 +192,9 @@ const QretaForm = () => {
                       name="kebele"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>ቀበሌ</FormLabel>
+                          <FormLabel>ብሎክ</FormLabel>
                           <FormControl>
-                            <Input placeholder="ለምሳሌ፡ ቀበሌ 07" {...field} />
+                            <Input placeholder="ለምሳሌ፡ ብሎክ 07" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
