@@ -1,88 +1,95 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const ProjectsPage = () => {
   useEffect(() => {
-    document.title = "በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ የተሰሩ ሰው ተኮር ተግባራት | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
+    document.title =
+      "በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ የተሰሩ ሰው ተኮር ተግባራት | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
     window.scrollTo(0, 0);
   }, []);
 
-  const projects = [
-    {
-      id: 1,
-      title: "የሴቶች ኢኮኖሚያዊ ብቃት ማጎልበቻ ፕሮግራም",
-      description: "የሴቶችን የኢኮኖሚ ተሳትፎ ለማሳደግ የሚያግዝ የብድር አገልግሎት እና ስልጠና የሚሰጥበት ፕሮግራም ነው። ይህ ፕሮግራም ሴቶች የራሳቸውን ንግድ እንዲጀምሩ እና እንዲያሳድጉ ያስችላቸዋል።",
-      image: "/images/project-1.jpg"
-    },
-    {
-      id: 2,
-      title: "የሴቶችን የሙያ ክህሎት ማሻሻያ ፕሮግራም",
-      description: "ይህ ፕሮግራም የሴቶችን የሙያ ክህሎት ለማሻሻል እና በዘመናዊ ቴክኖሎጂ የመጠቀም ችሎታቸውን ለማሳደግ የሚያስችል ነው። የማኑፋክቸሪንግ፣ የአይሲቲ፣ የግብርና እና ሌሎች የሙያ ዘርፎችን ያካትታል።",
-      image: "/images/project-2.jpg"
-    },
-    {
-      id: 3,
-      title: "የሴቶች የጤና እና ደህንነት ፕሮግራም",
-      description: "ይህ ፕሮግራም የሴቶችን ጤና እና ደህንነት ለማሻሻል የሚያስችል ሲሆን፣ የወሊድ ጤና፣ የአመጋገብ እና የአዕምሮ ጤና ላይ ትኩረት ያደርጋል። ነፃ የጤና ምርመራ እና ምክር አገልግሎት ይሰጣል።",
-      image: "/images/project-3.jpg"
-    },
-    {
-      id: 4,
-      title: "የሴቶች መብት ማስጠበቂያ ፕሮግራም",
-      description: "ይህ ፕሮግራም የሴቶችን መብት ለማስጠበቅ እና በማህበረሰቡ ውስጥ ያለውን የፆታ እኩልነት ለማሻሻል ያለመ ነው። የሕግ ድጋፍ፣ የግንዛቤ ማስጨበጫ እና የአቅም ግንባታ ስልጠናዎችን ያካትታል።",
-      image: "/images/project-4.jpg"
-    },
-    {
-      id: 5,
-      title: "የሴቶች ተሳትፎ ማጎልበቻ ፕሮግራም",
-      description: "ይህ ፕሮግራም የሴቶችን በፖለቲካ፣ በማህበራዊ እና በኢኮኖሚያዊ እንቅስቃሴዎች ውስጥ ያላቸውን ተሳትፎ ለማሳደግ የሚያግዝ ነው። የአመራር ክህሎት ስልጠና እና የተለያዩ የውይይት መድረኮችን ያካትታል።",
-      image: "/images/project-5.jpg"
-    },
-    {
-      id: 6,
-      title: "የሴቶች አካባቢ ጥበቃ ፕሮግራም",
-      description: "ይህ ፕሮግራም ሴቶች በአካባቢ ጥበቃ ሂደት ውስጥ የሚኖራቸውን ሚና ለማጎልበት የሚያስችል ሲሆን፣ የአረንጓዴ ልማት ፕሮጀክቶች፣ የውሃ ጥበቃ እና የአየር ንብረት ለውጥ ጉዳዮችን ያካትታል።",
-      image: "/images/project-6.jpg"
-    }
+  const politicalProjects = [
+    "የሴቶችን የፖለቲካ ተሳትፎ ማሳደግ",
+    "የሴቶች የአመራር ብቃት ማጎልበት",
+    "የፓርቲውን የፖሊሲ ማሻሻያ ላይ የሴቶችን ግብዓት ማካተት",
   ];
 
+  const socialProjects = [
+    "ጤና መድህን",
+    "ድህረ ወለድ",
+    "ቅድመ ወሊድ",
+    "የአባላዘር እና HIV በሽታዎች ምርመራ",
+    "የማህጸን ቻፍ ካንሰር ምርመራ",
+  ];
+
+  const economicProjects = [
+    "በስራ እድል ፈጠራ / በ5 ዓመት ውስጥ /",
+    "በንግድ የተሰማሩ ሴቶች",
+    "የሌማት ትሩፋት",
+  ];
+
+  const ProjectCard = ({ title }: { title: string }) => {
+
+   return (
+    <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition hover:shadow-xl">
+      <Carousel className="w-full">
+        <CarouselContent>
+          <CarouselItem>
+            <div className="h-48 w-full bg-gray-100 flex items-center justify-center">
+              <span className="text-gray-400">Image placeholder</span>
+            </div>
+          </CarouselItem>
+        </CarouselContent>
+        <div className="flex justify-center items-center gap-3 py-2">
+          <CarouselPrevious className="w-8 h-8 bg-gray-200 text-gray-600 hover:bg-gray-300 rounded-full" />
+          <CarouselNext className="w-8 h-8 bg-gray-200 text-gray-600 hover:bg-gray-300 rounded-full" />
+        </div>
+      </Carousel>
+      <div className="p-6">
+        <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+      </div>
+    </div>
+  );
+  }
+
+  const Section = ({ title, projects }: { title: string, projects: string[] }) => {
+
+    return (
+      <section>
+        <h2 className="text-3xl font-bold text-gray-800 mb-8">{title}</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, idx) => (
+            <ProjectCard key={idx} title={project} />
+          ))}
+        </div>
+      </section>
+    );
+  };
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="container-gov py-24">
-        <h1 className="text-4xl font-bold text-center mb-4">
-          በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ <span className="text-gov-accent">የተሰሩ ሰው ተኮር ተግባራት</span>
-        </h1>
-        <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-          የብልጽግና ፓርቲ የሴቶች ክንፍ የተለያዩ የተግባር ፕሮጀክቶችን በመተግበር በልቀቱ ቀዳሚ ለሆኑ ሴቶች ድጋፍ ሰጥቷል
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project) => (
-            <div 
-              key={project.id} 
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-            >
-              <div className="h-64 bg-gray-200">
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = "/placeholder.svg";
-                  }}
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gov-dark mb-3">{project.title}</h3>
-                <p className="text-gray-600">{project.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+
+      <main className="container mx-auto px-4 py-20 space-y-24">
+        <section>
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">የፖለቲካ ተሳትፎ</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {politicalProjects.map((project, idx) => (
+              <ProjectCard key={idx} title={project} />
+            ))}
+          </div>
+        </section>
+        <Section title="ማህበራዊ ተጠቃሚነት" projects={socialProjects} />
+        <Section title="ኢኮኖሚያዊ ተሳትፎ" projects={economicProjects} />
+      </main>
+
       <Footer />
     </div>
   );

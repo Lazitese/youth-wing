@@ -11,13 +11,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8 pb-8 border-b border-white/10">
           {/* Logo and Description */}
           <div>
-            <div className="flex items-center mb-4">
+            <div className="flex items-start mb-4">
               <img 
-                src="/images/prosperity-party-logo.svg" 
-                alt="Prosperity Party Logo" 
-                className="h-12 w-auto mr-2"
+                src="/images/Logo Beltsegena.jpg" 
+                alt="Logo Beltsegena" 
+                className="h-20 w-auto mr-2"
               />
-              <span className="font-display font-bold text-xl">
+              <span className="font-display font-bold text-xl mt-2">
                 <span className="text-gov-gold">ብልጽግና ፓርቲ</span>
               </span>
             </div>

@@ -22,14 +22,16 @@ const Navbar = () => {
       <div className="container-gov flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img 
-            src="/images/prosperity-party-logo.svg" 
-            alt="Prosperity Party Logo" 
-            className="h-12 w-auto"
-          />
+          <div className="flex items-center">
+            <img
+              src="/images/Logo Beltsegena.jpg"
+              alt="Prosperity Party Logo"
+              className="h-12 w-12 mr-2" // Added mr-2 for spacing
+            />
           <span className="font-display font-bold text-xl text-white ml-2">
             <span className="text-gov-gold">ብልጽግና ፓርቲ</span>
           </span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
