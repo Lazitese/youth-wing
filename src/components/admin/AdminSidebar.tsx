@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -34,8 +35,8 @@ const NavItem = ({ icon, label, onClick, active, collapsed }: NavItemProps) => (
           className={cn(
             "w-full justify-start gap-3 py-3 transition-all duration-200 mb-1.5 rounded-lg",
             active 
-              ? "bg-gov-light/20 text-white font-medium" 
-              : "text-white/80 hover:bg-gov-light/15 hover:text-white",
+              ? "bg-brand-blue/20 text-brand-white font-medium" 
+              : "text-brand-white/80 hover:bg-brand-blue/15 hover:text-brand-white",
             collapsed ? "px-3" : "px-4"
           )}
           onClick={onClick}
@@ -134,7 +135,7 @@ const AdminSidebar = () => {
       <Button
         variant="ghost"
         size="sm"
-        className="rounded-full w-10 h-10 bg-white shadow-md"
+        className="rounded-full w-10 h-10 bg-brand-white shadow-md"
         onClick={() => setMobileOpen(!mobileOpen)}
       >
         {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -149,7 +150,7 @@ const AdminSidebar = () => {
       {/* Overlay for mobile */}
       {mobileOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black/60 z-40 backdrop-blur-sm"
+          className="lg:hidden fixed inset-0 bg-brand-black/60 z-40 backdrop-blur-sm"
           onClick={() => setMobileOpen(false)}
         />
       )}
@@ -157,21 +158,23 @@ const AdminSidebar = () => {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed left-0 top-0 z-40 h-full bg-gradient-to-b from-gov-dark to-gov-medium shadow-xl transition-all duration-300 ease-in-out",
+          "fixed left-0 top-0 z-40 h-full shadow-xl transition-all duration-300 ease-in-out",
+          "bg-no-repeat bg-cover bg-center before:absolute before:inset-0 before:bg-gradient-to-b before:from-brand-blue/95 before:to-brand-black/95 before:z-0",
           collapsed ? "w-16" : "w-64",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
+        style={{ backgroundImage: 'url(/lovable-uploads/17a6c911-3900-4b0d-9c32-b31531c6a430.png)' }}
       >
         {/* Logo section */}
         <div className={cn(
-          "flex items-center h-20 border-b border-white/10 px-4",
+          "flex items-center h-20 border-b border-brand-yellow/10 px-4 relative z-10",
           collapsed ? "justify-center" : "justify-between"
         )}>
           <div className={cn(
             "flex items-center", 
             collapsed ? "justify-center w-full" : "gap-2"
           )}>
-            <div className="flex items-center justify-center h-11 w-11 bg-white rounded-lg shadow-md">
+            <div className="flex items-center justify-center h-11 w-11 bg-brand-white rounded-lg shadow-md">
               <img 
                 src="/images/prosperity-party-logo.svg" 
                 alt="Prosperity Party Logo" 
@@ -180,7 +183,7 @@ const AdminSidebar = () => {
             </div>
             {!collapsed && (
               <h1 className="text-sm font-bold ml-2.5">
-                <span className="text-gov-gold">ብልጽግና ፓርቲ</span> <span className="text-white">ሴቶች ክንፍ</span>
+                <span className="text-brand-yellow">ብልጽግና ፓርቲ</span> <span className="text-brand-white">ሴቶች ክንፍ</span>
               </h1>
             )}
           </div>
@@ -189,7 +192,7 @@ const AdminSidebar = () => {
             <Button
               variant="ghost"
               size="sm"
-              className="w-8 h-8 p-0 rounded-full lg:flex hidden text-white/70 hover:text-white hover:bg-white/10"
+              className="w-8 h-8 p-0 rounded-full lg:flex hidden text-brand-white/70 hover:text-brand-white hover:bg-brand-white/10 relative z-10"
               onClick={() => setCollapsed(true)}
             >
               <ChevronLeft size={16} />
@@ -198,7 +201,7 @@ const AdminSidebar = () => {
         </div>
         
         {/* Navigation links */}
-        <div className="py-6 flex flex-col h-[calc(100%-5rem)] justify-between">
+        <div className="py-6 flex flex-col h-[calc(100%-5rem)] justify-between relative z-10">
           <nav className="space-y-0.5 px-3">
             {sidebarItems.map((item, index) => (
               <NavItem
@@ -215,9 +218,9 @@ const AdminSidebar = () => {
           {/* User profile section */}
           <div className="px-3 mb-4">
             {!collapsed && (
-              <div className="bg-gov-light/15 rounded-xl p-3.5 mb-4">
+              <div className="bg-brand-blue/15 rounded-xl p-3.5 mb-4">
                 <div className="flex items-center space-x-3">
-                  <div className="h-10 w-10 rounded-full bg-gov-gold/20 flex items-center justify-center text-gov-gold">
+                  <div className="h-10 w-10 rounded-full bg-brand-yellow/20 flex items-center justify-center text-brand-yellow">
                   
                   </div>
                   <div className="flex flex-col">
@@ -234,7 +237,7 @@ const AdminSidebar = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                className="w-full justify-center p-3 lg:flex hidden text-white/70 hover:text-white hover:bg-white/10"
+                className="w-full justify-center p-3 lg:flex hidden text-brand-white/70 hover:text-brand-white hover:bg-brand-white/10"
                 onClick={() => setCollapsed(false)}
               >
                 <ChevronLeft size={16} className="rotate-180" />
@@ -254,4 +257,4 @@ const AdminSidebar = () => {
   );
 };
 
-export default AdminSidebar; 
+export default AdminSidebar;
