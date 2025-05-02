@@ -11,7 +11,7 @@ const Projects = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-brand-black mb-4">
             የሴቶች ክንፍ <span className="text-brand-blue">ፕሮጀክቶች</span>
           </h2>
-          <p className="text-brand-black/70 text-lg">
+          <p className="text-gray-600 text-lg">
             የሴቶች ክንፍ በማህበረሰቡ ላይ ለውጥ ለማምጣት የተለያዩ ፕሮጀክቶችን በመተግበር ላይ ይገኛል
           </p>
         </div>
@@ -22,7 +22,7 @@ const Projects = () => {
               key={index} 
               className="bg-brand-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-brand-blue/10"
             >
-              <div className="h-48 bg-brand-blue/10">
+              <div className="h-48 bg-gray-200">
                 <img 
                   src={`/images/project-${index}.jpg`} 
                   alt={`የሴቶች ክንፍ ፕሮጀክት ${index}`}
@@ -34,7 +34,7 @@ const Projects = () => {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-brand-black mb-2">የሴቶች ክንፍ ፕሮጀክት {index}</h3>
-                <p className="text-brand-black/70 mb-4">
+                <p className="text-gray-600 mb-4">
                   {index === 1 && "የሴቶችን የኢኮኖሚ ተሳትፎ ለማሳደግ የሚያግዝ የብድር አገልግሎት"}
                   {index === 2 && "የሴቶችን የሙያ ክህሎት ለማሳደግ የሚደረግ ስልጠና"}
                   {index === 3 && "የሴቶችን የንግድ እውቀት ለማሳደግ የሚያግዝ የምክር አገልግሎት"}
