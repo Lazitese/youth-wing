@@ -1,8 +1,9 @@
+
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Input } from "./input";
 
-interface EthiopianDateInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface EthiopianDateInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   error?: string;
   value: string;
   onChange: (value: string) => void;

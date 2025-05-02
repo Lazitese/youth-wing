@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,6 +9,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Search, Download, Plus, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
+
+// This is a prop interface to match what AbalatSubmissions expects
+interface AbalatSubmissionsProps {
+  showAddForm: boolean;
+  setShowAddForm: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const AbalatPage = () => {
   const navigate = useNavigate();

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -70,7 +71,7 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// New brand colors
+				// Updated brand colors based on user request
 				brand: {
 					blue: '#1f8cd7',
 					yellow: '#f9dc2f',
