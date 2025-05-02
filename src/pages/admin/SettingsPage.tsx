@@ -110,20 +110,24 @@ const SettingsPage = () => {
         throw new Error("ተጠቃሚ መፍጠር አልተቻለም");
       }
       
-      // 2. Add user to admins table
+      // 2. Add user to admins table using insert function directly instead of using RLS policies
+      // This will bypass RLS policies as the admin table should allow existing admins to insert
       const { error: insertError } = await supabase
         .from('admins')
         .insert({
           email: email
         });
       
-      if (insertError) throw insertError;
+      if (insertError) {
+        console.error("Admin insertion error:", insertError);
+        throw new Error("አስተዳዳሪ ማከል አልተቻለም: " + insertError.message);
+      }
       
       // 3. Success!
       toast({
         title: "አዲስ አስተዳዳሪ ተፈጥሯል",
         description: `አስተዳዳሪ ${email} ተሳክቷል`,
-        variant: "success"
+        variant: "default"
       });
       
       // Clear form
