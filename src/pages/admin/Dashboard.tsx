@@ -24,11 +24,12 @@ const Dashboard = () => {
       }
       
       // Verify admin status
-      const { data, error } = await supabase
-        .from('admins')
-        .select('*')
-        .eq('email', session.user.email)
-        .single();
+     const { data, error } = await supabase
+  .from('admins')
+  .select('*')
+  .eq('id', session.user.id)
+  .single();
+
       
       if (error || !data) {
         await supabase.auth.signOut();
