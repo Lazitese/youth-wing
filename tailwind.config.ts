@@ -69,6 +69,15 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// New brand colors
+				brand: {
+					blue: '#1f8cd7',
+					yellow: '#f9dc2f',
+					red: '#d9348b',
+					black: '#151515',
+					white: '#ffffff',
+					orange: '#f2b42d',
 				}
 			},
 			borderRadius: {
@@ -192,10 +201,10 @@ export default {
 				'count-up': 'count-up 2s forwards',
 				'shimmer': 'shimmer 2s infinite'
 			},
-      fontFamily: {
-        'display': ['Montserrat', 'sans-serif'],
-        'body': ['Inter', 'sans-serif']
-      }
+			fontFamily: {
+				'display': ['Montserrat', 'sans-serif'],
+				'body': ['Inter', 'sans-serif']
+			}
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
