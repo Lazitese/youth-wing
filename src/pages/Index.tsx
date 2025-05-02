@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -14,10 +15,13 @@ const Index = () => {
   // Change page title on mount
   useEffect(() => {
     document.title = "የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
+    
+    // Apply brand colors to the body
+    document.body.classList.add("bg-brand-white");
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-brand-white">
       <Navbar />
       <Hero />
       <AboutUs />

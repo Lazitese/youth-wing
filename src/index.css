@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
@@ -6,33 +7,33 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 100%; /* Brand white */
+    --foreground: 0 0% 8%; /* Brand black */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 8%;
 
-    --primary: 214 80% 24%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 204 76% 48%; /* Brand blue */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 187 72% 45%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 53 94% 59%; /* Brand yellow */
+    --secondary-foreground: 0 0% 8%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 45 86% 61%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 34 88% 56%; /* Brand orange */
+    --accent-foreground: 0 0% 8%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 328 70% 53%; /* Brand red/magenta */
+    --destructive-foreground: 0 0% 100%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 204 76% 48%; /* Brand blue */
 
     --radius: 0.5rem;
 
@@ -47,33 +48,34 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 8%; /* Brand black */
+    --foreground: 0 0% 100%; /* Brand white */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 204 76% 48%; /* Brand blue */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 53 94% 59%; /* Brand yellow */
+    --secondary-foreground: 0 0% 8%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 34 88% 56%; /* Brand orange */
+    --accent-foreground: 0 0% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 328 70% 53%; /* Brand red/magenta */
+    --destructive-foreground: 0 0% 100%;
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 204 76% 48%; /* Brand blue */
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -109,19 +111,19 @@
   }
 
   .btn-primary {
-    @apply btn-gov bg-gov-dark text-white hover:bg-gov-medium;
+    @apply btn-gov bg-brand-blue text-brand-white hover:bg-brand-blue/90;
   }
 
   .btn-accent {
-    @apply btn-gov bg-gov-accent text-white hover:bg-gov-accent/90;
+    @apply btn-gov bg-brand-orange text-brand-black hover:bg-brand-orange/90;
   }
 
   .btn-gold {
-    @apply btn-gov bg-gov-gold text-gov-dark hover:bg-gov-gold-light;
+    @apply btn-gov bg-brand-yellow text-brand-black hover:bg-brand-yellow/90;
   }
 
   .btn-outline {
-    @apply btn-gov border-2 border-gov-dark text-gov-dark hover:bg-gov-dark/10;
+    @apply btn-gov border-2 border-brand-blue text-brand-blue hover:bg-brand-blue/10;
   }
 
   .shimmer {
@@ -133,11 +135,11 @@
   }
 
   .nav-link {
-    @apply relative px-4 py-2 text-white font-medium after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gov-gold after:transition-all after:duration-300 hover:after:w-full;
+    @apply relative px-4 py-2 text-white font-medium after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-brand-yellow after:transition-all after:duration-300 hover:after:w-full;
   }
 
   .nav-link-active {
-    @apply after:w-full text-gov-gold;
+    @apply after:w-full text-brand-yellow;
   }
 
   .section {
@@ -191,7 +193,7 @@
   width: 100%;
   height: 25vh;
   z-index: 1;
-  background-image: url("data:image/svg+xml,%3Csvg width='1440' height='250' viewBox='0 0 1440 250' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 250H1440V110L1380 120L1320 105L1260 115L1200 95L1140 115L1080 100L1020 120L960 105L900 125L840 95L780 115L720 100L660 115L600 95L540 125L480 110L420 120L360 105L300 115L240 95L180 120L120 105L60 120L0 110V250Z' fill='%232A4365' fill-opacity='0.8'/%3E%3Cpath d='M0 250H1440V130L1380 140L1320 125L1260 135L1200 115L1140 135L1080 120L1020 140L960 125L900 145L840 115L780 135L720 120L660 135L600 115L540 145L480 130L420 140L360 125L300 135L240 115L180 140L120 125L60 140L0 130V250Z' fill='%231A365D' fill-opacity='0.9'/%3E%3Crect x='100' y='150' width='20' height='100' fill='%23ECC94B' fill-opacity='0.6'/%3E%3Crect x='340' y='120' width='25' height='130' fill='%23ECC94B' fill-opacity='0.6'/%3E%3Crect x='580' y='140' width='22' height='110' fill='%23ECC94B' fill-opacity='0.6'/%3E%3Crect x='820' y='110' width='24' height='140' fill='%23ECC94B' fill-opacity='0.6'/%3E%3Crect x='1060' y='130' width='23' height='120' fill='%23ECC94B' fill-opacity='0.6'/%3E%3Crect x='1300' y='115' width='21' height='135' fill='%23ECC94B' fill-opacity='0.6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='1440' height='250' viewBox='0 0 1440 250' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 250H1440V110L1380 120L1320 105L1260 115L1200 95L1140 115L1080 100L1020 120L960 105L900 125L840 95L780 115L720 100L660 115L600 95L540 125L480 110L420 120L360 105L300 115L240 95L180 120L120 105L60 120L0 110V250Z' fill='%231f8cd7' fill-opacity='0.8'/%3E%3Cpath d='M0 250H1440V130L1380 140L1320 125L1260 135L1200 115L1140 135L1080 120L1020 140L960 125L900 145L840 115L780 135L720 120L660 135L600 115L540 145L480 130L420 140L360 125L300 135L240 115L180 140L120 125L60 140L0 130V250Z' fill='%23151515' fill-opacity='0.9'/%3E%3Crect x='100' y='150' width='20' height='100' fill='%23f9dc2f' fill-opacity='0.6'/%3E%3Crect x='340' y='120' width='25' height='130' fill='%23f9dc2f' fill-opacity='0.6'/%3E%3Crect x='580' y='140' width='22' height='110' fill='%23f9dc2f' fill-opacity='0.6'/%3E%3Crect x='820' y='110' width='24' height='140' fill='%23f9dc2f' fill-opacity='0.6'/%3E%3Crect x='1060' y='130' width='23' height='120' fill='%23f9dc2f' fill-opacity='0.6'/%3E%3Crect x='1300' y='115' width='21' height='135' fill='%23f9dc2f' fill-opacity='0.6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: 100% 100%;
