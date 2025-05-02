@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +18,7 @@ import Dashboard from "./pages/admin/Dashboard";
 import AbalatPage from "./pages/admin/AbalatPage";
 import QretaPage from "./pages/admin/QretaPage";
 import ReportPage from "./pages/admin/ReportPage";
+import SettingsPage from "./pages/admin/SettingsPage";
 import AllAchievements from "./pages/AllAchievements";
 import DocumentsPage from "./pages/DocumentsPage";
 
@@ -46,6 +48,7 @@ const App = () => (
           <Route path="/admin/abalat" element={<AbalatPage />} />
           <Route path="/admin/qreta" element={<QretaPage />} />
           <Route path="/admin/reports" element={<ReportPage />} />
+          <Route path="/admin/settings" element={<SettingsPage />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

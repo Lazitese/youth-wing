@@ -10,11 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Search, Download, Plus, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
-interface AbalatSubmissionsProps {
-  showAddForm: boolean;
-  setShowAddForm: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 const AbalatPage = () => {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -56,7 +51,7 @@ const AbalatPage = () => {
   return (
     <div className="flex h-screen bg-gray-100">
       <AdminSidebar />
-      <div className="flex-1 overflow-x-hidden overflow-y-auto">
+      <div className="flex-1 ml-0 lg:ml-64 overflow-x-hidden overflow-y-auto">
         <AdminHeader title="አባላት አስተዳደር" />
         <main className="p-6">
           <div className="bg-white rounded-lg shadow-sm p-6">
@@ -115,6 +110,7 @@ const AbalatPage = () => {
             </div>
             
             {/* Submissions Table */}
+            {/* We're passing the required props to match the AbalatSubmissions component */}
             <AbalatSubmissions 
               showAddForm={showAddForm} 
               setShowAddForm={setShowAddForm} 

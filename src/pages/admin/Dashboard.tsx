@@ -57,8 +57,8 @@ const Dashboard = () => {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gov-accent mx-auto"></div>
-          <p className="mt-4 text-gov-dark">በመጫን ላይ...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-brand-blue mx-auto"></div>
+          <p className="mt-4 text-brand-black">በመጫን ላይ...</p>
         </div>
       </div>
     );
@@ -68,17 +68,14 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-50 flex">
       <AdminSidebar />
       
-      <main className={cn(
-        "flex-1 transition-all duration-300 ease-in-out",
-        "lg:ml-64" // Default sidebar width
-      )}>
+      <main className="flex-1 ml-0 lg:ml-64 transition-all duration-300 ease-in-out">
         <div className="p-6 lg:p-8">
           <div className="max-w-7xl mx-auto">
             {/* Header section */}
             <div className="mb-8 mt-12 lg:mt-2">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 tracking-tight">አስተዳዳሪ ዳሽቦርድ</h1>
+                  <h1 className="text-2xl lg:text-3xl font-bold text-brand-black tracking-tight">አስተዳዳሪ ዳሽቦርድ</h1>
                   <p className="text-gray-500 mt-1.5">እንኳን ደህና መጡ፣ እዚህ ገጽ ላይ ሁሉንም ስታቲስቲክስ መመልከት ይችላሉ።</p>
                 </div>
               </div>
@@ -92,8 +89,8 @@ const Dashboard = () => {
             {/* Additional dashboard content */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-300">
-                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                  <span className="w-1.5 h-5 bg-blue-500 rounded-full mr-2.5 inline-block"></span>
+                <h2 className="text-lg font-semibold text-brand-black mb-4 flex items-center">
+                  <span className="w-1.5 h-5 bg-brand-blue rounded-full mr-2.5 inline-block"></span>
                   የቅርብ ጊዜ እንቅስቃሴዎች
                 </h2>
                 <div className="text-gray-600 pt-2">
@@ -102,7 +99,7 @@ const Dashboard = () => {
               </div>
               
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-300">
-                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <h2 className="text-lg font-semibold text-brand-black mb-4 flex items-center">
                   <span className="w-1.5 h-5 bg-emerald-500 rounded-full mr-2.5 inline-block"></span>
                   ዛሬ እድሳት ያላቸው ነገሮች
                 </h2>
