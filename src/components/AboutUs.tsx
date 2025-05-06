@@ -133,28 +133,35 @@ const AboutUs = () => {
               <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{
-                  transform: `translateX(-${(currentIndex / membersPerPage) * 100}%)`,
-                  width: `calc(${getVisibleMembers().length} * 100% / ${membersPerPage})`,
+                  transform: `translateX(-${currentIndex * (100 / membersPerPage)}%)`,
+                  width: `${100 * totalMembers / membersPerPage}%`,
                 }}
               >
-                {getVisibleMembers().map((member, idx) => (
-                  <div
-                    key={idx}
-                    className="flex-shrink-0 px-4"
-                    style={{ width: `calc(100% / ${membersPerPage})` }}
-                  >
-                    <div className="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
-                      <div className="aspect-w-1 aspect-h-1 bg-gray-200 rounded-full overflow-hidden mb-4">
-                        <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                          <span className="text-lg">የባለሃላፊ ምስል</span>
+                {Array.from({ length: totalMembers }).map((_, idx) => {
+                  const member = {
+                    name: getMemberName(idx + 1),
+                    role: getMemberRole(idx + 1),
+                    description: getMemberDescription(idx + 1),
+                  };
+                  return (
+                    <div
+                      key={idx}
+                      className="flex-shrink-0 px-4"
+                      style={{ width: `calc(100% / ${membersPerPage})` }}
+                    >
+                      <div className="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+                        <div className="aspect-w-1 aspect-h-1 bg-gray-200 rounded-full overflow-hidden mb-4">
+                          <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                            <span className="text-lg">የባለሃላፊ ምስል</span>
+                          </div>
                         </div>
+                        <h3 className="text-xl font-bold text-gov-dark text-center mb-2">{member.name}</h3>
+                        <p className="text-gov-accent text-center font-medium mb-3">{member.role}</p>
+                        <p className="text-gray-600 text-center text-sm">{member.description}</p>
                       </div>
-                      <h3 className="text-xl font-bold text-gov-dark text-center mb-2">{member.name}</h3>
-                      <p className="text-gov-accent text-center font-medium mb-3">{member.role}</p>
-                      <p className="text-gray-600 text-center text-sm">{member.description}</p>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
             {/* Slider Controls */}
