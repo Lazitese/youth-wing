@@ -87,9 +87,7 @@ const Services = () => {
           </div>
           
           <h2 className="text-3xl md:text-4xl font-bold text-gov-dark mb-4 relative inline-block">
-            <span className="bg-gradient-to-r from-gov-gold to-amber-400 bg-clip-text text-transparent">
-              ፕሮግራም
-            </span>
+            <span className="text-gov-dark">የብልፅግና ፓርቲ</span> <span className="text-gov-accent">ፕሮግራም</span>
           </h2>
           <div className="h-1 w-24 bg-gradient-to-r from-gov-gold to-transparent rounded-full mx-auto mb-8"></div>
           
