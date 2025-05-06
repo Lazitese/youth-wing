@@ -1,8 +1,42 @@
 
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const AboutUs = () => {
+  const leadershipData = [
+    {
+      name: "ሜሮን መንግስቱ ከበደ",
+      position: "በአቃቂ ቃሊቲ ክ/ ከተማ የሴቶች ክንፍ ጽ ቤት ኃላፊ",
+      experience: "በአመራርነት የቆይታ ግዜ 9 ዓመት",
+      image: "/images/ሜሮን.jpg"
+    },
+    {
+      name: "አያንቱ ሰጉ",
+      position: "በአቃቂ ቃሊቲ ክ/ ከተማ ሴቶች ክንፍ ምክትል ኃላፊ",
+      experience: "የአመራርነት የቆይታ ግዜ 5 ዓመት",
+      image: "/images/አያንቱ.jpg"
+    },
+    {
+      name: "ሰርካለም በዙ",
+      position: "በአቃቂ ቃሊቲ ክ/ከተማ የሴቶች ክንፍ አደረጃጀት ዘርፍ ኃላፊ",
+      experience: "የአመራርነት የቆይታ ግዜ 7 ዓመት",
+      image: "/images/ሰርካለም.jpg"
+    },
+    {
+      name: "ሀይማኖት ደገፉ",
+      position: "በአቃቂ ቃሊቲ ክ/ ከተማ ሴቶች ክንፍ የስራ አስፈጻሚ አባል",
+      experience: "የአመራርነት የቆይታ ግዜ 4 ዓመት",
+      image: "/images/ሀይማኖት.jpg"
+    },
+    {
+      name: "ሂሩት ወንዳፍራሽ",
+      position: "በአቃቂ ቃሊቲ ክ/ ከተማ የሴቶች ክንፍ የስራ አስፈጻሚ አባል",
+      experience: "የአመራርነት የቆይታ ግዜ 4 ዓመት 7 ወር",
+      image: "/images/ሂሩት.jpg"
+    }
+  ];
+
   return (
     <section className="py-20 bg-white">
       <div className="container-gov">
@@ -39,6 +73,44 @@ const AboutUs = () => {
               <h3 className="text-xl font-bold mb-2">አመራር</h3>
               <p className="opacity-90">የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ አመራሮች</p>
             </div>
+          </div>
+        </div>
+
+        {/* Leadership Section */}
+        <div className="mt-20">
+          <div className="text-center mb-10">
+            <h3 className="text-2xl md:text-3xl font-bold text-gov-dark mb-4">
+              የሴቶች ክንፍ <span className="text-gov-accent">አመራሮች</span>
+            </h3>
+            <div className="w-24 h-1 bg-gov-accent mx-auto"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            {leadershipData.map((leader, index) => (
+              <div 
+                key={index}
+                className={cn(
+                  "bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300 border border-gray-100",
+                  index === 0 ? "md:col-span-2 lg:col-span-1" : ""
+                )}
+              >
+                <div className="h-56 overflow-hidden">
+                  <img 
+                    src={leader.image} 
+                    alt={leader.name}
+                    className="w-full h-full object-cover object-center"
+                    onError={(e) => {
+                      e.currentTarget.src = "/placeholder.svg";
+                    }}
+                  />
+                </div>
+                <div className="p-5">
+                  <h4 className="font-bold text-lg text-gov-dark mb-1">{leader.name}</h4>
+                  <p className="text-gov-accent text-sm mb-1">{leader.position}</p>
+                  <p className="text-gray-600 text-xs">{leader.experience}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

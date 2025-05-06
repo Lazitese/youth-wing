@@ -52,7 +52,7 @@ const AbalatPage = () => {
       <div className="flex-1 ml-0 lg:ml-64 overflow-x-hidden overflow-y-auto">
         <main className="p-6">
           <div className="bg-white rounded-lg shadow-sm p-6">
-            {/* Controls section - Removed the Add New button */}
+            {/* Controls section - Export button only */}
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
               <div className="relative w-full md:w-auto">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
