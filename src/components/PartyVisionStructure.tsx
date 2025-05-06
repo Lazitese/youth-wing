@@ -136,7 +136,7 @@ const PartyVisionStructure = () => {
                 viewport={{ once: true }}
                 className="text-3xl md:text-4xl font-bold text-gov-dark mb-6 relative inline-block group"
               >
-                አላማ
+                አጠቃላይ አላማ
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-gov-gold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </motion.h2>
               <motion.p 
@@ -198,7 +198,7 @@ const PartyVisionStructure = () => {
                 "ህዝባዊነት",
                 "ልማትና ፍትሃዊ ተጠቃሚነት", 
                 "ዴሞክራሲያዊነት", 
-                "ተግባራዊ አውነታ", 
+                "ተግባራዊ እውነታ", 
                 "የህግ የበላይነት", 
                 "ሀገራዊ አንድነት ህብረ ብሔራዊነት"
               ].map((principle, index) => (
@@ -251,7 +251,7 @@ const PartyVisionStructure = () => {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold text-gov-dark mb-6 relative inline-block group"
           >
-            አሴቶች
+            እሴቶች
             <span className="absolute bottom-0 left-0 w-full h-1 bg-gov-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
           </motion.h2>
           <motion.p 
@@ -261,14 +261,14 @@ const PartyVisionStructure = () => {
             viewport={{ once: true }}
             className="text-gray-700 text-lg md:text-xl leading-relaxed font-semibold border-l-4 border-gov-accent pl-4 mb-8 transform hover:translate-x-1 transition-transform duration-300"
           >
-            የብልፅግና ፓርቲ አሴቶች
+            የብልፅግና ፓርቲ እሴቶች
           </motion.p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {[
               "የዜጎች ክብር",
               "ነዓነት",
               "ፍትሃዊነት",
-              "ህብረ ብሄራዊ ወንድማማችነት አህትማማችነት",
+              "ህብረ ብሄራዊ ወንድማማችነት እህትማማችነት",
               "መከባበር መቻቻል",
               "ህብረ ብሄራዊ አንድነት",
               "አሳታፊነት",
@@ -336,7 +336,7 @@ const PartyVisionStructure = () => {
             {[
               {
                 title: "የጋራ ግብ", 
-                content: "የመደመር ከጓዱ መሰረታዊ ጉዳይ ነው ስንል መደመር ልዩነቱን ተሸግሮ ሰጋሪ አሳማ አና ጥቅም መሰሰፍ ስለሚመርጥ ነው፡፡"
+                content: "የመደመር አንዱ መሰረታዊ ጉዳይ ነው ስንል መደመር ልዩነቱን ተሸግሮ ሰጋሪ አሳማ አና ጥቅም መሰሰፍ ስለሚመርጥ ነው፡፡"
               },
               {
                 title: "አልፎ ሂያጅነት", 

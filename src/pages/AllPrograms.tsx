@@ -41,8 +41,8 @@ const programs = [
   },
   {
     id: 5,
-    title: "የመንገድ እና ትምህርት ፕሮጀክቶች",
-    description: "በሴቶች ለሴቶች የሚመሩ የመንገድ ፅዳት፣ የኮምፒውተር ክህሎቶች እና ሌሎች ማሻሻያዎች። እነዚህ ፕሮጀክቶች ሴቶችን ለማብቃት የተዘጋጁ ሲሆኑ፣ አካባቢን የማሻሻል ሥራዎች፣ የኮምፒውተር ትምህርቶች፣ እና ሌሎች የሙያ ማሻሻያ እንቅስቃሴዎችን ያካትታሉ።",
+    title: "የመንገድ እና ትምህርት ተግባራት",
+    description: "በሴቶች ለሴቶች የሚመሩ የመንገድ ፅዳት፣ የኮምፒውተር ክህሎቶች እና ሌሎች ማሻሻያዎች። እነዚህ ተግባራት ሴቶችን ለማብቃት የተዘጋጁ ሲሆኑ፣ አካባቢን የማሻሻል ሥራዎች፣ የኮምፒውተር ትምህርቶች፣ እና ሌሎች የሙያ ማሻሻያ እንቅስቃሴዎችን ያካትታሉ።",
     icon: "FileCheck",
     bgColor: "bg-gradient-to-br from-white to-red-50",
     image: "https://images.unsplash.com/photo-1517245386807-9b4d0d6b9d36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"

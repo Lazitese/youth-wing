@@ -93,11 +93,6 @@ const Footer = () => {
           <div className="text-gray-400 text-sm mb-4 md:mb-0">
             &copy; {currentYear} የሴቶች ክንፍ። መብቱ በህግ የተጠበቀ ነው።
           </div>
-          
-          <div className="flex space-x-4 text-sm text-gray-400">
-            <Link to="/terms" className="hover:text-gov-gold transition-colors">የአገልግሎት ውሎች</Link>
-            <Link to="/privacy" className="hover:text-gov-gold transition-colors">የግላዊነት ፖሊሲ</Link>
-          </div>
         </div>
       </div>
     </footer>

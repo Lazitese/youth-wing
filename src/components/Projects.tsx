@@ -9,10 +9,10 @@ const Projects = () => {
       <div className="container-gov">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-brand-black mb-4">
-            የሴቶች ክንፍ <span className="text-brand-blue">ፕሮጀክቶች</span>
+            የሴቶች ክንፍ <span className="text-brand-blue">ተግባራት</span>
           </h2>
           <p className="text-gray-600 text-lg">
-            የሴቶች ክንፍ በማህበረሰቡ ላይ ለውጥ ለማምጣት የተለያዩ ፕሮጀክቶችን በመተግበር ላይ ይገኛል
+            የሴቶች ክንፍ በማህበረሰቡ ላይ ለውጥ ለማምጣት የተለያዩ ተግባራትን በመተግበር ላይ ይገኛል
           </p>
         </div>
 
@@ -54,7 +54,7 @@ const Projects = () => {
         <div className="mt-10 text-center">
           <Link to="/projects">
             <Button className="bg-brand-blue hover:bg-brand-blue/90 text-brand-white">
-              ሁሉንም ፕሮጀክቶች ይመልከቱ
+              ሁሉንም ተግባራት ይመልከቱ
             </Button>
           </Link>
         </div>

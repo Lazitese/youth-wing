@@ -179,10 +179,10 @@ const ProjectsPage = () => {
             className="text-center"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-brand-white drop-shadow-lg">
-              የፕሮጀክቶች <span className="text-brand-yellow">ማእከል</span>
+              ተግባራት <span className="text-brand-yellow"></span>
             </h1>
             <p className="text-lg md:text-xl max-w-2xl mx-auto text-brand-white drop-shadow-md">
-              በአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ የሚከናወኑ ፕሮጀክቶች
+            በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ የተሰሩ ሰው ተኮር ተግባራት
             </p>
           </motion.div>
 
@@ -203,16 +203,16 @@ const ProjectsPage = () => {
           className="text-center max-w-4xl mx-auto mb-8"
         >
           <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-brand-black">
-            የሴቶች ክንፍ <span className="text-brand-red">ፕሮጀክቶች</span> ዝርዝር
+            የሴቶች ክንፍ <span className="text-brand-red">ተግባራት</span> ዝርዝር
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-brand-blue via-brand-red to-brand-yellow mx-auto mb-6"></div>
           <p className="text-gray-600">
-            የሴቶች ክንፍ በሶስት ዋና ዋና መስኮች የተለያዩ ፕሮጀክቶችን በመተግበር ላይ ይገኛል። እነዚህም የፖለቲካ ተሳትፎ፣ ማህበራዊ ተጠቃሚነት እና ኢኮኖሚያዊ ተሳትፎ ናቸው።
+            የሴቶች ክንፍ በሶስት ዋና ዋና መስኮች የተለያዩ ተግባራትን በመተግበር ላይ ይገኛል። እነዚህም የፖለቲካ ተሳትፎ፣ ማህበራዊ ተጠቃሚነት እና ኢኮኖሚያዊ ተሳትፎ ናቸው።
           </p>
         </motion.div>
 
         <section>
-          <SectionHeader title="የፖለቲካ ተሳትፎ" />
+          <SectionHeader title="ፖለቲካዊ ተጠቃሚነት" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {politicalProjects.map((project, idx) => (
               <ProjectCard key={idx} title={project} index={idx} category="political" />

@@ -9,12 +9,11 @@ import Footer from "@/components/Footer";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import AboutUs from "@/components/AboutUs";
 import PartyVisionStructure from "@/components/PartyVisionStructure";
-import Projects from "@/components/Projects";
 
 const Index = () => {
   // Change page title on mount
   useEffect(() => {
-    document.title = "የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
+    document.title = "የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ የሴቶች ክንፍ";
     
     // Apply brand colors to the body
     document.body.classList.add("bg-brand-white");
@@ -25,9 +24,8 @@ const Index = () => {
       <Navbar />
       <Hero />
       <AboutUs />
-      <PartyVisionStructure />
       <Services />
-      <Projects />
+      <PartyVisionStructure />
       <Stats />
       <Footer />
       <FloatingActionButton />
