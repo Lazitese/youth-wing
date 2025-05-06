@@ -90,13 +90,14 @@ const AboutUs = () => {
             <Carousel 
               opts={{
                 align: "start",
-                loop: true
+                loop: true,
+                slidesToScroll: 1
               }}
               className="w-full"
             >
               <CarouselContent>
                 {leadershipData.map((leader, index) => (
-                  <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/5">
+                  <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                     <div 
                       className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300 border border-gray-100 h-full"
                     >
