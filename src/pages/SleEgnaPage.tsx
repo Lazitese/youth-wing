@@ -260,7 +260,7 @@ const SleEgnaPage = () => {
                           <p className="text-gov-accent text-sm mb-1">{leader.position}</p>
                           <p className="text-gray-600 text-xs">{leader.experience}</p>
                         </div>
-                      </div>
+                  </div>
                     </CarouselItem>
                   ))}
                 </CarouselContent>
