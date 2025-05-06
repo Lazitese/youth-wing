@@ -79,11 +79,11 @@ const Projects = () => {
           {projectItems.map((project, index) => (
             <div 
               key={index} 
-              className="bg-gradient-to-r from-white to-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300 border border-gray-100 flex flex-col"
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300 border border-gray-100 flex flex-col"
             >
-              {/* Card Title - Now at the top with clear styling */}
-              <div className="p-5 bg-white border-b border-gray-100">
-                <h3 className="text-xl font-bold text-brand-black leading-tight">{project.title}</h3>
+              {/* Card Title - Now at the top with enhanced styling */}
+              <div className="p-5 bg-gradient-to-r from-brand-blue/10 to-transparent border-b border-gray-100">
+                <h3 className="text-lg font-bold text-brand-black leading-tight line-clamp-2">{project.title}</h3>
               </div>
               
               {/* Image Carousel with clear separation */}
@@ -103,9 +103,8 @@ const Projects = () => {
                                 e.currentTarget.src = "/placeholder.svg";
                               }}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30"></div>
                             <button
-                              className="absolute right-2 bottom-2 bg-black/60 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                              className="absolute right-2 bottom-2 bg-black/60 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                               onClick={() => handleZoomImage(project.images, idx)}
                             >
                               <ZoomIn size={20} />
@@ -143,7 +142,7 @@ const Projects = () => {
           </Link>
         </div>
 
-        {/* Enhanced Image Zoom Dialog with Better Navigation */}
+        {/* Enhanced Image Zoom Dialog with Better Navigation and Thumbnails */}
         <Dialog 
           open={!!currentZoomedImageSet} 
           onOpenChange={(isOpen) => !isOpen && setCurrentZoomedImageSet(null)}
@@ -156,21 +155,21 @@ const Projects = () => {
               
               {currentZoomedImageSet && (
                 <div className="w-full h-full flex flex-col items-center justify-center">
-                  {/* Main image display */}
-                  <div className="relative w-full flex items-center justify-center p-4">
+                  {/* Main image display - bigger area */}
+                  <div className="relative w-full h-[70vh] flex items-center justify-center p-4">
                     <img 
                       src={currentZoomedImageSet[currentZoomedImageIndex] || ''}
                       alt="Zoomed image" 
-                      className="max-w-full max-h-[70vh] object-contain"
+                      className="max-w-full max-h-full object-contain"
                     />
                   </div>
                   
-                  {/* Navigation controls */}
-                  <div className="w-full px-6 pb-6 pt-2 flex flex-col gap-4">
-                    {/* Slider for navigation */}
+                  {/* Navigation controls - improved layout */}
+                  <div className="w-full px-6 pb-6 pt-2 flex flex-col gap-4 bg-black/80">
+                    {/* Slider for navigation - more visible */}
                     <div className="px-4 w-full">
                       <Slider 
-                        value={[currentZoomedImageIndex * 100 / (currentZoomedImageSet.length - 1 || 1)]}
+                        value={[currentZoomedImageIndex * 100 / Math.max(1, currentZoomedImageSet.length - 1)]}
                         max={100}
                         step={1}
                         onValueChange={handleSlideChange}
@@ -179,7 +178,7 @@ const Projects = () => {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      {/* Button controls */}
+                      {/* Button controls - more prominent */}
                       <Button 
                         variant="outline" 
                         size="sm"
@@ -190,7 +189,7 @@ const Projects = () => {
                         ቀዳሚ
                       </Button>
                       
-                      {/* Image counter */}
+                      {/* Image counter - better visibility */}
                       <div className="text-white px-3 py-1 bg-black/50 rounded-full text-sm">
                         {currentZoomedImageIndex + 1} / {currentZoomedImageSet.length}
                       </div>
@@ -206,16 +205,16 @@ const Projects = () => {
                       </Button>
                     </div>
                     
-                    {/* Thumbnails row */}
-                    <div className="flex gap-2 overflow-x-auto pb-2 px-2 hide-scrollbar">
+                    {/* Thumbnails row - larger, more visible */}
+                    <div className="flex gap-2 overflow-x-auto pb-2 px-2 scrollbar-hide">
                       {currentZoomedImageSet.map((img, idx) => (
                         <div 
                           key={idx}
                           onClick={() => setCurrentZoomedImageIndex(idx)}
                           className={cn(
-                            "w-16 h-12 flex-shrink-0 cursor-pointer border-2 overflow-hidden transition-all",
+                            "w-20 h-16 flex-shrink-0 cursor-pointer border-2 overflow-hidden transition-all",
                             idx === currentZoomedImageIndex 
-                              ? "border-brand-blue opacity-100 scale-105" 
+                              ? "border-brand-blue opacity-100 scale-110" 
                               : "border-transparent opacity-70 hover:opacity-100"
                           )}
                         >
