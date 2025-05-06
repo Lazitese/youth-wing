@@ -157,18 +157,6 @@ const Projects = () => {
                   {project.title}
                 </h3>
                 
-                {/* Project details with icons */}
-                <div className="flex flex-col gap-2 mb-5 text-sm">
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <Calendar size={16} className="text-gov-accent" />
-                    <span>{project.date}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <User size={16} className="text-gov-medium" />
-                    <span>{project.participants}</span>
-                  </div>
-                </div>
-                
                 {/* Action link with hover animation */}
                 <Link 
                   to={`/projects`} 
