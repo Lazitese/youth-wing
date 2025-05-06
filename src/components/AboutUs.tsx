@@ -1,7 +1,7 @@
-
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 
 const AboutUs = () => {
   const leadershipData = [
@@ -82,35 +82,48 @@ const AboutUs = () => {
             <h3 className="text-2xl md:text-3xl font-bold text-gov-dark mb-4">
               የሴቶች ክንፍ <span className="text-gov-accent">አመራሮች</span>
             </h3>
+            <p className="text-gray-600 mb-4">ለመስፋት ወደ ግራ ወይም ወደ ቀኝ ይሳቡ (Scroll left or right to see more)</p>
             <div className="w-24 h-1 bg-gov-accent mx-auto"></div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            {leadershipData.map((leader, index) => (
-              <div 
-                key={index}
-                className={cn(
-                  "bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300 border border-gray-100",
-                  index === 0 ? "md:col-span-2 lg:col-span-1" : ""
-                )}
-              >
-                <div className="h-56 overflow-hidden">
-                  <img 
-                    src={leader.image} 
-                    alt={leader.name}
-                    className="w-full h-full object-cover object-center"
-                    onError={(e) => {
-                      e.currentTarget.src = "/placeholder.svg";
-                    }}
-                  />
-                </div>
-                <div className="p-5">
-                  <h4 className="font-bold text-lg text-gov-dark mb-1">{leader.name}</h4>
-                  <p className="text-gov-accent text-sm mb-1">{leader.position}</p>
-                  <p className="text-gray-600 text-xs">{leader.experience}</p>
-                </div>
+          <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+            <Carousel 
+              opts={{
+                align: "start",
+                loop: true
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {leadershipData.map((leader, index) => (
+                  <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/5">
+                    <div 
+                      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300 border border-gray-100 h-full"
+                    >
+                      <div className="h-56 overflow-hidden">
+                        <img 
+                          src={leader.image} 
+                          alt={leader.name}
+                          className="w-full h-full object-cover object-center"
+                          onError={(e) => {
+                            e.currentTarget.src = "/placeholder.svg";
+                          }}
+                        />
+                      </div>
+                      <div className="p-5">
+                        <h4 className="font-bold text-lg text-gov-dark mb-1">{leader.name}</h4>
+                        <p className="text-gov-accent text-sm mb-1">{leader.position}</p>
+                        <p className="text-gray-600 text-xs">{leader.experience}</p>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center mt-6">
+                <CarouselPrevious className="static translate-y-0 mx-2 bg-gov-accent hover:bg-gov-accent/90 text-white border-none" />
+                <CarouselNext className="static translate-y-0 mx-2 bg-gov-accent hover:bg-gov-accent/90 text-white border-none" />
               </div>
-            ))}
+            </Carousel>
           </div>
         </div>
       </div>
