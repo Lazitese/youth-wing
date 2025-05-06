@@ -1,8 +1,8 @@
-
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CheckCircle, Trophy, Users, BookOpen, Lightbulb, Heart } from "lucide-react";
+import AboutUs from "@/components/AboutUs";
 
 const SleEgnaPage = () => {
   useEffect(() => {
@@ -188,90 +188,7 @@ const SleEgnaPage = () => {
           </div>
           
           {/* Section 4 - Leadership */}
-          <div className="bg-white rounded-lg shadow-md p-8 mb-12">
-            <h2 className="text-2xl font-bold text-gov-dark mb-6 text-center">የሴቶች ክንፍ አመራሮች</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((index) => (
-                <div key={index} className="text-center bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-400 text-lg">የአመራር ፎቶ</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-gov-dark">
-                    {index === 1 && "ወ/ሮ አበባ መኮንን"}
-                    {index === 2 && "ወ/ሮ ብርሃን አሰፋ"}
-                    {index === 3 && "ወ/ሮ ፍሬህይወት በቀለ"}
-                  </h3>
-                  <p className="text-gov-accent">
-                    {index === 1 && "የሴቶች ክንፍ ሊቀመንበር"}
-                    {index === 2 && "የሴቶች ክንፍ ም/ሊቀመንበር"}
-                    {index === 3 && "የሴቶች ክንፍ ጸሐፊ"}
-                  </p>
-                  <p className="text-gray-600 mt-2">
-                    {index === 1 && "ከ15 አመት በላይ የፖለቲካ ልምድ ያላቸው ሲሆን፣ በሴቶች መብት ማስከበር ዙሪያ በተለይ ይሰራሉ። የአቃቂ ቃሊቲ ክ/ከተማ ምክር ቤት አባል ናቸው።"}
-                    {index === 2 && "ከ12 አመት በላይ የሲቪል ማህበራት ልምድ ያላቸው ሲሆን፣ በሴቶች ትምህርት ዙሪያ በተለይ ይሰራሉ። የሴቶች ትምህርት ማስተባበሪያ ኮሚቴ አባል ናቸው።"}
-                    {index === 3 && "ከ10 አመት በላይ የሴቶች ኢኮኖሚ አቅም ግንባታ ልምድ ያላቸው ሲሆን፣ የሴቶች ኢኮኖሚያዊ ጉዳዮች ኮሚቴ ሰብሳቢ ናቸው። በሴቶች ኢኮኖሚያዊ ጉዳዮች ዙሪያ ይሰራሉ።"}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Section 5 - Achievements Highlight */}
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <h2 className="text-2xl font-bold text-gov-dark mb-6 text-center">ዋና ዋና ውጤቶች</h2>
-            
-            <div className="flex flex-col md:flex-row gap-8">
-              <div className="flex-1 bg-gov-dark rounded-lg overflow-hidden shadow-md">
-                <div className="h-48 bg-gray-300 relative">
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-                    የፖለቲካ ተሳትፎ ምስል
-                  </div>
-                </div>
-                <div className="p-6 text-white">
-                  <h3 className="text-xl font-bold mb-3 text-gov-gold">የፖለቲካ ተሳትፎ</h3>
-                  <p className="mb-4 text-white/80">
-                    በክፍለ ከተማው ውስጥ ባሉ የመንግስት መዋቅሮች የሴቶችን ተሳትፎ ከ15% ወደ 42% ማሳደግ ተችሏል። ይህም በመላው ኢትዮጵያ ካሉ ክፍለ ከተሞች አንዱ ከፍተኛ ውጤት ነው።
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <div className="w-12 h-12 bg-gov-gold/20 rounded-full flex items-center justify-center">
-                      42%
-                    </div>
-                    <div>
-                      <div className="h-2 w-48 bg-white/20 rounded-full overflow-hidden">
-                        <div className="h-full bg-gov-gold w-5/12"></div>
-                      </div>
-                      <div className="text-xs mt-1 text-white/70">ቀድሞ: 15% → አሁን: 42%</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="flex-1 bg-gov-medium rounded-lg overflow-hidden shadow-md">
-                <div className="h-48 bg-gray-300 relative">
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-                    የኢኮኖሚ አቅም ግንባታ ምስል
-                  </div>
-                </div>
-                <div className="p-6 text-white">
-                  <h3 className="text-xl font-bold mb-3 text-gov-gold">የኢኮኖሚ አቅም ግንባታ</h3>
-                  <p className="mb-4 text-white/80">
-                    ባለፉት 3 አመታት ውስጥ ከ5,000 በላይ ሴቶች የራሳቸውን ንግድ እንዲጀምሩ እና ገቢያቸውን በ200% እንዲያሳድጉ ድጋፍ ተደርጓል።
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <div className="w-12 h-12 bg-gov-gold/20 rounded-full flex items-center justify-center">
-                      5K+
-                    </div>
-                    <div>
-                      <div className="h-2 w-48 bg-white/20 rounded-full overflow-hidden">
-                        <div className="h-full bg-gov-gold w-8/12"></div>
-                      </div>
-                      <div className="text-xs mt-1 text-white/70">የሴቶች ንግድ: +200% በገቢ ዕድገት</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <AboutUs />
         </div>
       </div>
       

@@ -1,8 +1,12 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useState, useRef } from "react";
 
 const AboutUs = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
   const leadershipData = [
     {
       name: "ሜሮን መንግስቱ ከበደ",
@@ -35,6 +39,18 @@ const AboutUs = () => {
       image: "/images/ሂሩት.jpg"
     }
   ];
+
+  const nextSlide = () => {
+    if (currentSlide < Math.ceil(leadershipData.length / 3) - 1) {
+      setCurrentSlide(prev => prev + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide(prev => prev - 1);
+    }
+  };
 
   return (
     <section className="py-20 bg-gradient-to-b from-white to-gray-50">
@@ -86,37 +102,78 @@ const AboutUs = () => {
             <div className="w-32 h-1.5 bg-gov-accent mx-auto rounded-full"></div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 px-4">
-            {leadershipData.map((leader, index) => (
-              <div 
-                key={index}
+          <div className="relative px-4">
+            <div 
+              ref={sliderRef}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {leadershipData.map((leader, index) => (
+                <div 
+                  key={index}
+                  className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+                >
+                  <div className="h-72 overflow-hidden">
+                    <img 
+                      src={leader.image} 
+                      alt={leader.name}
+                      className="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform duration-700"
+                      onError={(e) => {
+                        e.currentTarget.src = "/placeholder.svg";
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gov-dark/90 via-gov-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
+                  <div className="p-6 bg-white relative">
+                    <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gov-accent rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-white font-bold">{index + 1}</span>
+                    </div>
+                    <h4 className="font-bold text-xl text-gov-dark mb-2 mt-4 text-center">{leader.name}</h4>
+                    <p className="text-gov-accent text-sm mb-2 text-center font-medium">{leader.position}</p>
+                    <div className="w-12 h-0.5 bg-gov-accent/30 mx-auto mb-2"></div>
+                    <p className="text-gray-600 text-sm text-center">{leader.experience}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Navigation Buttons */}
+            <div className="flex justify-center items-center mt-8 gap-4">
+              <button
+                onClick={prevSlide}
+                disabled={currentSlide === 0}
                 className={cn(
-                  "group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2",
-                  index === 0 ? "md:col-span-2 lg:col-span-1" : ""
+                  "p-2 rounded-full bg-white shadow-lg hover:bg-gov-accent hover:text-white transition-colors",
+                  currentSlide === 0 ? "opacity-50 cursor-not-allowed" : "text-gov-accent"
                 )}
               >
-                <div className="h-72 overflow-hidden">
-                  <img 
-                    src={leader.image} 
-                    alt={leader.name}
-                    className="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform duration-700"
-                    onError={(e) => {
-                      e.currentTarget.src = "/placeholder.svg";
-                    }}
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              
+              <div className="flex gap-2">
+                {Array.from({ length: Math.ceil(leadershipData.length / 3) }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={cn(
+                      "w-3 h-3 rounded-full transition-colors",
+                      currentSlide === index ? "bg-gov-accent" : "bg-gray-300"
+                    )}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gov-dark/90 via-gov-dark/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
-                <div className="p-6 bg-white relative">
-                  <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gov-accent rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold">{index + 1}</span>
-                  </div>
-                  <h4 className="font-bold text-xl text-gov-dark mb-2 mt-4 text-center">{leader.name}</h4>
-                  <p className="text-gov-accent text-sm mb-2 text-center font-medium">{leader.position}</p>
-                  <div className="w-12 h-0.5 bg-gov-accent/30 mx-auto mb-2"></div>
-                  <p className="text-gray-600 text-sm text-center">{leader.experience}</p>
-                </div>
+                ))}
               </div>
-            ))}
+
+              <button
+                onClick={nextSlide}
+                disabled={currentSlide >= Math.ceil(leadershipData.length / 3) - 1}
+                className={cn(
+                  "p-2 rounded-full bg-white shadow-lg hover:bg-gov-accent hover:text-white transition-colors",
+                  currentSlide >= Math.ceil(leadershipData.length / 3) - 1 ? "opacity-50 cursor-not-allowed" : "text-gov-accent"
+                )}
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
