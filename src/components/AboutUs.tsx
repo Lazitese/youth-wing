@@ -128,12 +128,21 @@ const AboutUs = () => {
             </h3>
             <div className="w-32 h-1.5 bg-gov-accent mx-auto rounded-full"></div>
           </div>
-          
           <div className="relative px-4">
             <div className="overflow-hidden">
-              <div className="flex transition-transform duration-300 ease-in-out" style={{ transform: `translateX(-${currentIndex * (100 / membersPerPage)}%)` }}>
-                {getVisibleMembers().map((member) => (
-                  <div key={member.id} className="w-full flex-shrink-0 px-4" style={{ width: `${100 / membersPerPage}%` }}>
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{
+                  transform: `translateX(-${(currentIndex / membersPerPage) * 100}%)`,
+                  width: `calc(${getVisibleMembers().length} * 100% / ${membersPerPage})`,
+                }}
+              >
+                {getVisibleMembers().map((member, idx) => (
+                  <div
+                    key={idx}
+                    className="flex-shrink-0 px-4"
+                    style={{ width: `calc(100% / ${membersPerPage})` }}
+                  >
                     <div className="bg-gradient-to-b from-white to-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
                       <div className="aspect-w-1 aspect-h-1 bg-gray-200 rounded-full overflow-hidden mb-4">
                         <div className="absolute inset-0 flex items-center justify-center text-gray-400">
@@ -148,7 +157,21 @@ const AboutUs = () => {
                 ))}
               </div>
             </div>
-
+            {/* Slider Controls */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-50 transition-colors z-10"
+              aria-label="Previous"
+            >
+              <ChevronLeft className="h-6 w-6 text-gov-dark" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-50 transition-colors z-10"
+              aria-label="Next"
+            >
+              <ChevronRight className="h-6 w-6 text-gov-dark" />
+            </button>
             {/* Pagination Dots */}
             <div className="flex justify-center gap-2 mt-6">
               {Array.from({ length: totalPages }).map((_, index) => (
