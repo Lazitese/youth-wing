@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import AboutUs from "@/components/AboutUs";
 import PartyVisionStructure from "@/components/PartyVisionStructure";
+import Projects from "@/components/Projects";
 
 const Index = () => {
   // Change page title on mount
@@ -25,6 +26,7 @@ const Index = () => {
       <Hero />
       <AboutUs />
       <Services />
+      <Projects />
       <PartyVisionStructure />
       <Stats />
       <Footer />

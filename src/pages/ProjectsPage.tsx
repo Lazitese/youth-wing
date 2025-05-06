@@ -1,5 +1,5 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
@@ -10,6 +10,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const ProjectsPage = () => {
   useEffect(() => {
@@ -19,9 +26,18 @@ const ProjectsPage = () => {
   }, []);
 
   const politicalProjects = [
-    "የሴቶችን የፖለቲካ ተሳትፎ ማሳደግ",
-    "የሴቶች የአመራር ብቃት ማጎልበት",
-    "የፓርቲውን የፖሊሲ ማሻሻያ ላይ የሴቶችን ግብዓት ማካተት",
+    {
+      title: "ከወረዳ እስከ ክ/ ከተማ ያሉ ሴት አመራሮች በአገልግሎት አሰጣጥና በግጭት አፈታት ዙሪያ ስልጠና ተሰጥቷል።",
+      images: ["/images/1.jpg", "/images/11.jpg", "/images/111.jpg", "/images/1111.jpg", "/images/11111.jpg"]
+    },
+    {
+      title: "በገዢ ትርክት ዙሪያ በወረዳና በክ/ ከተማ ደረጃ ላሉ የበታች አመራሮችና ለአባላት የተሰጠ ስልጠና",
+      images: ["/images/2.jpg", "/images/22.jpg", "/images/222.jpg", "/images/2222.jpg", "/images/22222.jpg", "/images/222222.jpg", "/images/2222222.jpg", "/images/22222222.jpg", "/images/222222222.jpg", "/images/2222222222.jpg", "/images/222222222222.jpg"]
+    },
+    {
+      title: "ለሴት ክንፍ የሚዲያ አርሚዎች የተሰጠ ስልጠና",
+      images: ["/images/3.jpg", "/images/33.jpg", "/images/333.jpg", "/images/33333.jpg", "/images/333333.jpg"]
+    }
   ];
 
   const socialProjects = [
@@ -38,7 +54,17 @@ const ProjectsPage = () => {
     "የሌማት ትሩፋት",
   ];
 
-  const ProjectCard = ({ title, index, category }: { title: string; index: number; category: string }) => {
+  const ProjectCard = ({ 
+    title, 
+    index, 
+    category, 
+    images = [] 
+  }: { 
+    title: string; 
+    index: number; 
+    category: string; 
+    images?: string[] 
+  }) => {
     // Different background patterns based on category
     const getBgPattern = () => {
       switch (category) {
@@ -81,6 +107,14 @@ const ProjectsPage = () => {
       }
     };
 
+    // For social and economic categories which don't have multiple images yet
+    const defaultImages = [
+      `/images/project-${category}-${(index % 3) + 1}.jpg`,
+    ];
+
+    // Use provided images or default images
+    const cardImages = images.length > 0 ? images : defaultImages;
+
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -91,16 +125,30 @@ const ProjectsPage = () => {
         <Card className={`h-full overflow-hidden shadow-md hover:shadow-lg transition-shadow transform hover:-translate-y-1 duration-300 ${getAccentColor()}`}>
           <CardHeader className={`${getBgPattern()} p-0`}>
             <AspectRatio ratio={16 / 9} className="bg-muted">
-              <div className="flex items-center justify-center h-full">
-                <img 
-                  src={`/images/project-${category}-${(index % 3) + 1}.jpg`} 
-                  alt={title}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = "/placeholder.svg";
-                  }}
-                />
-              </div>
+              <Carousel className="w-full">
+                <CarouselContent>
+                  {cardImages.map((image, idx) => (
+                    <CarouselItem key={idx}>
+                      <div className="h-full w-full">
+                        <img 
+                          src={image} 
+                          alt={`${title} - slide ${idx + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.src = "/placeholder.svg";
+                          }}
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                {cardImages.length > 1 && (
+                  <>
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </>
+                )}
+              </Carousel>
             </AspectRatio>
           </CardHeader>
           <CardContent className="p-5">
@@ -215,7 +263,13 @@ const ProjectsPage = () => {
           <SectionHeader title="ፖለቲካዊ ተጠቃሚነት" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {politicalProjects.map((project, idx) => (
-              <ProjectCard key={idx} title={project} index={idx} category="political" />
+              <ProjectCard 
+                key={idx} 
+                title={project.title} 
+                index={idx} 
+                category="political" 
+                images={project.images}
+              />
             ))}
           </div>
         </section>
