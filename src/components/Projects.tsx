@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { ArrowRight, ZoomIn, X, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -76,13 +77,17 @@ const Projects = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projectItems.map((project, index) => (
-            <Link 
+            <div 
               key={index} 
-              to="/projects"
-              className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-2 duration-300 flex flex-col cursor-pointer h-full"
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300 border border-gray-100 flex flex-col"
             >
-              {/* Image Carousel at the top */}
-              <div className="relative overflow-hidden">
+              {/* Card Title - Now at the top with enhanced styling */}
+              <div className="p-5 bg-gradient-to-r from-brand-blue/10 to-transparent border-b border-gray-100">
+                <h3 className="text-lg font-bold text-brand-black leading-tight line-clamp-2">{project.title}</h3>
+              </div>
+              
+              {/* Image Carousel with clear separation */}
+              <div className="relative group">
                 <AspectRatio ratio={16 / 9} className="bg-muted">
                   <Carousel className="w-full">
                     <CarouselContent>
@@ -92,52 +97,47 @@ const Projects = () => {
                             <img 
                               src={image} 
                               alt={`${project.title} - slide ${idx + 1}`}
-                              className="w-full h-full object-cover"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleZoomImage(project.images, idx);
-                              }}
+                              className="w-full h-full object-cover cursor-pointer"
+                              onClick={() => handleZoomImage(project.images, idx)}
                               onError={(e) => {
                                 e.currentTarget.src = "/placeholder.svg";
                               }}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             <button
-                              className="absolute right-3 bottom-3 bg-white text-brand-blue p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:bg-brand-blue hover:text-white transform hover:scale-110 z-10"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleZoomImage(project.images, idx);
-                              }}
+                              className="absolute right-2 bottom-2 bg-black/60 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                              onClick={() => handleZoomImage(project.images, idx)}
                             >
-                              <ZoomIn size={18} />
+                              <ZoomIn size={20} />
                             </button>
                           </div>
                         </CarouselItem>
                       ))}
                     </CarouselContent>
-                    <CarouselPrevious className="left-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <CarouselNext className="right-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
                   </Carousel>
                 </AspectRatio>
               </div>
               
-              {/* Description in the middle */}
+              {/* Card Description and Link */}
               <div className="p-5 flex-1 flex flex-col">
                 <p className="text-gray-600 mb-4 flex-1">{project.description}</p>
+                <div className="flex justify-end mt-auto">
+                  <Link to={`/projects`}>
+                    <Button variant="ghost" className="flex items-center gap-1 text-brand-blue hover:bg-blue-50">
+                      ተጨማሪ <ArrowRight size={16} />
+                    </Button>
+                  </Link>
+                </div>
               </div>
-              
-              {/* Title at the bottom with gradient overlay */}
-              <div className="p-5 bg-gradient-to-r from-brand-blue/10 to-transparent border-t border-gray-100 mt-auto">
-                <h3 className="text-lg font-bold text-brand-black leading-tight">{project.title}</h3>
-              </div>
-            </Link>
+            </div>
           ))}
         </div>
 
         <div className="mt-10 text-center">
           <Link to="/projects">
-            <Button className="bg-brand-blue hover:bg-brand-blue/90 text-brand-white px-6 py-2 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1">
-              ሁሉንም ተግባራት ይመልከቱ <ArrowRight size={16} className="ml-2" />
+            <Button className="bg-brand-blue hover:bg-brand-blue/90 text-brand-white">
+              ሁሉንም ተግባራት ይመልከቱ
             </Button>
           </Link>
         </div>

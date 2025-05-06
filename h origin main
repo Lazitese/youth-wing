@@ -1,0 +1,5 @@
+[33mcommit 017cdf3ad8ccc87e8b6572ec65f7ca558362178d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: itsraeyyy <itsraeyy@gmail.com>
+Date:   Tue May 6 15:36:48 2025 +0300
+
+    feat: Multiple UI improvements and component refinements - Remove core values section from SleEgna page - Update program section title styling in homepage - Redesign project cards with title at bottom and improved UI - Remove 'ተጨማሪ' button from project cards - Enhance project card hover effects and transitions
