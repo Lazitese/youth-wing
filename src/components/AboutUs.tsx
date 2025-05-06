@@ -101,7 +101,7 @@ const AboutUs = () => {
                     <div 
                       className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300 border border-gray-100 h-full"
                     >
-                      <div className="h-56 overflow-hidden">
+                      <div className="h-72 overflow-hidden">
                         <img 
                           src={leader.image} 
                           alt={leader.name}
