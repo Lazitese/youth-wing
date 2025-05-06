@@ -1,8 +1,8 @@
-
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
+import { ZoomIn, X } from "lucide-react";
 import { 
   Card,
   CardContent,
@@ -17,8 +17,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 const ProjectsPage = () => {
+  const [currentZoomedImage, setCurrentZoomedImage] = useState<string | null>(null);
+
   useEffect(() => {
     document.title =
       "በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ የተሰሩ ሰው ተኮር ተግባራት | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
@@ -129,15 +136,22 @@ const ProjectsPage = () => {
                 <CarouselContent>
                   {cardImages.map((image, idx) => (
                     <CarouselItem key={idx}>
-                      <div className="h-full w-full">
+                      <div className="h-full w-full relative group">
                         <img 
                           src={image} 
                           alt={`${title} - slide ${idx + 1}`}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover cursor-pointer"
+                          onClick={() => setCurrentZoomedImage(image)}
                           onError={(e) => {
                             e.currentTarget.src = "/placeholder.svg";
                           }}
                         />
+                        <button
+                          className="absolute right-2 bottom-2 bg-black/50 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                          onClick={() => setCurrentZoomedImage(image)}
+                        >
+                          <ZoomIn size={20} />
+                        </button>
                       </div>
                     </CarouselItem>
                   ))}
@@ -294,6 +308,27 @@ const ProjectsPage = () => {
       </main>
 
       <Footer />
+
+      {/* Image Zoom Dialog */}
+      <Dialog 
+        open={!!currentZoomedImage} 
+        onOpenChange={(isOpen) => !isOpen && setCurrentZoomedImage(null)}
+      >
+        <DialogContent className="max-w-4xl p-1 bg-black/90">
+          <div className="relative">
+            <DialogClose className="absolute top-2 right-2 z-10 rounded-full bg-black/50 p-2">
+              <X className="h-6 w-6 text-white" />
+            </DialogClose>
+            <div className="w-full h-full flex items-center justify-center">
+              <img 
+                src={currentZoomedImage || ''}
+                alt="Zoomed image" 
+                className="max-w-full max-h-[80vh] object-contain"
+              />
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

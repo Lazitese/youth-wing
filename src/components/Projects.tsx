@@ -1,5 +1,6 @@
 
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, ZoomIn, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,8 +11,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
 
 const Projects = () => {
+  const [currentZoomedImage, setCurrentZoomedImage] = useState<string | null>(null);
+
   const projectItems = [
     {
       title: "ከወረዳ እስከ ክ/ ከተማ ያሉ ሴት አመራሮች በአገልግሎት አሰጣጥና በግጭት አፈታት ዙሪያ ስልጠና ተሰጥቷል።",
@@ -48,21 +52,28 @@ const Projects = () => {
               key={index} 
               className="bg-brand-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-brand-blue/10"
             >
-              <div className="h-48">
+              <div className="h-48 relative group">
                 <AspectRatio ratio={16 / 9} className="bg-muted h-full">
                   <Carousel className="w-full h-full">
                     <CarouselContent className="h-full">
                       {project.images.map((image, idx) => (
                         <CarouselItem key={idx} className="h-full">
-                          <div className="flex items-center justify-center h-full">
+                          <div className="flex items-center justify-center h-full relative">
                             <img 
                               src={image} 
                               alt={`${project.title} - slide ${idx + 1}`}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover cursor-pointer"
+                              onClick={() => setCurrentZoomedImage(image)}
                               onError={(e) => {
                                 e.currentTarget.src = "/placeholder.svg";
                               }}
                             />
+                            <button
+                              className="absolute right-2 bottom-2 bg-black/50 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                              onClick={() => setCurrentZoomedImage(image)}
+                            >
+                              <ZoomIn size={20} />
+                            </button>
                           </div>
                         </CarouselItem>
                       ))}
@@ -94,6 +105,24 @@ const Projects = () => {
             </Button>
           </Link>
         </div>
+
+        {/* Image Zoom Dialog */}
+        <Dialog open={!!currentZoomedImage} onOpenChange={(isOpen) => !isOpen && setCurrentZoomedImage(null)}>
+          <DialogContent className="max-w-3xl p-1 bg-black/90">
+            <div className="relative">
+              <DialogClose className="absolute top-2 right-2 z-10 rounded-full bg-black/50 p-2">
+                <X className="h-6 w-6 text-white" />
+              </DialogClose>
+              <div className="w-full h-full flex items-center justify-center">
+                <img 
+                  src={currentZoomedImage || ''}
+                  alt="Zoomed image" 
+                  className="max-w-full max-h-[80vh] object-contain"
+                />
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );

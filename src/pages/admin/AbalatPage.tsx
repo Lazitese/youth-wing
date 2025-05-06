@@ -111,6 +111,8 @@ const AbalatPage = () => {
             <AbalatSubmissions 
               showAddForm={showAddForm} 
               setShowAddForm={setShowAddForm} 
+              filterType={activeFilter}
+              searchQuery={searchQuery}
             />
           </div>
         </main>
