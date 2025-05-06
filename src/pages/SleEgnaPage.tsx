@@ -1,14 +1,49 @@
-
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CheckCircle, Trophy, Users, BookOpen, Lightbulb, Heart } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
 
 const SleEgnaPage = () => {
   useEffect(() => {
     document.title = "ስለ እኛ | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
     window.scrollTo(0, 0);
   }, []);
+
+  // Leadership data
+  const leadershipData = [
+    {
+      name: "ሜሮን መንግስቱ ከበደ",
+      position: "በአቃቂ ቃሊቲ ክ/ ከተማ የሴቶች ክንፍ ጽ ቤት ኃላፊ",
+      experience: "በአመራርነት የቆይታ ግዜ 9 ዓመት",
+      image: "/images/ሜሮን.jpg"
+    },
+    {
+      name: "አያንቱ ሰጉ",
+      position: "በአቃቂ ቃሊቲ ክ/ ከተማ ሴቶች ክንፍ ምክትል ኃላፊ",
+      experience: "የአመራርነት የቆይታ ግዜ 5 ዓመት",
+      image: "/images/አያንቱ.jpg"
+    },
+    {
+      name: "ሰርካለም በዙ",
+      position: "በአቃቂ ቃሊቲ ክ/ከተማ የሴቶች ክንፍ አደረጃጀት ዘርፍ ኃላፊ",
+      experience: "የአመራርነት የቆይታ ግዜ 7 ዓመት",
+      image: "/images/ሰርካለም.jpg"
+    },
+    {
+      name: "ሀይማኖት ደገፉ",
+      position: "በአቃቂ ቃሊቲ ክ/ ከተማ ሴቶች ክንፍ የስራ አስፈጻሚ አባል",
+      experience: "የአመራርነት የቆይታ ግዜ 4 ዓመት",
+      image: "/images/ሀይማኖት.jpg"
+    },
+    {
+      name: "ሂሩት ወንዳፍራሽ",
+      position: "በአቃቂ ቃሊቲ ክ/ ከተማ የሴቶች ክንፍ የስራ አስፈጻሚ አባል",
+      experience: "የአመራርነት የቆይታ ግዜ 4 ዓመት 7 ወር",
+      image: "/images/ሂሩት.jpg"
+    }
+  ];
 
   return (
     <div className="min-h-screen">
@@ -190,29 +225,50 @@ const SleEgnaPage = () => {
           {/* Section 4 - Leadership */}
           <div className="bg-white rounded-lg shadow-md p-8 mb-12">
             <h2 className="text-2xl font-bold text-gov-dark mb-6 text-center">የሴቶች ክንፍ አመራሮች</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((index) => (
-                <div key={index} className="text-center bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-400 text-lg">የአመራር ፎቶ</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-gov-dark">
-                    {index === 1 && "ወ/ሮ አበባ መኮንን"}
-                    {index === 2 && "ወ/ሮ ብርሃን አሰፋ"}
-                    {index === 3 && "ወ/ሮ ፍሬህይወት በቀለ"}
-                  </h3>
-                  <p className="text-gov-accent">
-                    {index === 1 && "የሴቶች ክንፍ ሊቀመንበር"}
-                    {index === 2 && "የሴቶች ክንፍ ም/ሊቀመንበር"}
-                    {index === 3 && "የሴቶች ክንፍ ጸሐፊ"}
-                  </p>
-                  <p className="text-gray-600 mt-2">
-                    {index === 1 && "ከ15 አመት በላይ የፖለቲካ ልምድ ያላቸው ሲሆን፣ በሴቶች መብት ማስከበር ዙሪያ በተለይ ይሰራሉ። የአቃቂ ቃሊቲ ክ/ከተማ ምክር ቤት አባል ናቸው።"}
-                    {index === 2 && "ከ12 አመት በላይ የሲቪል ማህበራት ልምድ ያላቸው ሲሆን፣ በሴቶች ትምህርት ዙሪያ በተለይ ይሰራሉ። የሴቶች ትምህርት ማስተባበሪያ ኮሚቴ አባል ናቸው።"}
-                    {index === 3 && "ከ10 አመት በላይ የሴቶች ኢኮኖሚ አቅም ግንባታ ልምድ ያላቸው ሲሆን፣ የሴቶች ኢኮኖሚያዊ ጉዳዮች ኮሚቴ ሰብሳቢ ናቸው። በሴቶች ኢኮኖሚያዊ ጉዳዮች ዙሪያ ይሰራሉ።"}
-                  </p>
+            <div className="text-center mb-4">
+              <p className="text-gray-600 mb-4">ለመስፋት ወደ ግራ ወይም ወደ ቀኝ ይሳቡ (Scroll left or right to see more)</p>
+              <div className="w-24 h-1 bg-gov-accent mx-auto"></div>
+            </div>
+            
+            <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+              <Carousel 
+                opts={{
+                  align: "start",
+                  loop: true,
+                  slidesToScroll: 1
+                }}
+                className="w-full"
+              >
+                <CarouselContent>
+                  {leadershipData.map((leader, index) => (
+                    <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+                      <div 
+                        className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300 border border-gray-100 h-full"
+                      >
+                        <div className="h-72 overflow-hidden">
+                          <img 
+                            src={leader.image} 
+                            alt={leader.name}
+                            className="w-full h-full object-cover object-center"
+                            onError={(e) => {
+                              e.currentTarget.src = "/placeholder.svg";
+                            }}
+                          />
+                        </div>
+                        <div className="p-5">
+                          <h4 className="font-bold text-lg text-gov-dark mb-1">{leader.name}</h4>
+                          <p className="text-gov-accent text-sm mb-1">{leader.position}</p>
+                          <p className="text-gray-600 text-xs">{leader.experience}</p>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <div className="flex justify-center mt-6">
+                  <CarouselPrevious className="static translate-y-0 mx-2 bg-gov-accent hover:bg-gov-accent/90 text-white border-none" />
+                  <CarouselNext className="static translate-y-0 mx-2 bg-gov-accent hover:bg-gov-accent/90 text-white border-none" />
                 </div>
-              ))}
+              </Carousel>
             </div>
           </div>
           
