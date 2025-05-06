@@ -37,7 +37,14 @@ interface AbalatSubmission {
   created_at: string;
 }
 
-const AbalatSubmissions = () => {
+interface AbalatSubmissionsProps {
+  showAddForm?: boolean;
+  setShowAddForm?: React.Dispatch<React.SetStateAction<boolean>>;
+  filterType?: string;
+  searchQuery?: string;
+}
+
+const AbalatSubmissions = ({ showAddForm, setShowAddForm, filterType = "all", searchQuery = "" }: AbalatSubmissionsProps = {}) => {
   const { toast } = useToast();
   const [submissions, setSubmissions] = useState<AbalatSubmission[]>([]);
   const [filteredSubmissions, setFilteredSubmissions] = useState<AbalatSubmission[]>([]);
@@ -47,6 +54,19 @@ const AbalatSubmissions = () => {
   const [selectedSubmission, setSelectedSubmission] = useState<AbalatSubmission | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [updatingStatus, setUpdatingStatus] = useState(false);
+
+  // Use props if provided, otherwise use local state
+  useEffect(() => {
+    if (searchQuery !== undefined) {
+      setSearchTerm(searchQuery);
+    }
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (filterType !== undefined) {
+      setStatusFilter(filterType);
+    }
+  }, [filterType]);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -261,30 +281,36 @@ const AbalatSubmissions = () => {
         <h2 className="text-2xl font-bold text-gov-dark">የአባላት ምዝገባዎች</h2>
         
         <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-          <div className="relative w-full md:w-64">
-            <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
-            <Input
-              placeholder="ፈልግ..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-8"
-            />
-          </div>
+          {/* Only render search input if searchQuery prop is not provided */}
+          {searchQuery === "" && (
+            <div className="relative w-full md:w-64">
+              <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
+              <Input
+                placeholder="ፈልግ..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-8"
+              />
+            </div>
+          )}
           
-          <Select 
-            value={statusFilter} 
-            onValueChange={setStatusFilter}
-          >
-            <SelectTrigger className="w-full md:w-48">
-              <SelectValue placeholder="ሁኔታ ይምረጡ" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">ሁሉም</SelectItem>
-              <SelectItem value="pending">በመጠባበቅ ላይ</SelectItem>
-              <SelectItem value="accepted">ተቀባይነት ያገኙ</SelectItem>
-              <SelectItem value="rejected">ተቀባይነት ያላገኙ</SelectItem>
-            </SelectContent>
-          </Select>
+          {/* Only render status filter if filterType prop is not provided */}
+          {filterType === "all" && (
+            <Select 
+              value={statusFilter} 
+              onValueChange={setStatusFilter}
+            >
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue placeholder="ሁኔታ ይምረጡ" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">ሁሉም</SelectItem>
+                <SelectItem value="pending">በመጠባበቅ ላይ</SelectItem>
+                <SelectItem value="accepted">ተቀባይነት ያገኙ</SelectItem>
+                <SelectItem value="rejected">ተቀባይነት ያላገኘም</SelectItem>
+              </SelectContent>
+            </Select>
+          )}
           
           <Button
             onClick={() => exportToCsv()}

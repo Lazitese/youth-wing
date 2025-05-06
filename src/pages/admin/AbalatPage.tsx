@@ -16,7 +16,6 @@ const AbalatPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
   const [showAddForm, setShowAddForm] = useState(false);
-  const [submissions, setSubmissions] = useState<any[]>([]);
 
   useEffect(() => {
     // Check if user is logged in
