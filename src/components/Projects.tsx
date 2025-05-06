@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, ZoomIn, X, ArrowLeft, ExternalLink, Award, Calendar, User } from "lucide-react";
+import { ArrowRight, ZoomIn, X, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,26 +21,17 @@ const Projects = () => {
   const projectItems = [
     {
       title: "ከወረዳ እስከ ክ/ ከተማ ያሉ ሴት አመራሮች በአገልግሎት አሰጣጥና በግጭት አፈታት ዙሪያ ስልጠና ተሰጥቷል።",
-      description: "",
       category: "ስልጠና",
-      date: "ግንቦት 2015",
-      participants: "120+ ሴቶች",
       images: ["/images/1.jpg", "/images/11.jpg", "/images/111.jpg"]
     },
     {
       title: "በገዢ ትርክት ዙሪያ በወረዳና በክ/ ከተማ ደረጃ ላሉ የበታች አመራሮችና ለአባላት የተሰጠ ስልጠና",
-      description: "",
       category: "የአቅም ግንባታ",
-      date: "ሰኔ 2015",
-      participants: "85+ ሴቶች",
       images: ["/images/2.jpg", "/images/22.jpg", "/images/222.jpg"]
     },
     {
       title: "ለሴት ክንፍ የሚዲያ አርሚዎች የተሰጠ ስልጠና",
-      description: "",
       category: "ሚዲያ",
-      date: "ሐምሌ 2015",
-      participants: "50+ ሴቶች",
       images: ["/images/3.jpg", "/images/33.jpg", "/images/333.jpg"]
     },
   ];
@@ -104,14 +95,14 @@ const Projects = () => {
           <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-gray-200 to-transparent rounded-full"></div>
         </div>
 
-        {/* Redesigned project cards */}
+        {/* Simplified project cards with only essential elements */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {projectItems.map((project, index) => (
             <div 
               key={index} 
               className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full transform hover:-translate-y-1"
             >
-              {/* Enhanced Image Carousel */}
+              {/* Image Section - Main Feature */}
               <div className="relative overflow-hidden">
                 <div className="absolute top-4 left-4 z-10">
                   <span className="bg-gov-accent/90 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-md">
@@ -124,23 +115,21 @@ const Projects = () => {
                     <CarouselContent>
                       {project.images.map((image, idx) => (
                         <CarouselItem key={idx}>
-                          <div className="relative w-full h-full overflow-hidden">
+                          <div className="relative w-full h-full overflow-hidden cursor-pointer" onClick={() => handleZoomImage(project.images, idx)}>
                             <img 
                               src={image} 
                               alt={`${project.title} - slide ${idx + 1}`}
                               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                              onClick={() => handleZoomImage(project.images, idx)}
                               onError={(e) => {
                                 e.currentTarget.src = "/placeholder.svg";
                               }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            <button
-                              className="absolute right-3 bottom-3 bg-white/90 text-gov-dark p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md hover:bg-white"
-                              onClick={() => handleZoomImage(project.images, idx)}
+                            <div
+                              className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300"
                             >
-                              <ZoomIn size={18} />
-                            </button>
+                              <ZoomIn size={24} className="text-white drop-shadow-lg" />
+                            </div>
                           </div>
                         </CarouselItem>
                       ))}
@@ -151,20 +140,11 @@ const Projects = () => {
                 </AspectRatio>
               </div>
               
-              {/* Enhanced Content Area */}
-              <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-lg font-bold text-gov-dark mb-5 line-clamp-2 min-h-[3.5rem]">
+              {/* Only the title */}
+              <div className="p-4 flex-1 flex flex-col">
+                <h3 className="text-md font-bold text-gov-dark line-clamp-2">
                   {project.title}
                 </h3>
-                
-                {/* Action link with hover animation */}
-                <Link 
-                  to={`/projects`} 
-                  className="inline-flex items-center justify-center gap-2 w-full mt-auto bg-gray-50 hover:bg-gov-accent/10 text-gov-accent font-medium py-2.5 rounded-lg transition-colors border border-gray-100 hover:border-gov-accent/30"
-                >
-                  <span>ተጨማሪ ይመልከቱ</span>
-                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                </Link>
               </div>
             </div>
           ))}
@@ -176,7 +156,7 @@ const Projects = () => {
           <Link to="/projects">
             <Button className="bg-gov-accent hover:bg-gov-accent/90 text-white px-8 py-6 rounded-full h-auto shadow-md hover:shadow-lg transition-all">
               <span className="mr-2">ሁሉንም ተግባራት ይመልከቱ</span>
-              <ExternalLink size={16} />
+              <ArrowRight size={16} />
             </Button>
           </Link>
         </div>
