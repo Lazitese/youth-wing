@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AbalatSubmissions from "@/components/admin/AbalatSubmissions";
 import { Button } from "@/components/ui/button";
-import { Search, Download, Plus, Filter } from "lucide-react";
+import { Search, Download, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 const AbalatPage = () => {
@@ -52,7 +52,7 @@ const AbalatPage = () => {
       <div className="flex-1 ml-0 lg:ml-64 overflow-x-hidden overflow-y-auto">
         <main className="p-6">
           <div className="bg-white rounded-lg shadow-sm p-6">
-            {/* Controls section */}
+            {/* Controls section - Removed the Add New button */}
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
               <div className="relative w-full md:w-auto">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
@@ -72,14 +72,6 @@ const AbalatPage = () => {
                 >
                   <Download size={18} className="mr-2" />
                   አዉርድ CSV
-                </Button>
-                
-                <Button 
-                  className="bg-brand-blue hover:bg-brand-blue/90 text-white ml-2" 
-                  onClick={() => setShowAddForm(true)}
-                >
-                  <Plus size={18} className="mr-2" />
-                  አዲስ አባል
                 </Button>
               </div>
             </div>

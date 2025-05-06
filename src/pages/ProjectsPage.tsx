@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { ZoomIn, X } from "lucide-react";
+import { ZoomIn, X, ArrowLeft, ArrowRight } from "lucide-react";
 import { 
   Card,
   CardContent,
@@ -22,9 +22,11 @@ import {
   DialogContent,
   DialogClose,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 const ProjectsPage = () => {
-  const [currentZoomedImage, setCurrentZoomedImage] = useState<string | null>(null);
+  const [currentZoomedImageSet, setCurrentZoomedImageSet] = useState<string[] | null>(null);
+  const [currentZoomedImageIndex, setCurrentZoomedImageIndex] = useState<number>(0);
 
   useEffect(() => {
     document.title =
@@ -60,6 +62,25 @@ const ProjectsPage = () => {
     "በንግድ የተሰማሩ ሴቶች",
     "የሌማት ትሩፋት",
   ];
+
+  const handleZoomImage = (images: string[], startIndex: number) => {
+    setCurrentZoomedImageSet(images);
+    setCurrentZoomedImageIndex(startIndex);
+  };
+
+  const navigateZoomedImage = (direction: 'next' | 'prev') => {
+    if (!currentZoomedImageSet) return;
+    
+    if (direction === 'next') {
+      setCurrentZoomedImageIndex(prevIndex => 
+        prevIndex >= currentZoomedImageSet.length - 1 ? 0 : prevIndex + 1
+      );
+    } else {
+      setCurrentZoomedImageIndex(prevIndex => 
+        prevIndex <= 0 ? currentZoomedImageSet.length - 1 : prevIndex - 1
+      );
+    }
+  };
 
   const ProjectCard = ({ 
     title, 
@@ -130,45 +151,49 @@ const ProjectsPage = () => {
         className="h-full"
       >
         <Card className={`h-full overflow-hidden shadow-md hover:shadow-lg transition-shadow transform hover:-translate-y-1 duration-300 ${getAccentColor()}`}>
-          <CardHeader className={`${getBgPattern()} p-0`}>
-            <AspectRatio ratio={16 / 9} className="bg-muted">
-              <Carousel className="w-full">
-                <CarouselContent>
-                  {cardImages.map((image, idx) => (
-                    <CarouselItem key={idx}>
-                      <div className="h-full w-full relative group">
-                        <img 
-                          src={image} 
-                          alt={`${title} - slide ${idx + 1}`}
-                          className="w-full h-full object-cover cursor-pointer"
-                          onClick={() => setCurrentZoomedImage(image)}
-                          onError={(e) => {
-                            e.currentTarget.src = "/placeholder.svg";
-                          }}
-                        />
-                        <button
-                          className="absolute right-2 bottom-2 bg-black/50 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                          onClick={() => setCurrentZoomedImage(image)}
-                        >
-                          <ZoomIn size={20} />
-                        </button>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                {cardImages.length > 1 && (
-                  <>
-                    <CarouselPrevious className="left-2" />
-                    <CarouselNext className="right-2" />
-                  </>
-                )}
-              </Carousel>
-            </AspectRatio>
-          </CardHeader>
-          <CardContent className="p-5">
-            <CardTitle className="text-lg font-semibold mb-2 text-brand-black">
+          {/* Card title now at the top */}
+          <CardHeader className={`${getBgPattern()} py-4 px-5`}>
+            <CardTitle className="text-lg font-semibold text-brand-black">
               {title}
             </CardTitle>
+          </CardHeader>
+          
+          {/* Image carousel */}
+          <AspectRatio ratio={16 / 9} className="bg-muted">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {cardImages.map((image, idx) => (
+                  <CarouselItem key={idx}>
+                    <div className="h-full w-full relative group">
+                      <img 
+                        src={image} 
+                        alt={`${title} - slide ${idx + 1}`}
+                        className="w-full h-full object-cover cursor-pointer"
+                        onClick={() => handleZoomImage(cardImages, idx)}
+                        onError={(e) => {
+                          e.currentTarget.src = "/placeholder.svg";
+                        }}
+                      />
+                      <button
+                        className="absolute right-2 bottom-2 bg-black/50 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() => handleZoomImage(cardImages, idx)}
+                      >
+                        <ZoomIn size={20} />
+                      </button>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              {cardImages.length > 1 && (
+                <>
+                  <CarouselPrevious className="left-2" />
+                  <CarouselNext className="right-2" />
+                </>
+              )}
+            </Carousel>
+          </AspectRatio>
+          
+          <CardContent className="p-5">
             <div className="mt-3 flex justify-end">
               <span className={`text-xs px-3 py-1 rounded-full ${getBadgeColor()}`}>
                 {category === "political" && "የፖለቲካ ተሳትፎ"}
@@ -269,7 +294,7 @@ const ProjectsPage = () => {
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-brand-blue via-brand-red to-brand-yellow mx-auto mb-6"></div>
           <p className="text-gray-600">
-            የሴቶች ክንፍ በሶስት ዋና ዋና መስኮች የተለያዩ ተግባራትን በመተግበር ላይ ይገኛል። እነዚህም የፖለቲካ ተሳትፎ፣ ማህበራዊ ተጠቃሚነት እና ኢኮኖሚያዊ ተሳትፎ ናቸው።
+            የሴቶች ክንፍ በሶስት ዋና ዋና መስኮች የተለያ�� ተግባራትን በመተግበር ላይ ይገኛል። እነዚህም የፖለቲካ ተሳትፎ፣ ማህበራዊ ተጠቃሚነት እና ኢኮኖሚያዊ ተሳትፎ ናቸው።
           </p>
         </motion.div>
 
@@ -309,23 +334,50 @@ const ProjectsPage = () => {
 
       <Footer />
 
-      {/* Image Zoom Dialog */}
+      {/* Enhanced Image Zoom Dialog with Navigation */}
       <Dialog 
-        open={!!currentZoomedImage} 
-        onOpenChange={(isOpen) => !isOpen && setCurrentZoomedImage(null)}
+        open={!!currentZoomedImageSet} 
+        onOpenChange={(isOpen) => !isOpen && setCurrentZoomedImageSet(null)}
       >
         <DialogContent className="max-w-4xl p-1 bg-black/90">
           <div className="relative">
             <DialogClose className="absolute top-2 right-2 z-10 rounded-full bg-black/50 p-2">
               <X className="h-6 w-6 text-white" />
             </DialogClose>
-            <div className="w-full h-full flex items-center justify-center">
-              <img 
-                src={currentZoomedImage || ''}
-                alt="Zoomed image" 
-                className="max-w-full max-h-[80vh] object-contain"
-              />
-            </div>
+            
+            {currentZoomedImageSet && (
+              <div className="w-full h-full flex items-center justify-center">
+                <img 
+                  src={currentZoomedImageSet[currentZoomedImageIndex] || ''}
+                  alt="Zoomed image" 
+                  className="max-w-full max-h-[80vh] object-contain"
+                />
+                
+                {/* Navigation buttons */}
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 border-0 hover:bg-black/70"
+                  onClick={() => navigateZoomedImage('prev')}
+                >
+                  <ArrowLeft className="h-6 w-6 text-white" />
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 border-0 hover:bg-black/70"
+                  onClick={() => navigateZoomedImage('next')}
+                >
+                  <ArrowRight className="h-6 w-6 text-white" />
+                </Button>
+                
+                {/* Image counter */}
+                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                  {currentZoomedImageIndex + 1} / {currentZoomedImageSet.length}
+                </div>
+              </div>
+            )}
           </div>
         </DialogContent>
       </Dialog>
