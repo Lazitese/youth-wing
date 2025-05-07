@@ -159,6 +159,13 @@ const AbalatSubmissions = ({ showAddForm, setShowAddForm, filterType = "all", se
         setSelectedSubmission({ ...selectedSubmission, status });
       }
 
+      // Update filtered submissions to reflect the new status
+      setFilteredSubmissions(prevFiltered => 
+        prevFiltered.map(sub => 
+          sub.id === id ? { ...sub, status } : sub
+        )
+      );
+
       toast({
         title: "ተሳክቷል",
         description: `አባል ሁኔታ ወደ ${status === 'accepted' ? 'ተቀባይነት አግኝቷል' : 'ተቀባይነት አላገኘም'} ተቀይሯል`,
