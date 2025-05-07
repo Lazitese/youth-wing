@@ -212,22 +212,6 @@ const AdminSidebar = () => {
             ))}
           </nav>
           
-          {/* User profile section */}
-          <div className="px-3 mb-4">
-            {!collapsed && (
-              <div className="bg-gov-light/15 rounded-xl p-3.5 mb-4">
-                <div className="flex items-center space-x-3">
-                  <div className="h-10 w-10 rounded-full bg-gov-gold/20 flex items-center justify-center text-gov-gold">
-                  
-                  </div>
-                  <div className="flex flex-col">
-                   
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-          
           {/* Expand button & Logout */}
           <div className="px-3 mb-4 space-y-2">
             {collapsed && (
