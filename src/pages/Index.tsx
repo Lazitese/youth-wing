@@ -11,6 +11,9 @@ import AboutUs from "@/components/AboutUs";
 import PartyVisionStructure from "@/components/PartyVisionStructure";
 import Projects from "@/components/Projects";
 import Principles from "@/components/Principles";
+import MedemerFundamentals from "@/components/MedemerFundamentals";
+import MedemerChallenges from "@/components/MedemerChallenges";
+import MedemerPillars from "@/components/MedemerPillars";
 
 const Index = () => {
   // Change page title on mount
@@ -26,8 +29,11 @@ const Index = () => {
       <Navbar />
       <Hero />
       <PartyVisionStructure />
-      <Services />
+      <MedemerFundamentals />
+      <MedemerChallenges />
+      <MedemerPillars />
       <Stats />
+      <Services />
       <Footer />
       <FloatingActionButton />
     </div>
