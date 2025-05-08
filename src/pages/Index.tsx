@@ -10,6 +10,7 @@ import FloatingActionButton from "@/components/FloatingActionButton";
 import AboutUs from "@/components/AboutUs";
 import PartyVisionStructure from "@/components/PartyVisionStructure";
 import Projects from "@/components/Projects";
+import Principles from "@/components/Principles";
 
 const Index = () => {
   // Change page title on mount
@@ -24,10 +25,8 @@ const Index = () => {
     <div className="min-h-screen bg-brand-white">
       <Navbar />
       <Hero />
-      <AboutUs />
-      <Services />
-      <Projects />
       <PartyVisionStructure />
+      <Services />
       <Stats />
       <Footer />
       <FloatingActionButton />
