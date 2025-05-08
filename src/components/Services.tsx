@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { GlobeIcon, Users, Briefcase, Scale, Landmark, Flag, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -49,17 +50,6 @@ const partyPrograms = [
     borderColor: "border-green-200",
     hoverBorder: "hover:border-green-400",
     shadowColor: "shadow-green-100"
-  },
-  {
-    id: 4,
-    title: "ፖሊሲዎችና ፕሮገራሞች",
-    description: "የሚነደፉት ፖሊሲዎች ፕሮገራሞች እና ስትራቴጂዎች በዋናነት ሰው ተኮር ናቸው፡፡",
-    icon: <Users className="h-8 w-8 text-white" />,
-    bgColor: "bg-white",
-    iconBgColor: "bg-purple-500",
-    borderColor: "border-purple-200",
-    hoverBorder: "hover:border-purple-400",
-    shadowColor: "shadow-purple-100"
   },
   {
     id: 5,

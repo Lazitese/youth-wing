@@ -29,11 +29,11 @@ const Index = () => {
       <Navbar />
       <Hero />
       <PartyVisionStructure />
+      <Services />
       <MedemerFundamentals />
       <MedemerChallenges />
       <MedemerPillars />
       <Stats />
-      <Services />
       <Footer />
       <FloatingActionButton />
     </div>
