@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -50,18 +49,16 @@ const ProjectsPage = () => {
     }
   ];
 
+  // Only keep social projects with stats
   const socialProjects = [
     { title: "ጤና መድህን", value: "72,622", label: "የጤና መድህን ተጠቃሚ ሴቶች" },
-    { title: "የማህፀን ጫፍ ካንሰር ምርመራ", value: "6,351", label: "ምርመራ የተደረገላቸው ሴቶች" },
-    { title: "ድህረ ወለድ", value: "", label: "" },
-    { title: "ቅድመ ወሊድ", value: "", label: "" },
-    { title: "የአባላዘር እና HIV በሽታዎች ምርመራ", value: "", label: "" },
+    { title: "የማህፀን ጫፍ ካንሰር ምርመራ", value: "6,351", label: "ምርመራ የተደረገላቸው ሴቶች" }
   ];
 
+  // Keep economic projects that have stats or are በንግድ የተሰማሩ ሴቶች
   const economicProjects = [
-    { title: "በስራ እድል ፈጠራ / በ5 ዓመት ውስጥ /", value: "", label: "" },
-    { title: "በንግድ የተሰማሩ ሴቶች", value: "", label: "" },
-    { title: "የሌማት ትሩፋት", value: "9,040", label: "ተጠቃሚ ሴቶች" },
+    { title: "በንግድ የተሰማሩ ሴቶች", hasImage: true },  
+    { title: "የሌማት ት��ፋት", value: "9,040", label: "ተጠቃሚ ሴቶች" },
     { title: "የብልፅግና ቤተሰብ እየቆጠቡ ያሉ", value: "807", label: "ሴቶች" }
   ];
 
@@ -251,6 +248,47 @@ const ProjectsPage = () => {
 
   const EconomicStatCard = ({ title, value, label, index, hasImage = false }: 
   { title: string; value?: string; label?: string; index: number; hasImage?: boolean }) => {
+    if (hasImage) {
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+          className="h-full"
+        >
+          <div 
+            className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full transform hover:-translate-y-1"
+          >
+            {/* Image Section */}
+            <div className="relative overflow-hidden">
+              <div className="absolute top-4 left-4 z-10">
+                <span className="bg-green-500/90 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-md">
+                  ኢኮኖሚ
+                </span>
+              </div>
+              
+              <AspectRatio ratio={16 / 9} className="bg-gray-100">
+                <div className="w-full h-full flex items-center justify-center">
+                  <img 
+                    src="/placeholder.svg" 
+                    alt={title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </AspectRatio>
+            </div>
+            
+            {/* Title */}
+            <div className="p-4 flex-1 flex flex-col">
+              <h3 className="text-md font-bold text-gov-dark line-clamp-2">
+                {title}
+              </h3>
+            </div>
+          </div>
+        </motion.div>
+      );
+    }
+    
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -258,35 +296,12 @@ const ProjectsPage = () => {
         transition={{ duration: 0.5, delay: index * 0.1 }}
         className="w-full h-full"
       >
-        <div className="bg-white rounded-xl shadow-md h-full flex flex-col overflow-hidden border border-green-100 hover:border-green-200 transition-all duration-300 hover:shadow-lg">
-          {hasImage && (
-            <div className="h-32 bg-gray-100 relative">
-              <img 
-                src={`/images/economic-${index % 3 + 1}.jpg`} 
-                alt={title}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.src = "/placeholder.svg";
-                }}
-              />
-            </div>
-          )}
+        <div className="bg-white rounded-xl shadow-md p-6 h-full flex flex-col justify-between border border-green-100 hover:border-green-200 transition-all duration-300 hover:shadow-lg">
+          <h4 className="text-lg font-medium text-gray-700 mb-2">{title}</h4>
           
-          <div className="p-6 flex-1 flex flex-col">
-            <h4 className="text-lg font-medium text-gray-700 mb-2">{title}</h4>
-            
-            {value && (
-              <div className="mt-auto">
-                <p className="text-3xl font-bold text-green-600 mb-1">{value}</p>
-                {label && <p className="text-sm text-gray-500">{label}</p>}
-              </div>
-            )}
-            
-            {!value && !hasImage && (
-              <div className="flex items-center justify-center h-full opacity-50">
-                <TrendingUp className="h-8 w-8 text-green-400 mb-2" />
-              </div>
-            )}
+          <div className="mt-4">
+            <p className="text-3xl font-bold text-green-600 mb-1">{value}</p>
+            {label && <p className="text-sm text-gray-500">{label}</p>}
           </div>
         </div>
       </motion.div>
@@ -431,14 +446,23 @@ const ProjectsPage = () => {
           <SectionHeader title="ኢኮኖሚያዊ ተሳትፎ" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {economicProjects.map((project, idx) => (
-              <EconomicStatCard
-                key={`economic-${idx}`}
-                title={project.title}
-                value={project.value}
-                label={project.label}
-                index={idx}
-                hasImage={(project.value) ? true : false}
-              />
+              project.hasImage ? (
+                <EconomicStatCard
+                  key={`economic-${idx}`}
+                  title={project.title}
+                  index={idx}
+                  hasImage={true}
+                />
+              ) : (
+                <EconomicStatCard
+                  key={`economic-${idx}`}
+                  title={project.title}
+                  value={project.value}
+                  label={project.label}
+                  index={idx}
+                  hasImage={false}
+                />
+              )
             ))}
           </div>
         </section>
@@ -543,4 +567,3 @@ const ProjectsPage = () => {
 };
 
 export default ProjectsPage;
-

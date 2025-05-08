@@ -1,9 +1,11 @@
+
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CheckCircle, Trophy, Users, BookOpen, Lightbulb, Heart } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
+import AboutUs from "@/components/AboutUs";
 
 const SleEgnaPage = () => {
   useEffect(() => {
@@ -45,11 +47,23 @@ const SleEgnaPage = () => {
     }
   ];
 
+  // Main leader data
+  const mainLeader = {
+    name: "ሜሮን መንግስቱ ከበደ",
+    position: "በአቃቂ ቃሊቲ ክ/ ከተማ የሴቶች ክንፍ ጽ ቤት ኃላፊ",
+    experience: "በአመራርነት የቆይታ ግዜ 9 ዓመት",
+    image: "/images/ሜሮን.jpg",
+    message: "አመራሮቻችን በትምህርት፣ በልምድ እና በአመለካከት የበሰሉ ሆነው ለሴቶች መብት መከበር እና ተሳትፎ ዕድገት ቁርጠኛ ናቸው። እኛ በአንድነት ሆነን፣ ለሴቶች ማህበረሰብ የተሻለ ነገ እና የተሻለ ህይወት ለመፍጠር በጽናት እንሰራለን።"
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
       
-      <div className="pt-24 pb-16">
+      {/* Add AboutUs component at the top */}
+      <AboutUs />
+      
+      <div className="pt-16 pb-16">
         <div className="container-gov">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-bold text-gov-dark mb-4">
@@ -147,6 +161,37 @@ const SleEgnaPage = () => {
             <div className="text-center mb-4">
               <p className="text-gray-600 mb-4">ለመስፋት ወደ ግራ ወይም ወደ ቀኝ ይሳቡ (Scroll left or right to see more)</p>
               <div className="w-24 h-1 bg-gov-accent mx-auto"></div>
+            </div>
+            
+            {/* Add main leader card above the carousel */}
+            <div className="max-w-4xl mx-auto mb-10">
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
+                  <div className="md:col-span-4 h-full">
+                    <div className="h-full w-full overflow-hidden">
+                      <img 
+                        src={mainLeader.image} 
+                        alt={mainLeader.name}
+                        className="w-full h-full object-cover object-center"
+                        onError={(e) => {
+                          e.currentTarget.src = "/placeholder.svg";
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="md:col-span-8 p-6 bg-gradient-to-br from-white to-gray-50">
+                    <div className="flex items-center mb-4">
+                      <div className="w-1 h-12 bg-gov-accent mr-4"></div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gov-dark">{mainLeader.name}</h3>
+                        <p className="text-gov-accent">{mainLeader.position}</p>
+                      </div>
+                    </div>
+                    <p className="text-gray-600 mb-4 italic">"{mainLeader.message}"</p>
+                    <p className="text-sm text-gray-500">{mainLeader.experience}</p>
+                  </div>
+                </div>
+              </div>
             </div>
             
             <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
