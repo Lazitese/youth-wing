@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { ZoomIn, X, ArrowLeft, ArrowRight, BarChart, Heart, Users, TrendingUp } from "lucide-react";
+import { ZoomIn, X, ArrowLeft, ArrowRight, BarChart, Heart, Users, TrendingUp, Sprout, PiggyBank } from "lucide-react";
 import { 
   Card,
   CardContent,
@@ -22,7 +22,7 @@ import {
   DialogContent,
   DialogClose,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"; // Assuming Card is imported from your UI library
 
 const ProjectsPage = () => {
   const [currentZoomedImageSet, setCurrentZoomedImageSet] = useState<string[] | null>(null);
@@ -57,9 +57,9 @@ const ProjectsPage = () => {
 
   // Keep economic projects that have stats or are በንግድ የተሰማሩ ሴቶች
   const economicProjects = [
-    { title: "በንግድ የተሰማሩ ሴቶች", hasImage: true },  
-    { title: "የሌማት ት��ፋት", value: "9,040", label: "ተጠቃሚ ሴቶች" },
-    { title: "የብልፅግና ቤተሰብ እየቆጠቡ ያሉ", value: "807", label: "ሴቶች" }
+ { title: "በንግድ የተሰማሩ ሴቶች", hasImage: true, images: ["/images/4.jpg", "/images/44.jpg"] },
+ { title: "የሌማት ትፋት", value: "9,040", label: "ተጠቃሚ ሴቶች", icon: <Sprout className="h-10 w-10 text-green-600 opacity-60" /> },
+ { title: "የብልፅግና ቤተሰብ እየቆጠቡ ያሉ", value: "807", label: "ሴቶች", icon: <PiggyBank className="h-10 w-10 text-blue-600 opacity-60" /> }
   ];
 
   const leadershipStats = [
@@ -189,7 +189,61 @@ const ProjectsPage = () => {
       </motion.div>
     );
   };
-
+  
+  const EconomicStatCard = ({ title, value, label, index, hasImage = false, images = [], icon }:
+  { title: string; value?: string; label?: string; index: number; hasImage?: boolean; images?: string[]; icon?: JSX.Element }) => {
+    if (hasImage) {
+      // This case represents the "በንግድ የተሰማሩ ሴቶች" card with images - this will be replaced by ProjectCard
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: 50 }} 
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }} 
+          className="h-full" // Ensure card takes full height
+        >
+          <Card className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full transform hover:-translate-y-1 border border-green-100 hover:border-green-200">
+            <CardHeader className="pb-0">
+              <CardTitle className="text-lg font-semibold text-gray-800">{title}</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 flex-1 flex flex-col">
+              <AspectRatio ratio={16 / 9} className="bg-gray-100">
+                <Carousel className="w-full h-full">
+                  <CarouselContent>
+                    {images.map((image, idx) => (
+                      <CarouselItem key={idx}>
+                        <div className="relative w-full h-full overflow-hidden cursor-pointer" onClick={() => handleZoomImage(images, idx)}>
+                          <img src={image} alt={`${title} - slide ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
+              </AspectRatio>
+            </CardContent>
+          </Card>
+        </motion.div>
+      );
+    }
+    
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 50 }} 
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }} 
+        className="w-full h-full"
+      >
+        <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between border border-green-100 hover:border-green-200">
+          <CardHeader className="pb-0">
+            <CardTitle className="text-lg font-semibold text-gray-800">{title}</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-0 mt-4">
+            <p className="text-3xl font-bold text-green-600 mb-1">{value}</p>
+            {label && <p className="text-sm text-gray-500">{label}</p>}
+          </CardContent>
+        </Card>
+      </motion.div>
+    );
+  };
   const StatCard = ({ title, value, icon, color = "bg-gradient-to-br from-brand-blue/20 to-brand-blue/10" }: 
   { title: string; value: string; icon?: JSX.Element; color?: string }) => {
     return (
@@ -246,67 +300,6 @@ const ProjectsPage = () => {
     );
   };
 
-  const EconomicStatCard = ({ title, value, label, index, hasImage = false }: 
-  { title: string; value?: string; label?: string; index: number; hasImage?: boolean }) => {
-    if (hasImage) {
-      return (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
-          className="h-full"
-        >
-          <div 
-            className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full transform hover:-translate-y-1"
-          >
-            {/* Image Section */}
-            <div className="relative overflow-hidden">
-              <div className="absolute top-4 left-4 z-10">
-                <span className="bg-green-500/90 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-md">
-                  ኢኮኖሚ
-                </span>
-              </div>
-              
-              <AspectRatio ratio={16 / 9} className="bg-gray-100">
-                <div className="w-full h-full flex items-center justify-center">
-                  <img 
-                    src="/placeholder.svg" 
-                    alt={title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </AspectRatio>
-            </div>
-            
-            {/* Title */}
-            <div className="p-4 flex-1 flex flex-col">
-              <h3 className="text-md font-bold text-gov-dark line-clamp-2">
-                {title}
-              </h3>
-            </div>
-          </div>
-        </motion.div>
-      );
-    }
-    
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="w-full h-full"
-      >
-        <div className="bg-white rounded-xl shadow-md p-6 h-full flex flex-col justify-between border border-green-100 hover:border-green-200 transition-all duration-300 hover:shadow-lg">
-          <h4 className="text-lg font-medium text-gray-700 mb-2">{title}</h4>
-          
-          <div className="mt-4">
-            <p className="text-3xl font-bold text-green-600 mb-1">{value}</p>
-            {label && <p className="text-sm text-gray-500">{label}</p>}
-          </div>
-        </div>
-      </motion.div>
-    );
-  };
 
   const SectionHeader = ({ title }: { title: string }) => {
     // Different colors for each section
@@ -370,7 +363,6 @@ const ProjectsPage = () => {
               ተግባራት <span className="text-brand-yellow"></span>
             </h1>
             <p className="text-lg md:text-xl max-w-2xl mx-auto text-brand-white drop-shadow-md">
-            በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ የተሰሩ ሰው ተኮር ተግባራት
             </p>
           </motion.div>
 
@@ -390,13 +382,9 @@ const ProjectsPage = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center max-w-4xl mx-auto mb-8"
         >
-          <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-brand-black">
-            የሴቶች ክንፍ <span className="text-brand-red">ተግባራት</span> ዝርዝር
+          <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-brand-black">በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ የተሰሩ ሰው ተኮር ተግባራት
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-brand-blue via-brand-red to-brand-yellow mx-auto mb-6"></div>
-          <p className="text-gray-600">
-            የሴቶች ክንፍ በሶስት ዋና ዋና መስኮች የተለያ ተግባራትን በመተግበር ላይ ይገኛል። እነዚህም የፖለቲካ ተሳትፎ፣ ማህበራዊ ተጠቃሚነት እና ኢኮኖሚያዊ ተሳትፎ ናቸው።
-          </p>
           
           {/* Leadership stats - new section */}
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -446,12 +434,13 @@ const ProjectsPage = () => {
           <SectionHeader title="ኢኮኖሚያዊ ተሳትፎ" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {economicProjects.map((project, idx) => (
-              project.hasImage ? (
-                <EconomicStatCard
+              project.title === "በንግድ የተሰማሩ ሴቶች" ? (
+                <ProjectCard
                   key={`economic-${idx}`}
                   title={project.title}
                   index={idx}
-                  hasImage={true}
+                  category="economic"
+ images={project.images} // Pass images array
                 />
               ) : (
                 <EconomicStatCard

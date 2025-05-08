@@ -65,15 +65,6 @@ const SleEgnaPage = () => {
       
       <div className="pt-16 pb-16">
         <div className="container-gov">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-gov-dark mb-4">
-              <span className="text-gov-accent">ስለ እኛ</span>
-            </h1>
-            <p className="text-gray-600 text-lg">
-              የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ ስለ ሴቶች መብት እና ተሳትፎ የሚሰራ ድርጅት ነው
-            </p>
-          </div>
-          
           {/* Section 1 - Introduction with Ribbon */}
           <div className="relative bg-white rounded-lg shadow-md p-8 mb-12 overflow-hidden">
             <div className="absolute -right-12 top-8 bg-gov-accent text-white px-16 py-2 transform rotate-45 z-10">

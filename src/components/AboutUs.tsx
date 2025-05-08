@@ -63,12 +63,7 @@ const AboutUs = () => {
                 </div>
                 
                 <div className="mt-6">
-                  <Link to="/sle-egna">
-                    <Button className="bg-gov-accent hover:bg-gov-accent/90 text-white group">
-                      <span>ስለ እኛ ተጨማሪ ይወቁ</span>
-                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                    </Button>
-                  </Link>
+
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Clock } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -60,7 +60,8 @@ const Footer = () => {
             <h3 className="font-display font-bold text-lg mb-4 border-b border-gov-gold/30 pb-2">
               አድራሻ
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-4">
+              {/* Address */}
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-gov-gold mt-0.5" />
                 <div>
@@ -69,21 +70,27 @@ const Footer = () => {
                 </div>
               </div>
               
+              {/* Phone */}
               <div className="flex items-start space-x-3">
                 <Phone className="w-5 h-5 text-gov-gold mt-0.5" />
-                <div>
-                  <p className="text-white">+251 111 234 567</p>
-                  <p className="text-gray-300 text-sm">ሰኞ - አርብ: 8:30 - 5:30</p>
-                </div>
+                <p className="text-white">+251 913 975 038</p>
               </div>
               
+              {/* Email */}
               <div className="flex items-start space-x-3">
                 <Mail className="w-5 h-5 text-gov-gold mt-0.5" />
+                <p className="text-white">meronmengistu910@gmail.com</p>
+              </div>
+
+              {/* Working Hours */}
+              <div className="flex items-start space-x-3">
+                 <Clock className="h-5 w-5 text-gov-gold mt-0.5" />
                 <div>
-                  <p className="text-white">info@womenswing.org</p>
-                  <p className="text-gray-300 text-sm">ለማንኛውም ጥያቄ</p>
+                  <p className="text-white">ከሰኞ - ሰኞ</p>
+                  <p className="text-gray-300 text-sm">24 / 7</p>
                 </div>
               </div>
+
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, HeartHandshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -67,8 +67,8 @@ const Hero = () => {
     }, 3000);
   };
 
-  return (
-    <section className="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
+ return (
+    <section className="relative min-h-screen flex items-center justify-center text-white overflow-hidden py-20"> {/* Added padding for better spacing */}
       {/* Hero background image */}
       <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
            style={{ 
@@ -91,7 +91,7 @@ const Hero = () => {
           የሴቶችን ኢኮኖሚያዊ , ፖለቲካዊ እና ማህበራዊ ተጠቃሚነት ማረጋገጥ
         </p>
         
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in" style={{ animationDelay: "0.4s" }}>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 animate-fade-in" style={{ animationDelay: "0.4s" }}> {/* Reduced bottom margin */}
           <Link to="/contact">
             <Button className="bg-brand-yellow hover:bg-opacity-90 text-brand-black px-8 py-6 text-lg group" size="lg">
               <span>አግኙን</span>
@@ -106,47 +106,20 @@ const Hero = () => {
           </Link>
         </div>
         
-        <div className="hidden md:flex flex-wrap justify-center gap-10 animate-fade-in" style={{ animationDelay: "0.6s" }}>
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-brand-blue/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M9 22V12H15V22" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <div className="text-left">
-              <p className="text-sm text-brand-white/80">አኩሪ አመራር</p>
-              <p className="font-semibold text-brand-white">ተሳትፎ እና አጋርነት</p>
-            </div>
-          </div>
+        {/* Plain text with icon */}
+ <div className="flex items-center justify-center gap-4 animate-fade-in px-4 py-3 rounded-lg backdrop-filter backdrop-blur-sm bg-white/20 max-w-fit mx-auto" style={{ animationDelay: "0.6s" }}> {/* Added background for the text container */}
+ <HeartHandshake size={40} className="text-brand-yellow animate-pulse" /> {/* Added HeartHandshake icon and pulse animation */}
+ <h3 className="text-3xl md:text-4xl font-bold text-center drop-shadow-lg">
+ <span style={{ color: '#1f8cd7' }}>እህትማማችነት</span> <span style={{ color: '#f9dc2f' }}>ለህብረ-ብሄራዊ</span> <span style={{ color: '#d9348b' }}>አንድነት</span>
+ <style>{`
+              @keyframes wave {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-5px); }
+              }
+              .wave-text { display: inline-block; animation: wave 3s infinite ease-in-out; }
+ `}</style>
           
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-brand-yellow/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 6V12L16 14" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <div className="text-left">
-              <p className="text-sm text-brand-white/80">እኩልነት</p>
-              <p className="font-semibold text-brand-white">የሴቶች ማህበራዊ እኩልነት</p>
-            </div>
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-brand-orange/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M16 2V6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M8 2V6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M3 10H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <div className="text-left">
-              <p className="text-sm text-brand-white/80">መሰረታዊ</p>
-              <p className="font-semibold text-brand-white">ተጠሪነትና መረጋጋት</p>
-            </div>
-          </div>
+          </h3>
         </div>
       </div>
     </section>
