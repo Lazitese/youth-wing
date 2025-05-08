@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -15,6 +16,7 @@ const Dashboard = () => {
     document.title = "አስተዳዳሪ ዳሽቦርድ";
     
     const checkSession = async () => {
+      // First, get the current session
       const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
       
@@ -24,14 +26,14 @@ const Dashboard = () => {
       }
       
       // Verify admin status
-     const { data, error } = await supabase
-  .from('admins')
-  .select('*')
-  .eq('id', session.user.id)
-  .single();
-
+      const { data: adminData, error: adminError } = await supabase
+        .from('admins')
+        .select('*')
+        .eq('email', session.user.email)
+        .single();
       
-      if (error || !data) {
+      if (adminError || !adminData) {
+        // Not an admin, sign out
         await supabase.auth.signOut();
         navigate('/admin/login');
         return;
@@ -42,11 +44,24 @@ const Dashboard = () => {
     
     checkSession();
     
+    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      async (event, session) => {
         setSession(session);
         if (!session) {
           navigate('/admin/login');
+        } else {
+          // Verify admin status on auth change
+          const { data: adminData, error: adminError } = await supabase
+            .from('admins')
+            .select('*')
+            .eq('email', session.user.email)
+            .single();
+          
+          if (adminError || !adminData) {
+            await supabase.auth.signOut();
+            navigate('/admin/login');
+          }
         }
       }
     );

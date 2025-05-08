@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,6 +24,31 @@ const Login = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   
+  // Check for existing session on component mount
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        // Verify admin status
+        const { data: adminData, error: adminError } = await supabase
+          .from('admins')
+          .select('*')
+          .eq('email', session.user.email)
+          .single();
+        
+        if (!adminError && adminData) {
+          // Already logged in as admin, redirect to dashboard
+          navigate('/admin/dashboard');
+        } else {
+          // Not an admin, sign out
+          await supabase.auth.signOut();
+        }
+      }
+    };
+    
+    checkSession();
+  }, [navigate]);
+  
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -35,7 +61,7 @@ const Login = () => {
     setIsSubmitting(true);
     
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data: authData, error } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });
@@ -44,6 +70,11 @@ const Login = () => {
         throw error;
       }
       
+      if (!authData.user) {
+        throw new Error('No user returned from authentication');
+      }
+      
+      // Verify admin status
       const { data: adminData, error: adminError } = await supabase
         .from('admins')
         .select('*')
@@ -52,7 +83,7 @@ const Login = () => {
       
       if (adminError || !adminData) {
         await supabase.auth.signOut();
-        throw new Error('You are not authorized as an admin');
+        throw new Error('የአስተዳዳሪ መዳረሻ የለዎትም');
       }
       
       toast({
