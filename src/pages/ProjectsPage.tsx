@@ -1,8 +1,9 @@
+
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { ZoomIn, X, ArrowLeft, ArrowRight } from "lucide-react";
+import { ZoomIn, X, ArrowLeft, ArrowRight, BarChart, Heart, Users, TrendingUp } from "lucide-react";
 import { 
   Card,
   CardContent,
@@ -50,17 +51,23 @@ const ProjectsPage = () => {
   ];
 
   const socialProjects = [
-    "ጤና መድህን",
-    "ድህረ ወለድ",
-    "ቅድመ ወሊድ",
-    "የአባላዘር እና HIV በሽታዎች ምርመራ",
-    "የማህጸን ቻፍ ካንሰር ምርመራ",
+    { title: "ጤና መድህን", value: "72,622", label: "የጤና መድህን ተጠቃሚ ሴቶች" },
+    { title: "የማህፀን ጫፍ ካንሰር ምርመራ", value: "6,351", label: "ምርመራ የተደረገላቸው ሴቶች" },
+    { title: "ድህረ ወለድ", value: "", label: "" },
+    { title: "ቅድመ ወሊድ", value: "", label: "" },
+    { title: "የአባላዘር እና HIV በሽታዎች ምርመራ", value: "", label: "" },
   ];
 
   const economicProjects = [
-    "በስራ እድል ፈጠራ / በ5 ዓመት ውስጥ /",
-    "በንግድ የተሰማሩ ሴቶች",
-    "የሌማት ትሩፋት",
+    { title: "በስራ እድል ፈጠራ / በ5 ዓመት ውስጥ /", value: "", label: "" },
+    { title: "በንግድ የተሰማሩ ሴቶች", value: "", label: "" },
+    { title: "የሌማት ትሩፋት", value: "9,040", label: "ተጠቃሚ ሴቶች" },
+    { title: "የብልፅግና ቤተሰብ እየቆጠቡ ያሉ", value: "807", label: "ሴቶች" }
+  ];
+
+  const leadershipStats = [
+    { title: "ከአጠቃላይ ክ/ከተማ አመራር የሴቶች ድርሻ", value: "36.3%", icon: <Users className="h-10 w-10 text-brand-blue/70" /> },
+    { title: "ከአጠቃላይ ወረዳ አመራር የሴቶች ድርሻ", value: "26.8%", icon: <Users className="h-10 w-10 text-brand-red/70" /> },
   ];
 
   const handleZoomImage = (images: string[], startIndex: number) => {
@@ -186,6 +193,106 @@ const ProjectsPage = () => {
     );
   };
 
+  const StatCard = ({ title, value, icon, color = "bg-gradient-to-br from-brand-blue/20 to-brand-blue/10" }: 
+  { title: string; value: string; icon?: JSX.Element; color?: string }) => {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="w-full"
+      >
+        <div className={`p-6 rounded-xl shadow-md ${color} relative overflow-hidden border border-white/20`}>
+          <div className="flex items-center justify-between">
+            <div className="space-y-2">
+              <h4 className="text-lg font-medium text-gray-700">{title}</h4>
+              <p className="text-3xl font-bold text-brand-dark">{value}</p>
+            </div>
+            {icon && (
+              <div className="bg-white/80 p-3 rounded-lg shadow-sm">
+                {icon}
+              </div>
+            )}
+          </div>
+          <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full bg-white/10"></div>
+        </div>
+      </motion.div>
+    );
+  };
+
+  const SocialStatCard = ({ title, value, label, index }: 
+  { title: string; value?: string; label?: string; index: number }) => {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        className="w-full h-full"
+      >
+        <div className="bg-white rounded-xl shadow-md p-6 h-full flex flex-col justify-between border border-purple-100 hover:border-purple-200 transition-all duration-300 hover:shadow-lg">
+          <h4 className="text-lg font-medium text-gray-700 mb-2">{title}</h4>
+          
+          {value && (
+            <div className="mt-4">
+              <p className="text-3xl font-bold text-purple-600 mb-1">{value}</p>
+              {label && <p className="text-sm text-gray-500">{label}</p>}
+            </div>
+          )}
+          
+          {!value && (
+            <div className="flex items-center justify-center h-full opacity-50">
+              <Heart className="h-8 w-8 text-purple-400 mb-2" />
+            </div>
+          )}
+        </div>
+      </motion.div>
+    );
+  };
+
+  const EconomicStatCard = ({ title, value, label, index, hasImage = false }: 
+  { title: string; value?: string; label?: string; index: number; hasImage?: boolean }) => {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        className="w-full h-full"
+      >
+        <div className="bg-white rounded-xl shadow-md h-full flex flex-col overflow-hidden border border-green-100 hover:border-green-200 transition-all duration-300 hover:shadow-lg">
+          {hasImage && (
+            <div className="h-32 bg-gray-100 relative">
+              <img 
+                src={`/images/economic-${index % 3 + 1}.jpg`} 
+                alt={title}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = "/placeholder.svg";
+                }}
+              />
+            </div>
+          )}
+          
+          <div className="p-6 flex-1 flex flex-col">
+            <h4 className="text-lg font-medium text-gray-700 mb-2">{title}</h4>
+            
+            {value && (
+              <div className="mt-auto">
+                <p className="text-3xl font-bold text-green-600 mb-1">{value}</p>
+                {label && <p className="text-sm text-gray-500">{label}</p>}
+              </div>
+            )}
+            
+            {!value && !hasImage && (
+              <div className="flex items-center justify-center h-full opacity-50">
+                <TrendingUp className="h-8 w-8 text-green-400 mb-2" />
+              </div>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    );
+  };
+
   const SectionHeader = ({ title }: { title: string }) => {
     // Different colors for each section
     const getTitleColor = () => {
@@ -275,6 +382,19 @@ const ProjectsPage = () => {
           <p className="text-gray-600">
             የሴቶች ክንፍ በሶስት ዋና ዋና መስኮች የተለያ ተግባራትን በመተግበር ላይ ይገኛል። እነዚህም የፖለቲካ ተሳትፎ፣ ማህበራዊ ተጠቃሚነት እና ኢኮኖሚያዊ ተሳትፎ ናቸው።
           </p>
+          
+          {/* Leadership stats - new section */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {leadershipStats.map((stat, idx) => (
+              <StatCard 
+                key={idx} 
+                title={stat.title} 
+                value={stat.value} 
+                icon={stat.icon} 
+                color={idx === 0 ? "bg-gradient-to-br from-brand-blue/20 to-brand-blue/5" : "bg-gradient-to-br from-brand-red/20 to-brand-red/5"}
+              />
+            ))}
+          </div>
         </motion.div>
 
         <section>
@@ -295,12 +415,13 @@ const ProjectsPage = () => {
         <section>
           <SectionHeader title="ማህበራዊ ተጠቃሚነት" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {socialProjects.map((title, idx) => (
-              <ProjectCard
+            {socialProjects.map((project, idx) => (
+              <SocialStatCard
                 key={`social-${idx}`}
-                title={title}
+                title={project.title}
+                value={project.value}
+                label={project.label}
                 index={idx}
-                category="social"
               />
             ))}
           </div>
@@ -309,12 +430,14 @@ const ProjectsPage = () => {
         <section>
           <SectionHeader title="ኢኮኖሚያዊ ተሳትፎ" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {economicProjects.map((title, idx) => (
-              <ProjectCard
+            {economicProjects.map((project, idx) => (
+              <EconomicStatCard
                 key={`economic-${idx}`}
-                title={title}
-                index={idx} 
-                category="economic"
+                title={project.title}
+                value={project.value}
+                label={project.label}
+                index={idx}
+                hasImage={(project.value) ? true : false}
               />
             ))}
           </div>
@@ -420,3 +543,4 @@ const ProjectsPage = () => {
 };
 
 export default ProjectsPage;
+
