@@ -33,7 +33,6 @@ const Index = () => {
       <MedemerChallenges />
       <MedemerPillars />
       <Stats />
-      <AboutUs />
       <Footer />
       <FloatingActionButton />
     </div>
