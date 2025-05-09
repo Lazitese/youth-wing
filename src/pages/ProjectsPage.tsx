@@ -45,7 +45,7 @@ const ProjectsPage = () => {
     },
     {
       title: "ለሴት ክንፍ የሚዲያ አርሚዎች የተሰጠ ስልጠና",
-      images: ["/images/3.jpg", "/images/33.jpg", "/images/333.jpg", "/images/33333.jpg", "/images/333333.jpg"]
+      images: ["/images/3.jpg", "/images/33.jpg", "/images/333.jpg", "/images/3333.jpg", "/images/333333.jpg"]
     }
   ];
 

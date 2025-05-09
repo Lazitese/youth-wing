@@ -32,7 +32,7 @@ const Projects = () => {
     {
       title: "ለሴት ክንፍ የሚዲያ አርሚዎች የተሰጠ ስልጠና",
       category: "ሚዲያ",
-      images: ["/images/3.jpg", "/images/33.jpg", "/images/333.jpg"]
+      images: ["/images/33.jpg", "/images/3.jpg", "/images/333.jpg"]
     },
   ];
 
