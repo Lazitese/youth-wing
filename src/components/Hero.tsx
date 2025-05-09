@@ -110,7 +110,7 @@ const Hero = () => {
  <div className="flex items-center justify-center gap-4 animate-fade-in px-4 py-3 rounded-lg backdrop-filter backdrop-blur-sm bg-white/20 max-w-fit mx-auto" style={{ animationDelay: "0.6s" }}> {/* Added background for the text container */}
  <HeartHandshake size={40} className="text-brand-yellow animate-pulse" /> {/* Added HeartHandshake icon and pulse animation */}
  <h3 className="text-3xl md:text-4xl font-bold text-center drop-shadow-lg">
- <span style={{ color: '#1f8cd7' }}>እህትማማችነት</span> <span style={{ color: '#f9dc2f' }}>ለህብረ-ብሄራዊ</span> <span style={{ color: '#d9348b' }}>አንድነት</span>
+ <span style={{ color: '#1f8cd7' }}>ህብረ ብሄራዊ</span> <span style={{ color: '#f9dc2f' }}>እህትማማችነት</span> <span style={{ color: '#d9348b' }}>ለብልጽግና ግብ ስኬት</span>
  <style>{`
               @keyframes wave {
                 0%, 100% { transform: translateY(0); }
