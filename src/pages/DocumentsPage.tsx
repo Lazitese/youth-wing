@@ -1,7 +1,8 @@
+
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { FileText, Download, File, FileArchive } from "lucide-react"; 
+import { FileText, Download, File } from "lucide-react"; 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -11,62 +12,87 @@ const DocumentsPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Updated documents array to include files from public/Files folder
   const documents = [
     {
       id: 1,
-      title: "የብልጽግና ፓርቲ መተዳደሪያ ደንብ",
+      title: "የብልጽግና መተዳደሪያ ደንብ የፀደቀ መጋቢት 3 2014 ዓ.ም",
       description: "የብልጽግና ፓርቲ ዋና መተዳደሪያ ደንብ እና የአሰራር ሂደቶች",
       icon: <FileText className="h-12 w-12 text-gov-accent" />,
       fileType: "PDF",
       fileSize: "2.4 MB",
-      downloadUrl: "#",
+      downloadUrl: "/Files/የብልጽግና_መተዳደሪያ_ደንብ_የፀደቀ_መጋቢት_3_2014_ዓ_ም.pdf",
     },
     {
       id: 2,
-      title: "የሴቶች ክንፍ ዓላማዎች",
-      description: "የሴቶች ክንፍ ዋና ዋና ዓላማዎች እና ግቦች ሰነድ",
+      title: "የብልጽግና ፓርቲ አባላት ወራዊ መዋጮ ክፍያ መመሪያ",
+      description: "የብልጽግና ፓርቲ አባላት ወራዊ መዋጮ ክፍያ መመሪያ ሰነድ",
       icon: <FileText className="h-12 w-12 text-gov-accent" />,
       fileType: "PDF",
       fileSize: "1.8 MB",
-      downloadUrl: "#",
+      downloadUrl: "/Files/የብልጽግና_ፓርቲ_አባላት_ወራዊ_መዋጮ_ክፍያ_መመሪያ.pdf",
     },
     {
       id: 3,
-      title: "ወርሃዊ የስብሰባ አጀንዳዎች ቅጽ",
-      description: "ለወርሃዊ ስብሰባዎች የሚጠቅም ቅጽ",
+      title: "የብልፅግና ፓርቲ የአደረጃጀትና የአሠራር መመሪያ መጋቢት 02 2017 ማሻሻያ",
+      description: "የብልፅግና ፓርቲ የአደረጃጀትና የአሠራር መመሪያ - የዘመነ ማሻሻያ",
       icon: <File className="h-12 w-12 text-gov-medium" />,
-      fileType: "DOCX",
+      fileType: "DOC",
       fileSize: "520 KB",
-      downloadUrl: "#",
+      downloadUrl: "/Files/የብልፅግና_ፓርቲ_የአደረጃጀትና_የአሠራር_መመሪያ_መጋቢት_02_2017_ማሻሻያ.doc",
     },
     {
       id: 4,
-      title: "የሴቶች መብት ስትራቴጂክ እቅድ",
-      description: "የሴቶች መብት ማስከበሪያ ስትራቴጂክ እቅድ ሰነድ",
+      title: "የአመራር ምዘና መመሪያ",
+      description: "የአመራር ምዘና መመሪያ (የፀደቀ)",
       icon: <FileText className="h-12 w-12 text-gov-accent" />,
       fileType: "PDF",
       fileSize: "3.2 MB",
-      downloadUrl: "#",
+      downloadUrl: "/Files/የአመራር ምዘና መመሪያ (የፀደቀ) (1).pdf",
     },
     {
       id: 5,
-      title: "የሴቶች ልማት ማህበራት መመሪያ",
-      description: "የሴቶች ልማት ማህበራት አደረጃጀት እና አሰራር መመሪያ",
+      title: "የአመራር ምደባ መመሪያ የመጨረሻ ረቂቅ",
+      description: "የአመራር ምደባ መመሪያ የመጨረሻ ረቂቅ መመሪያ ቁጥር 11 2015",
       icon: <FileText className="h-12 w-12 text-gov-accent" />,
       fileType: "PDF",
       fileSize: "1.5 MB",
-      downloadUrl: "#",
+      downloadUrl: "/Files/የአመራር_ምደባ_መመሪያ_የመጨረሻ_ረቂቅ_መመሪያ_ቁጥር_11_2015_13_06_2015.pdf",
     },
     {
       id: 6,
-      title: "የሴቶች የኢኮኖሚ ተሳትፎ መረጃዎች",
-      description: "የሴቶች ኢኮኖሚያዊ ተሳትፎ መረጃዎች እና ስታትስቲክስ",
-      icon: <FileArchive className="h-12 w-12 text-gov-gold" />,
-      fileType: "ZIP",
-      fileSize: "4.7 MB",
-      downloadUrl: "#",
+      title: "የአመራርና የአባላት ዲሲፕሊን መመሪያ",
+      description: "የአመራርና የአባላት ዲሲፕሊን መመሪያ የፀደቀ ግንቦት 2015",
+      icon: <FileText className="h-12 w-12 text-gov-accent" />,
+      fileType: "PDF",
+      fileSize: "1.2 MB",
+      downloadUrl: "/Files/የአመራርና_የአባላት_ዲሲፕሊን_መመሪያ_የፀደቀ_ግንቦት_2015.pdf",
+    },
+    {
+      id: 7,
+      title: "የኮሚሽኑ የተሻሻለው የአደረጃጀትና የአሰራር መመሪያ",
+      description: "የኮሚሽኑ የተሻሻለው የአደረጃጀትና የአሰራር መመሪያ ቁጥር 2 2016",
+      icon: <FileText className="h-12 w-12 text-gov-accent" />,
+      fileType: "PDF",
+      fileSize: "980 KB",
+      downloadUrl: "/Files/የኮሚሽኑ_የተሻሻለው_የአደረጃጀትና_የአሰራር_መመሪያ_ቁጥር_2_2016.pdf",
+    },
+    {
+      id: 8,
+      title: "የኮሚሽን አቤቱታ አቀራረብና አፈታት መመሪያ",
+      description: "የኮሚሽን አቤቱታ አቀራረብና አፈታት መመሪያ ቁጥር 4 2016",
+      icon: <FileText className="h-12 w-12 text-gov-accent" />,
+      fileType: "PDF",
+      fileSize: "1.1 MB",
+      downloadUrl: "/Files/የኮሚሽን_አቤቱታ_አቀራረብና_አፈታት_መመሪያ_ቁጥር_4_2016.pdf",
     },
   ];
+
+  const getFileType = (url: string) => {
+    if (url.toLowerCase().endsWith('.pdf')) return "PDF";
+    if (url.toLowerCase().endsWith('.doc') || url.toLowerCase().endsWith('.docx')) return "DOC";
+    return "File";
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -100,13 +126,20 @@ const DocumentsPage = () => {
                   <CardDescription className="text-gray-500">{doc.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-gov-accent text-gov-accent hover:bg-gov-accent hover:text-white transition-colors"
+                  <a 
+                    href={doc.downloadUrl}
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <Download className="h-4 w-4 mr-2" />
-                    ሰነዱን አውርድ
-                  </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full border-gov-accent text-gov-accent hover:bg-gov-accent hover:text-white transition-colors"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      ሰነዱን አውርድ
+                    </Button>
+                  </a>
                 </CardContent>
               </Card>
             ))}
@@ -116,7 +149,7 @@ const DocumentsPage = () => {
             <h2 className="text-2xl font-bold text-gov-dark mb-4">ጠቃሚ መረጃዎች</h2>
             <div className="space-y-4 text-gray-600">
               <p>
-                <span className="font-semibold">የሰነድ ፎርማቶች:</span> ሰነዶቹ በ PDF, DOCX እና ZIP ፎርማቶች ይገኛሉ። ለመክፈት የሚያስፈልጉ ሶፍትዌሮችን እርስዎ ማዘጋጀት ይኖርብዎታል።
+                <span className="font-semibold">የሰነድ ፎርማቶች:</span> ሰነዶቹ በ PDF እና DOC ፎርማቶች ይገኛሉ። ለመክፈት የሚያስፈልጉ ሶፍትዌሮችን እርስዎ ማዘጋጀት ይኖርብዎታል።
               </p>
               <p>
                 <span className="font-semibold">ሰነዶች አዘምን:</span> ሰነዶቹ በየጊዜው ስለሚዘመኑ፣ ዘወትር ይህን ገጽ ይጎብኙ። ለመጨረሻ ጊዜ የተዘመነው የካቲት 2016 ዓ.ም ነው።
