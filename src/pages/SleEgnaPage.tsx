@@ -1,59 +1,55 @@
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CheckCircle, Trophy, Users, BookOpen, Lightbulb, Heart } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import AboutUs from "@/components/AboutUs";
 
-const SleEgnaPage = () => {
-  useEffect(() => {
-    document.title = "ስለ እኛ | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
-    window.scrollTo(0, 0);
-  }, []);
+// Define a type for leadership data
+interface Leader {
+  name: string;
+  position: string; // Corrected type for position
+  experience: string;
+  image: string; // Added comma
+  message?: string; // Added message property and made it optional
+}
 
-  // Leadership data
-  const leadershipData = [
-    {
-      name: "ሜሮን መንግስቱ ከበደ",
-      position: "በአቃቂ ቃሊቲ ክ/ ከተማ የሴቶች ክንፍ ጽ ቤት ኃላፊ",
-      experience: "በአመራርነት የቆይታ ግዜ 9 ዓመት",
-      image: "/images/ሜሮን.jpg"
-    },
+const SleEgnaPage = () => {
+  const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
+    const leadershipData = [
     {
       name: "አያንቱ ሰጉ",
       position: "በአቃቂ ቃሊቲ ክ/ ከተማ ሴቶች ክንፍ ምክትል ኃላፊ",
       experience: "የአመራርነት የቆይታ ግዜ 5 ዓመት",
-      image: "/images/አያንቱ.jpg"
+      image: "/images/አያንቱ.jpg",
+      message: "የአመራር መልዕክት 1", // Placeholder message
     },
-    {
-      name: "ሰርካለም በዙ",
-      position: "በአቃቂ ቃሊቲ ክ/ከተማ የሴቶች ክንፍ አደረጃጀት ዘርፍ ኃላፊ",
+    {      name: "ሰርካለም በዙ",      position: "በአቃቂ ቃሊቲ ክ/ከተማ የሴቶች ክንፍ አደረጃጀት ዘርፍ ኃላፊ",
       experience: "የአመራርነት የቆይታ ግዜ 7 ዓመት",
-      image: "/images/ሰርካለም.jpg"
+      image: "/images/ሰርካለም.jpg",
+      message: "የአመራር መልዕክት 2" // Placeholder message
     },
     {
       name: "ሀይማኖት ደገፉ",
       position: "በአቃቂ ቃሊቲ ክ/ ከተማ ሴቶች ክንፍ የስራ አስፈጻሚ አባል",
       experience: "የአመራርነት የቆይታ ግዜ 4 ዓመት",
-      image: "/images/ሀይማኖት.jpg"
+      image: "/images/ሀይማኖት.jpg",
+      message: "የአመራር መልዕክት 3", // Placeholder message
+    } as Leader, // Explicitly cast to Leader type
+    {      name: "ወ/ ሮ ሜሮን መንግስቱ",      position: "የአቃቂ ቃሊቲ ክ/ ከተማ የብልጽግና ሴቶች ክንፍ ጽ/ ቤት ኃላፊ",
+      experience: "የአመራርነት የቆይታ ግዜ 4 ዓመት",
+      image: "public/images/ሜሮን.jpg", // Corrected image path
+      message: "ብልፅግና ፓርቲ ከዚህ በፊት የነበሩ ስብራቶችን በመጠገን ህብረ ብሔራዊ እህትማማችነትና ወንድማማችነትን እያጎለበተ ያለ ፓርቲ ሲሆን በዚህ ሂደት ውስጥ የሴቶች ሚና እጅግ የጎላ ነው።\nየዲሞክራሲ ስርዓትን ከማስፈን አኳያ የሴቶች የዲሞክራሲ ስርዓት የሚጀምረው ቤትን በብቃትና በነፃነት በማስተዳደር በመሆኑ በፓርቲው የተቀመጠውን አቅጣጫ ለመተግበር አይቸገሩም። \nበፓርቲያችን 2ኛ መደበኛ ጉባኤ ከተቀመጡ አቅጣጫዎች ዋናው የዲሞክራሲ ስርዓት ግንባታን ማጎልበት ነው። በዚህ ሂደት ያላቸውን ልምድ ተጠቅመው በዲሞክራሲያዊ ስርዓት ግንባታ ላይ የበኩላቸውን ድርሻ ተወጥተዋል። በቀጣይም አጠናክረን እንቀጥላለን።\n\nበቀጣይ በአንድ በኩል ፓርቲው ያስቀመጠውን ዓበይት የጉባኤ አቅጣጫዎች በምልዓት ለመተግበር በሌላ አግባብ የሴቶችን ተጠቃሚነት ይበልጥ የሚያጎለብቱ ተግባራት ማለትም በስራ እድል ፈጠራ፣ በሌማት ትሩፋት እና በሌሎች የገቢ ማስገኛ መንገዶች ሴቶችን ተጠቃሚ በማድረግ የብልጽግናን ጉዞ ለማፋጠን በርካታ እቅዶችን ስለያዝን መላው የክፍለ ከተማችን ሴቶች እንዲሁም የክንፉ አባላትን በማስተባበር ፓርቲያችን ያሰበዉን የብልጽግና ጉዞ እዉን እንዲሆን የበኩላችንን ድርሻ እንወጣለን።"
     },
     {
       name: "ሂሩት ወንዳፍራሽ",
       position: "በአቃቂ ቃሊቲ ክ/ ከተማ የሴቶች ክንፍ የስራ አስፈጻሚ አባል",
       experience: "የአመራርነት የቆይታ ግዜ 4 ዓመት 7 ወር",
-      image: "/images/ሂሩት.jpg"
+      image: "/images/ሂሩት.jpg",
+      message: "የአመራር መልዕክት 4" // Placeholder message
     }
   ];
-
-  // Main leader data
-  const mainLeader = {
-    name: "ሜሮን መንግስቱ ከበደ",
-    position: "በአቃቂ ቃሊቲ ክ/ ከተማ የሴቶች ክንፍ ጽ ቤት ኃላፊ",
-    experience: "በአመራርነት የቆይታ ግዜ 9 ዓመት",
-    image: "/images/ሜሮን.jpg",
-    message: "አመራሮቻችን በትምህርት፣ በልምድ እና በአመለካከት የበሰሉ ሆነው ለሴቶች መብት መከበር እና ተሳትፎ ዕድገት ቁርጠኛ ናቸው። እኛ በአንድነት ሆነን፣ ለሴቶች ማህበረሰብ የተሻለ ነገ እና የተሻለ ህይወት ለመፍጠር በጽናት እንሰራለን።"
-  };
 
   // Mission data for new section
   const missionData = [
@@ -85,8 +81,8 @@ const SleEgnaPage = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
+ <>
+ <Navbar />
       
       {/* Add AboutUs component at the top */}
       <AboutUs />
@@ -112,16 +108,19 @@ const SleEgnaPage = () => {
             </p>
           </div>
 
-          {/* Mission Cards with Enhanced Design */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 mb-12">
+          {/* Mission Cards with Equal Height and Enhanced Design */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 mb-12 auto-rows-fr">
             {missionData.map((item, index) => (
-              <div 
-                key={index}
-                className="group h-full"
-              >
-                <div className="relative h-full bg-white rounded-xl shadow-lg overflow-hidden border border-purple-100 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 flex flex-col">
+              <div
+ key={index}
+                className="group flex" // Use flex to make the child fill the height
+ >
+                <div className="relative bg-white rounded-xl shadow-lg overflow-hidden border border-purple-100 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 flex flex-col w-full">
                   {/* Decorative header */}
-                  <div className="absolute top-0 right-0 left-0 h-2 bg-gradient-to-r from-purple-300 to-gov-accent"></div>
+                  <div className="absolute top-0 right-0 left-0 h-2 bg-gradient-to-r from-purple-300 to-gov-accent">
+
+
+                  </div>
                   
                   {/* Icon with gradient background */}
                   <div className="pt-8 px-6 flex justify-center">
@@ -135,7 +134,7 @@ const SleEgnaPage = () => {
                   
                   {/* Content */}
                   <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="text-xl font-bold text-gov-dark mb-4 text-center">{item.title}</h3>
+                    <h3 className="text-xl font-bold text-gov-dark mb-4 text-center flex-shrink-0">{item.title}</h3>
                     <div className="bg-purple-50 p-4 rounded-lg flex-grow">
                       <p className="text-gray-700 text-sm leading-relaxed">{item.content}</p>
                     </div>
@@ -150,49 +149,17 @@ const SleEgnaPage = () => {
         </div>
       </section>
       
-      <div className="pt-16 pb-16">
+            
+ {/* Leadership Section */}
+      <section className="py-16">
         <div className="container-gov">          
           {/* Section 4 - Leadership */}
           <div className="bg-white rounded-lg shadow-md p-8 mb-12">
-            <h2 className="text-2xl font-bold text-gov-dark mb-6 text-center">የሴቶች ክንፍ አመራሮች</h2>
-            <div className="text-center mb-4">
-              <p className="text-gray-600 mb-4">ለመስፋት ወደ ግራ ወይም ወደ ቀኝ ይሳቡ (Scroll left or right to see more)</p>
-              <div className="w-24 h-1 bg-gov-accent mx-auto"></div>
+ <h2 className="text-4xl md:text-5xl font-extrabold text-center text-gov-dark mb-10">የሴቶች ክንፍ አመራሮች</h2>            <div className="max-w-4xl mx-auto mb-10">
             </div>
             
-            {/* Add main leader card above the carousel */}
-            <div className="max-w-4xl mx-auto mb-10">
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
-                  <div className="md:col-span-4 h-full">
-                    <div className="h-full w-full overflow-hidden">
-                      <img 
-                        src={mainLeader.image} 
-                        alt={mainLeader.name}
-                        className="w-full h-full object-cover object-center"
-                        onError={(e) => {
-                          e.currentTarget.src = "/placeholder.svg";
-                        }}
-                      />
-                    </div>
-                  </div>
-                  <div className="md:col-span-8 p-6 bg-gradient-to-br from-white to-gray-50">
-                    <div className="flex items-center mb-4">
-                      <div className="w-1 h-12 bg-gov-accent mr-4"></div>
-                      <div>
-                        <h3 className="text-xl font-bold text-gov-dark">{mainLeader.name}</h3>
-                        <p className="text-gov-accent">{mainLeader.position}</p>
-                      </div>
-                    </div>
-                    <p className="text-gray-600 mb-4 italic">"{mainLeader.message}"</p>
-                    <p className="text-sm text-gray-500">{mainLeader.experience}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-              <Carousel 
+            <div className="relative mx-auto max-w-6xl px-4 sm:px-6"> {/* Adjusted max-w */}
+              <Carousel
                 opts={{
                   align: "start",
                   loop: true,
@@ -200,19 +167,24 @@ const SleEgnaPage = () => {
                 }}
                 className="w-full"
               >
-                <CarouselContent>
+                <CarouselContent className="-ml-4"> {/* Adjusted left margin */}
                   {leadershipData.map((leader, index) => (
-                    <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
-                      <div 
-                        className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300 border border-gray-100 h-full"
-                      >
-                        <div className="h-72 overflow-hidden">
-                          <img 
-                            src={leader.image} 
+                    <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 flex justify-center items-stretch"> {/* Added items-stretch */}
+ <div
+                        className={`bg-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300 border border-gray-100 flex flex-col w-full max-w-sm cursor-pointer ${expandedCardIndex === index ? 'h-auto' : 'h-96'}`} // Added h-96 for initial height and dynamic h-auto
+                        onClick={() => setExpandedCardIndex(expandedCardIndex === index ? null : index)}
+                      > {/* Toggle expansion */}
+                        <div className="flex-shrink-0 h-60 overflow-hidden"> {/* Slightly reduced image height */}
+                          <img
+                            src={leader.image}
                             alt={leader.name}
-                            className="w-full h-full object-cover object-center"
-                            onError={(e) => {
-                              e.currentTarget.src = "/placeholder.svg";
+                            className="w-full h-full object-cover object-top" // object-top to focus on the face
+                            onError={(e: any) => {
+                              // You might want a specific placeholder image for leaders
+                              e.currentTarget.src = "/images/placeholder-leader.jpg"; // Example placeholder
+                              e.currentTarget.onerror = null; // prevent infinite loop
+                              e.currentTarget.style.objectFit = 'contain'; // Adjust object-fit for placeholder
+                              e.currentTarget.style.backgroundColor = '#f0f0f0'; // Add a background for placeholder
                             }}
                           />
                         </div>
@@ -221,6 +193,11 @@ const SleEgnaPage = () => {
                           <p className="text-gov-accent text-sm mb-1">{leader.position}</p>
                           <p className="text-gray-600 text-xs">{leader.experience}</p>
                         </div>
+                        {expandedCardIndex === index && (
+                          <div className="p-5 pt-0">
+                            <p className="text-gray-700 text-sm leading-relaxed">{leader.message}</p>
+                          </div>
+                        )}
                       </div>
                     </CarouselItem>
                   ))}
@@ -231,13 +208,11 @@ const SleEgnaPage = () => {
                 </div>
               </Carousel>
             </div>
-          </div>
-        </div>
-      </div>
-      
-      <Footer />
-    </div>
+ </div> {/* Closing tag for Leadership Section inner div */}
+        </div> {/* Closing tag for container-gov */}
+      </section> {/* Closing tag for Leadership Section */}
+      <Footer /> {/* Added closing tag */}
+ </>
   );
 };
-
 export default SleEgnaPage;

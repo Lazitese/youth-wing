@@ -3,15 +3,45 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-
+import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 const AboutUs = () => {
-  // Main leader data
-  const mainLeader = {
-    name: "ሜሮን መንግስቱ ከበደ",
-    position: "በአቃቂ ቃሊቲ ክ/ ከተማ የሴቶች ክንፍ ጽ ቤት ኃላፊ",
-    image: "/images/ሜሮን.jpg",
+  const [currentLeaderIndex, setCurrentLeaderIndex] = useState(0);
+
+  const leaders = [
+    {
+    name: "አቶ አለማየሁ ሚጀና",
+    position: "የአቃቂ ቃሊቲ ክ/ ከተማ ዋና ስራ አሰፈጻሚ",
+    image: "public/images/አቶ አለማየሁ ሚጀና.jpg",
     message: "በአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ ወደ መስመራችን እንኳን በደህና መጡ። እኛ የሴቶችን ኢኮኖሚያዊ፣ ፖለቲካዊ እና ማህበራዊ ተጠቃሚነት ለማሳደግ ቆርጠን የተነሳን ድርጅት ነን። የእኛ ዋና ዓላማ ሴቶች በሁሉም መስኮች የበላይነት እንዲኖራቸው፥ ራሳቸውን እንዲችሉ፥ እና በሀገራችን ግንባታ ውስጥ ንቁ ተሳታፊ እንዲሆኑ ማስቻል ነው። የእኛ ትልቁ ራዕይ በ2030 የሴቶችን መብት የሚያከብር፣ ተሳትፎአቸውን የሚያረጋግጥ፣ እና ሁለንተናዊ እድገታቸውን የሚያረጋግጥ ሁሉን አቀፍ ማህበረሰብ መፍጠር ነው።"
+    },
+ {
+ name: "አቶ ዮሀንስ ለገሠ",
+ position: "በአቃቂ ቃሊቲ ክ/ ከተማ ብልጽግና ፓርቲ ቅርጫፍ ጽ/ ቤት ኃላፊ",
+ image: "public/images/አቶ ዮሀንስ ለገሠ.jpg",
+ message: "ብልፅግና ፓርቲ የዜጎችን ሁለንተናዊ ተሳትፎ ያረጋገጠች ህብረ ብሔራዊት ሀገር መገንባትን አልሞ እየሰራ ያለ ፓርቲ ነው፡፡ ፓርቲያችን ብልፅግና የሴቶች ተጠቃሚነት ያረጋገጠ በኢኮኖሚ ተጠቃሚነት ላይ አተኩሮ በመስራት ሰፊ ውጤት እያስመዘገበ ይገኛል።\nበክ/ከተማችንም ፓርቲያችን ብልፅግና ባስቀመጠው አቅጣጫ በፓርቲ ማኔጅመንት ውስጥ አንዷ ሴት እንድትሆን በመወሰን ባሉን 12 ወረዳዎች ሴቶች ከፊት ሆነው እንዲመሩ በማድረግ እንዲሁም ሴቶች ወደ አስተባባሪ ኮሚቴ እና ሴክተሮች ላይ በብቃት መምራት እንዲችሉ ፓርቲያችን አተኩሮ እየሰራ ይገኛል።\nብልፅግና ፓርቲ አካታችነትንና አቃፊነትን መርሁ ያደረገው ፓርቲያችን በትብብርና በፉክክር እንዲሁም በሀገራዊና በብሔራዊ ማንነቶች መካከል ያለውን ሚዛን እያስጠበቀ በብሔራዊነት ገዢ ትርክት በማስረፅ ረገድ ሴቶች ከፍተኛውን ሚና ይወስዳሉ።\n\nሀገራችን ኢትዮጵያን ከአፍሪካ አምስት የግዙፍ ኢኮኖሚ ባለቤቶች ተርታ የማሰለፍ ትልም አንግቦ በፍላጎት ብቻ ሳይሆን በብርቱ ጥረት ታጅቦ የተጋው ፓርቲያን ቃልን በተግባር መፈፀም ቃሉን በተግባር ያሳየ ፓርቲ ብልፅግና ነው።"
+    },
+ {
+ name: "ወ/ ሮ ሜሮን መንግስቱ",
+ position: "የአቃቂ ቃሊቲ ክ/ ከተማ የብልጽግና ሴቶች ክንፍ ጽ/ ቤት ኃላፊ",
+ image: "public/images/ሜሮን.jpg", // Assuming 'ሜሮን.jpg' is the correct image for ወ/ ሮ ሜሮን መንግስቱ
+ message: "ብልፅግና ፓርቲ ከዚህ በፊት የነበሩ ስብራቶችን በመጠገን ህብረ ብሔራዊ እህትማማችነትና ወንድማማችነትን እያጎለበተ ያለ ፓርቲ ሲሆን በዚህ ሂደት ውስጥ የሴቶች ሚና እጅግ የጎላ ነው።\nየዲሞክራሲ ስርዓትን ከማስፈን አኳያ የሴቶች የዲሞክራሲ ስርዓት የሚጀምረው ቤትን በብቃትና በነፃነት በማስተዳደር በመሆኑ በፓርቲው የተቀመጠውን አቅጣጫ ለመተግበር አይቸገሩም።\nበፓርቲያችን 2ኛ መደበኛ ጉባኤ ከተቀመጡ አቅጣጫዎች ዋናው የዲሞክራሲ ስርዓት ግንባታን ማጎልበት ነው። በዚህ ሂደት ያላቸውን ልምድ ተጠቅመው በዲሞክራሲያዊ ስርዓት ግንባታ ላይ የበኩላቸውን ድርሻ ተወጥተዋል። በቀጣይም አጠናክረን እንቀጥላለን።\n\nበቀጣይ በአንድ በኩል ፓርቲው ያስቀመጠውን ዓበይት የጉባኤ አቅጣጫዎች በምልዓት ለመተግበር በሌላ አግባብ የሴቶችን ተጠቃሚነት ይበልጥ የሚያጎለብቱ ተግባራት ማለትም በስራ እድል ፈጠራ፣ በሌማት ትሩፋት እና በሌሎች የገቢ ማስገኛ መንገዶች ሴቶችን ተጠቃሚ በማድረግ የብልፅግናን ጉዞ ለማፋጠን በርካታ እቅዶችን ስለያዝን መላው የክፍለ ከተማችን ሴቶች እንዲሁም የክንፉ አባላትን በማስተባበር ፓርቲያችን ያሰበዉን የብልጽግና ጉዞ እዉን እንዲሆን የበኩላችንን ድርሻ እንወጣለን።"
+    }
+  ];
+
+  const handlePrevious = () => {
+ setCurrentLeaderIndex(
+      (prevIndex) => (prevIndex - 1 + leaders.length) % leaders.length
+    );
   };
+
+  const handleNext = () => {
+ setCurrentLeaderIndex(
+      (prevIndex) => (prevIndex + 1) % leaders.length
+    );
+  };
+
+  const currentLeader = leaders[currentLeaderIndex];
 
   return (
     <section className="py-20 bg-white relative overflow-hidden">
@@ -37,8 +67,8 @@ const AboutUs = () => {
             <div className="md:col-span-5 h-full">
               <div className="h-full w-full overflow-hidden">
                 <img 
-                  src={mainLeader.image} 
-                  alt={mainLeader.name}
+                  src={currentLeader.image} 
+                  alt={currentLeader.name}
                   className="w-full h-full object-cover object-center"
                   onError={(e) => {
                     e.currentTarget.src = "/placeholder.svg";
@@ -51,20 +81,23 @@ const AboutUs = () => {
             <div className="md:col-span-7 p-8 md:p-10 flex flex-col justify-center">
               <div className="mb-6">
                 <p className="text-gray-700 text-lg leading-relaxed relative z-10">
-                  {mainLeader.message}
+                  {currentLeader.message}
                 </p>
               </div>
               
               <div className="mt-auto border-t border-gray-100 pt-6">
-                <div className="flex items-start">
+                <div className="flex items-start justify-between">
                   <div>
-                    <h4 className="font-bold text-xl text-gov-dark">{mainLeader.name}</h4>
-                    <p className="text-gov-accent">{mainLeader.position}</p>
+ <h4 className="font-bold text-xl text-gov-dark">{currentLeader.name}
+</h4>
+                    <p className="text-gov-accent">{currentLeader.position}</p>
                   </div>
-                </div>
-                
-                <div className="mt-6">
 
+                {/* Navigation Arrows */}
+ <div className="flex space-x-4 items-center">
+ <Button variant="ghost" size="icon" onClick={handlePrevious} className="z-20"><ChevronLeft className="h-6 w-6 text-gov-dark" /></Button>
+ <Button variant="outline" size="icon" onClick={handleNext} className="z-20"><ChevronRight className="h-6 w-6 text-gov-dark" /></Button>
+                </div>
                 </div>
               </div>
             </div>
