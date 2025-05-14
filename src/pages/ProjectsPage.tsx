@@ -57,8 +57,19 @@ const ProjectsPage = () => {
 
   // Keep economic projects that have stats or are በንግድ የተሰማሩ ሴቶች
   const economicProjects = [
- { title: "በንግድ የተሰማሩ ሴቶች", hasImage: true, images: ["/images/4.jpg", "/images/44.jpg"] },
- { title: "የሌማት ትፋት", value: "9,040", label: "ተጠቃሚ ሴቶች", icon: <Sprout className="h-10 w-10 text-green-600 opacity-60" /> },
+ { 
+    title: "በንግድ የተሰማሩ ሴቶች", 
+    hasImage: true, 
+    images: ["/images/4.jpg", "/images/44.jpg"] 
+ },
+// Modified "የሌማት ትፋት" to include images and value/label
+ { 
+    title: "የሌማት ትፋት", 
+    hasImage: true, 
+    images: ["/images/5.jpg", "/images/555.jpg"], // Updated image paths
+    value: "9,040", 
+    label: "ተጠቃሚ ሴቶች" 
+ },
  { title: "የብልፅግና ቤተሰብ እየቆጠቡ ያሉ", value: "807", label: "ሴቶች", icon: <PiggyBank className="h-10 w-10 text-blue-600 opacity-60" /> }
   ];
 
@@ -96,7 +107,9 @@ const ProjectsPage = () => {
     index: number; 
     category: string; 
     images?: string[] 
-  }) => {
+    value?: string; // Added value property
+    label?: string; // Added label property
+  }) => { // Added value and label to ProjectCard props
     // Get category display name
     const getCategoryDisplayName = () => {
       switch (category) {
@@ -376,17 +389,9 @@ const ProjectsPage = () => {
 
       <main className="container mx-auto px-4 py-16 space-y-24">
         {/* Brief intro section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-center max-w-4xl mx-auto mb-8"
-        >
-          <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-brand-black">በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ የተሰሩ ሰው ተኮር ተግባራት
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-brand-blue via-brand-red to-brand-yellow mx-auto mb-6"></div>
-          
-          {/* Leadership stats - new section */}
+     
+        <section>
+          <SectionHeader title="የአመራር ስምሪት ውስጥ የሴቶች ድርሻ" /> {/* New section header for stats */}
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
             {leadershipStats.map((stat, idx) => (
               <StatCard 
@@ -398,8 +403,19 @@ const ProjectsPage = () => {
               />
             ))}
           </div>
-        </motion.div>
+        </section>
 
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-center max-w-4xl mx-auto mb-8"
+        >
+          <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-brand-black">በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ የተሰሩ ሰው ተኮር ተግባራት
+          </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-brand-blue via-brand-red to-brand-yellow mx-auto mb-6"></div>
+          
+        </motion.div>
         <section>
           <SectionHeader title="ፖለቲካዊ ተጠቃሚነት" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
@@ -455,6 +471,7 @@ const ProjectsPage = () => {
             ))}
           </div>
         </section>
+
       </main>
 
       <Footer />
