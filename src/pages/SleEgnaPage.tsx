@@ -18,36 +18,27 @@ interface Leader {
 const SleEgnaPage = () => {
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
     const leadershipData = [
+    {      name: "ወ/ ሮ ሜሮን መንግስቱ",      position: "የአቃቂ ቃሊቲ ክ/ ከተማ የብልጽግና ሴቶች ክንፍ ጽ/ ቤት ኃላፊ",
+      experience: "የአመራርነት የቆይታ ግዜ 9 ዓመት",
+      image: "public/images/ሜሮን.jpg", // Corrected image path
+    },
     {
       name: "አያንቱ ሰጉ",
       position: "በአቃቂ ቃሊቲ ክ/ ከተማ ሴቶች ክንፍ ምክትል ኃላፊ",
       experience: "የአመራርነት የቆይታ ግዜ 5 ዓመት",
-      image: "/images/አያንቱ.jpg",
-      message: "የአመራር መልዕክት 1", // Placeholder message
+      image: "/images/አያንቱ ሰጉ.jpg",
     },
     {      name: "ሰርካለም በዙ",      position: "በአቃቂ ቃሊቲ ክ/ከተማ የሴቶች ክንፍ አደረጃጀት ዘርፍ ኃላፊ",
       experience: "የአመራርነት የቆይታ ግዜ 7 ዓመት",
       image: "/images/ሰርካለም.jpg",
-      message: "የአመራር መልዕክት 2" // Placeholder message
     },
     {
       name: "ሀይማኖት ደገፉ",
       position: "በአቃቂ ቃሊቲ ክ/ ከተማ ሴቶች ክንፍ የስራ አስፈጻሚ አባል",
       experience: "የአመራርነት የቆይታ ግዜ 4 ዓመት",
       image: "/images/ሀይማኖት.jpg",
-      message: "የአመራር መልዕክት 3", // Placeholder message
     } as Leader, // Explicitly cast to Leader type
-    {      name: "ወ/ ሮ ሜሮን መንግስቱ",      position: "የአቃቂ ቃሊቲ ክ/ ከተማ የብልጽግና ሴቶች ክንፍ ጽ/ ቤት ኃላፊ",
-      experience: "የአመራርነት የቆይታ ግዜ 4 ዓመት",
-      image: "public/images/ሜሮን.jpg", // Corrected image path
-      message: "ብልፅግና ፓርቲ ከዚህ በፊት የነበሩ ስብራቶችን በመጠገን ህብረ ብሔራዊ እህትማማችነትና ወንድማማችነትን እያጎለበተ ያለ ፓርቲ ሲሆን በዚህ ሂደት ውስጥ የሴቶች ሚና እጅግ የጎላ ነው።\nየዲሞክራሲ ስርዓትን ከማስፈን አኳያ የሴቶች የዲሞክራሲ ስርዓት የሚጀምረው ቤትን በብቃትና በነፃነት በማስተዳደር በመሆኑ በፓርቲው የተቀመጠውን አቅጣጫ ለመተግበር አይቸገሩም። \nበፓርቲያችን 2ኛ መደበኛ ጉባኤ ከተቀመጡ አቅጣጫዎች ዋናው የዲሞክራሲ ስርዓት ግንባታን ማጎልበት ነው። በዚህ ሂደት ያላቸውን ልምድ ተጠቅመው በዲሞክራሲያዊ ስርዓት ግንባታ ላይ የበኩላቸውን ድርሻ ተወጥተዋል። በቀጣይም አጠናክረን እንቀጥላለን።\n\nበቀጣይ በአንድ በኩል ፓርቲው ያስቀመጠውን ዓበይት የጉባኤ አቅጣጫዎች በምልዓት ለመተግበር በሌላ አግባብ የሴቶችን ተጠቃሚነት ይበልጥ የሚያጎለብቱ ተግባራት ማለትም በስራ እድል ፈጠራ፣ በሌማት ትሩፋት እና በሌሎች የገቢ ማስገኛ መንገዶች ሴቶችን ተጠቃሚ በማድረግ የብልጽግናን ጉዞ ለማፋጠን በርካታ እቅዶችን ስለያዝን መላው የክፍለ ከተማችን ሴቶች እንዲሁም የክንፉ አባላትን በማስተባበር ፓርቲያችን ያሰበዉን የብልጽግና ጉዞ እዉን እንዲሆን የበኩላችንን ድርሻ እንወጣለን።"
-    },
-    {
-      name: "ሂሩት ወንዳፍራሽ",
-      position: "በአቃቂ ቃሊቲ ክ/ ከተማ የሴቶች ክንፍ የስራ አስፈጻሚ አባል",
-      experience: "የአመራርነት የቆይታ ግዜ 4 ዓመት 7 ወር",
-      image: "/images/ሂሩት.jpg",
-      message: "የአመራር መልዕክት 4" // Placeholder message
+    {      name: "ሂሩት ወንዳፍራሽ",      position: "በአቃቂ ቃሊቲ ክ/ ከተማ የሴቶች ክንፍ የስራ አስፈጻሚ አባል",      experience: "የአመራርነት የቆይታ ግዜ 4 ዓመት 7 ወር",      image: "/images/ሂሩት አባተ.jpg",
     }
   ];
 
@@ -104,7 +95,7 @@ const SleEgnaPage = () => {
               </h2>
             </div>
             <p className="text-gray-600 text-lg max-w-3xl mx-auto mt-6">
-              የሴቶች ክንፍ ዋና ዋና ተልዕኮዎች ከታች ተዘርዝረዋል። እነዚህ ተልዕኮዎች የሴቶችን ተሳትፎና ተጠቃሚነት እንዲሁም ብልፅግናን ለማረጋገጥ የሚያግዙ ናቸው።
+            የሴቶች ክንፍ ዋና ተልእኮ የሴቶችን ኢኮኖሚያዊ ፖለቲካዊና ማህበራዊ ተጠቃሚነትን ማረጋገጥ ነው፡፡
             </p>
           </div>
 
@@ -175,7 +166,7 @@ const SleEgnaPage = () => {
                         onClick={() => setExpandedCardIndex(expandedCardIndex === index ? null : index)}
                       > {/* Toggle expansion */}
                         <div className="flex-shrink-0 h-60 overflow-hidden"> {/* Slightly reduced image height */}
-                          <img
+                          <img 
                             src={leader.image}
                             alt={leader.name}
                             className="w-full h-full object-cover object-top" // object-top to focus on the face

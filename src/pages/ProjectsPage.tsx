@@ -30,7 +30,7 @@ const ProjectsPage = () => {
 
   useEffect(() => {
     document.title =
-      "በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ የተሰሩ ሰው ተኮር ተግባራት | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
+      "በ2017 በብልጽና ሴቶች ክንፍ የተሰሩ ስራዎች";
     window.scrollTo(0, 0);
   }, []);
 
@@ -45,7 +45,7 @@ const ProjectsPage = () => {
     },
     {
       title: "ለሴት ክንፍ የሚዲያ አርሚዎች የተሰጠ ስልጠና",
-      images: ["/images/3.jpg", "/images/33.jpg", "/images/333.jpg", "/images/3333.jpg", "/images/333333.jpg"]
+      images: ["/images/33.jpg", "/images/3.jpg", "/images/333.jpg", "/images/333333.jpg"]
     }
   ];
 
@@ -64,13 +64,19 @@ const ProjectsPage = () => {
  },
 // Modified "የሌማት ትፋት" to include images and value/label
  { 
-    title: "የሌማት ትፋት", 
+    title: "የሌማት ትሩፋት {ተጠቃሚ ሴቶች፣ 9,040 }", 
     hasImage: true, 
-    images: ["/images/5.jpg", "/images/555.jpg"], // Updated image paths
+    images: ["/images/5.jpg", "/images/55.jpg", "/images/555.jpg", "/images/5555.jpg", "/images/55555.jpg", "/images/555555.jpg"], // Updated image paths
     value: "9,040", 
-    label: "ተጠቃሚ ሴቶች" 
+ label: "ተጠቃሚ ሴቶች"
  },
- { title: "የብልፅግና ቤተሰብ እየቆጠቡ ያሉ", value: "807", label: "ሴቶች", icon: <PiggyBank className="h-10 w-10 text-blue-600 opacity-60" /> }
+
+ { 
+    title: "የብልፅግና ቤተሰብ እየቆጠቡ ያሉ {807 ሴቶች}", 
+ hasImage: true,
+ images: ["/images/6.jpg", "/images/66.jpg", "/images/666.jpg"],
+ value: "807", 
+ label: "ሴቶች", icon: <PiggyBank className="h-10 w-10 text-blue-600 opacity-60" /> }
   ];
 
   const leadershipStats = [
@@ -163,18 +169,18 @@ const ProjectsPage = () => {
             </div>
             
             <AspectRatio ratio={16 / 9} className="bg-gray-100">
-            <Carousel className="w-full">
+            <Carousel className="w-full h-full">
               <CarouselContent>
                 {cardImages.map((image, idx) => (
-                  <CarouselItem key={idx}>
+ <CarouselItem key={idx} className="h-full">
                       <div className="relative w-full h-full overflow-hidden cursor-pointer" onClick={() => handleZoomImage(cardImages, idx)}>
                       <img 
                         src={image} 
                         alt={`${title} - slide ${idx + 1}`}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        onError={(e) => {
+                        onError={(e: any) => {
                           e.currentTarget.src = "/placeholder.svg";
-                        }}
+ }}
                       />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <div
@@ -223,7 +229,7 @@ const ProjectsPage = () => {
                 <Carousel className="w-full h-full">
                   <CarouselContent>
                     {images.map((image, idx) => (
-                      <CarouselItem key={idx}>
+                      <CarouselItem key={`economic-image-${idx}`}>
                         <div className="relative w-full h-full overflow-hidden cursor-pointer" onClick={() => handleZoomImage(images, idx)}>
                           <img src={image} alt={`${title} - slide ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                         </div>
@@ -411,7 +417,7 @@ const ProjectsPage = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center max-w-4xl mx-auto mb-8"
         >
-          <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-brand-black">በ2017 በብልጽና ፓርቲ ሴቶች ክንፍ የተሰሩ ሰው ተኮር ተግባራት
+          <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-brand-black">በ2017 በብልጽና ሴቶች ክንፍ የተሰሩ ስራዎች
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-brand-blue via-brand-red to-brand-yellow mx-auto mb-6"></div>
           
@@ -450,12 +456,14 @@ const ProjectsPage = () => {
           <SectionHeader title="ኢኮኖሚያዊ ተሳትፎ" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {economicProjects.map((project, idx) => (
-              project.title === "በንግድ የተሰማሩ ሴቶች" ? (
+              project.hasImage ? ( // Render ProjectCard if hasImage is true
                 <ProjectCard
                   key={`economic-${idx}`}
                   title={project.title}
                   index={idx}
                   category="economic"
+                  value={project.value}
+                  label={project.label}
  images={project.images} // Pass images array
                 />
               ) : (
