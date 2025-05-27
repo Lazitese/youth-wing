@@ -1,129 +1,147 @@
-
-import { useState } from "react";
-import { GlobeIcon, Users, Briefcase, Scale, Landmark, Flag, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-
-// Since we're not installing framer-motion, we'll create a custom component
-// that mimics the motion.div with CSS animations
-const AnimatedCard = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
-  return (
-    <div
-      className="animate-fade-in-up opacity-0"
-      style={{ animationDelay: `${delay}s`, animationFillMode: "forwards" }}
-    >
-      {children}
-    </div>
-  );
-};
+import { GlobeIcon, Briefcase, Scale, Landmark } from "lucide-react";
+import { motion } from "framer-motion";
 
 const partyPrograms = [
   {
     id: 1,
     title: "የዴሞክራሲ አቅጣጫ",
-    description: "ትብብርና ውድድር ላይ የተመሰረተ ለብዝሀነት እና በህብረ ብሔራዊነት የተለየ ቦታ የሚሰጥ የመግባባት ዴሞክራሲ ነው፡፡",
-    icon: <Scale className="h-8 w-8 text-white" />,
-    bgColor: "bg-white",
-    iconBgColor: "bg-blue-500",
-    borderColor: "border-blue-200",
-    hoverBorder: "hover:border-blue-400",
-    shadowColor: "shadow-blue-100"
+    description:
+      "ትብብርና ውድድር ላይ የተመሰረተ ለብዝሀነት እና በህብረ ብሔራዊነት የተለየ ቦታ የሚሰጥ የመግባባት ዴሞክራሲ ነው፡፡",
+    icon: Scale,
+    color: "#3B82F6",
+    gradientFrom: "from-blue-500",
+    gradientTo: "to-blue-600",
+    shadow: "shadow-blue-500/30",
   },
   {
     id: 2,
     title: "የፖለቲካ ስርአት",
-    description: "በህገ መንግስታችን ላይ የተመለከተውን አውነተኛ የመድብለ ፓርቲ እና ህብረ ብሄራዊ የፌደራል ስርዓት ነው፡፡",
-    icon: <Landmark className="h-8 w-8 text-white" />,
-    bgColor: "bg-white",
-    iconBgColor: "bg-indigo-500",
-    borderColor: "border-indigo-200",
-    hoverBorder: "hover:border-indigo-400",
-    shadowColor: "shadow-indigo-100"
+    description:
+      "በህገ መንግስታችን ላይ የተመለከተውን አውነተኛ የመድብለ ፓርቲ እና ህብረ ብሄራዊ የፌደራል ስርዓት ነው፡፡",
+    icon: Landmark,
+    color: "#7C3AED",
+    gradientFrom: "from-purple-500",
+    gradientTo: "to-purple-600",
+    shadow: "shadow-purple-500/30",
   },
   {
     id: 3,
     title: "የኢኮኖሚ ስርአት",
-    description: "የዜጎች ፍትሃዊ ተጠቃሚነት ማእከል ያደረገ የመንግስት ጣልቃ ገብነት የሚፈቅድ አካታች ካፒታሊዝም ነው፡፡",
-    icon: <Briefcase className="h-8 w-8 text-white" />,
-    bgColor: "bg-white",
-    iconBgColor: "bg-green-500",
-    borderColor: "border-green-200",
-    hoverBorder: "hover:border-green-400",
-    shadowColor: "shadow-green-100"
+    description:
+      "የዜጎች ፍትሃዊ ተጠቃሚነት ማእከል ያደረገ የመንግስት ጣልቃ ገብነት የሚፈቅድ አካታች ካፒታሊዝም ነው፡፡",
+    icon: Briefcase,
+    color: "#10B981",
+    gradientFrom: "from-emerald-500",
+    gradientTo: "to-emerald-600",
+    shadow: "shadow-emerald-500/30",
   },
   {
-    id: 5,
+    id: 4,
     title: "የውጭ ግንኙነት",
-    description: "በትብብር በፉክክር መሃል ሚዛን የሚጠብቅ ነው ለዜጎች ክብር በቅድሚያ የሚሰጥ ነው ብሄራዊ ጥቅም የሚያስጠብቅ ነው ጎረቤት ሀገራትን የሚያስቀድም ነው፡፡",
-    icon: <GlobeIcon className="h-8 w-8 text-white" />,
-    bgColor: "bg-white",
-    iconBgColor: "bg-teal-500",
-    borderColor: "border-teal-200",
-    hoverBorder: "hover:border-teal-400",
-    shadowColor: "shadow-teal-100"
-  }
+    description:
+      "በትብብር በፉክክር መሃል ሚዛን የሚጠብቅ ነው ለዜጎች ክብር በቅድሚያ የሚሰጥ ነው ብሄራዊ ጥቅም የሚያስጠብቅ ነው ጎረቤት ሀገራትን የሚያስቀድም ነው፡፡",
+    icon: GlobeIcon,
+    color: "#F59E0B",
+    gradientFrom: "from-amber-400",
+    gradientTo: "to-amber-600",
+    shadow: "shadow-amber-500/30",
+  },
 ];
 
 const Services = () => {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
   return (
-    <section id="services" className="section bg-gray-50 py-20">
-      <div className="container-gov">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          
-          <h2 className="text-3xl md:text-4xl font-bold text-gov-dark mb-4">
-            <span className="text-gov-dark">የብልፅግና ፓርቲ</span>{" "}
-            <span className="bg-gradient-to-r from-gov-gold to-amber-400 bg-clip-text text-transparent">
-              ፕሮግራም
-            </span>
-          </h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-gov-gold to-transparent rounded-full mx-auto mb-8"></div>
-          
-          <div className="mt-8 p-8 bg-white rounded-xl border border-gov-gold/30 shadow-lg relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-gov-gold/5 to-transparent"></div>
-            <div className="absolute -right-16 -top-16 w-32 h-32 bg-gov-gold/5 rounded-full blur-xl"></div>
-            
-            <div className="w-16 h-16 mx-auto mb-5 bg-gradient-to-br from-gov-gold to-amber-400 rounded-xl flex items-center justify-center shadow-md transform rotate-12 p-4">
-              <Flag className="h-10 w-10 text-white transform -rotate-12" />
-            </div>
-            <p className="text-xl font-medium text-gray-700 relative z-10">
-              የብልፅግና ፓርቲ ፕሮግራም ለሃገራችን ዕድገትና ብልጽግና የሚያተኩር የረጅም ጊዜ ራዕይን ያካተተ ነው
-            </p>
-          </div>
+    <section id="services" className="relative py-24 md:py-32 overflow-hidden bg-slate-50/50">
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Clean gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-blue-50/20" />
+        
+        {/* Subtle decorative elements */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gov-blue/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gov-blue/20 to-transparent" />
+        
+        {/* Professional background elements */}
+        <div className="absolute right-0 top-20 w-[50vw] h-[50vw] bg-gov-blue/5 rounded-full blur-[120px] opacity-60" />
+        <div className="absolute -left-40 bottom-20 w-[60vw] h-[60vw] bg-gov-gold/5 rounded-full blur-[130px] opacity-50" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {partyPrograms.map((program, index) => (
-            <AnimatedCard key={program.id} delay={0.1 * index}>
-              <div
-                className={`${program.bgColor} rounded-xl ${program.shadowColor} shadow-lg border ${program.borderColor} ${program.hoverBorder} overflow-hidden transition-all duration-300 ${
-                  hoveredCard === program.id ? "shadow-xl -translate-y-2" : ""
-                }`}
-                onMouseEnter={() => setHoveredCard(program.id)}
-                onMouseLeave={() => setHoveredCard(null)}
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        {/* Single clear header */}
+        <motion.div 
+          className="max-w-4xl mx-auto text-center mb-16 md:mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <motion.h2
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 relative inline-block"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <span className="text-gov-blue">የብልጽግና ፓርቲ</span> <span className="text-gov-dark">ፕሮግራሞች</span>
+            <motion.div 
+              className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-gov-blue to-gov-gold rounded-full"
+              initial={{ width: 0, left: "50%" }}
+              whileInView={{ width: "100%", left: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+            />
+          </motion.h2>
+        </motion.div>
+        
+        {/* Professional Card Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+          {partyPrograms.map((program, index) => {
+            const Icon = program.icon;
+            return (
+              <motion.div
+                key={program.id}
+                className="group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: index * 0.1,
+                }}
+                viewport={{ once: true, margin: "-50px" }}
               >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gray-50 rounded-bl-full"></div>
-                
-                <div className="p-6 relative">
-                  <div className={`w-16 h-16 ${program.iconBgColor} rounded-xl flex items-center justify-center shadow-md mb-6 relative z-10 transform -rotate-6`}>
-                    <div className="transform rotate-6">{program.icon}</div>
+                {/* Professional Card Design */}
+                <div className="relative h-full rounded-lg bg-white shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group-hover:translate-y-[-8px]">
+                  {/* Accent Top Border */}
+                  <div className={`h-1.5 w-full bg-gradient-to-r ${program.gradientFrom} ${program.gradientTo}`} />
+                  
+                  <div className="p-6 md:p-8">
+                    {/* Program icon with subtle effects */}
+                    <div className="mb-5 md:mb-6">
+                      <div className={`w-14 h-14 md:w-16 md:h-16 rounded-lg flex items-center justify-center bg-opacity-10 border border-opacity-20`} 
+                        style={{ 
+                          backgroundColor: `${program.color}10`,
+                          borderColor: program.color 
+                        }}>
+                        <Icon className="w-8 h-8" style={{ color: program.color }} />
+                      </div>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-gov-dark mb-3 flex items-center">
-                    <span className="mr-2">{program.title}</span>
-                    <div className="w-2 h-2 rounded-full bg-gov-gold"></div>
+                    {/* Title - the only visible text element */}
+                    <h3 className="text-xl md:text-2xl font-bold text-gov-dark mb-3 md:mb-4 group-hover:text-gov-blue transition-colors duration-300">
+                      {program.title}
                   </h3>
                   
-                  <p className="text-gray-600 mb-4 leading-relaxed">{program.description}</p>
-                  
-                  <div className="w-full h-1 bg-gray-100 rounded-full mt-4">
-                    <div className={`h-full w-1/2 ${program.iconBgColor} rounded-full`}></div>
+                    {/* Subtle decorative element */}
+                    <div className="w-12 h-0.5 bg-gray-200 group-hover:bg-gov-gold transition-colors duration-300 mb-4" />
+                    
+                    {/* Description */}
+                    <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                      {program.description}
+                    </p>
                   </div>
                 </div>
-              </div>
-            </AnimatedCard>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

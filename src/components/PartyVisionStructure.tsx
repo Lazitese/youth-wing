@@ -1,313 +1,206 @@
-
-import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Target, Award, TrendingUp } from "lucide-react";
+import { Target, Award, TrendingUp, Globe, Layers, Users, Heart, Sprout, UserCheck } from "lucide-react";
 
 const PartyVisionStructure = () => {
   return (
-    <section className="py-20">
+    <section className="py-20 bg-gray-50 overflow-hidden relative">
+      {/* Simple background pattern */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02]" 
+        style={{ 
+          backgroundImage: 'radial-gradient(#1e3a8a 1px, transparent 1px)',
+          backgroundSize: '40px 40px'
+        }}
+      />
+      
+      {/* Subtle decoration */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gov-blue/10"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gov-gold/10"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
       {/* Vision Section */}
-      <div className="container-gov mb-20">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="relative bg-gradient-to-br from-gov-dark to-gov-medium rounded-2xl p-8 md:p-12 overflow-hidden hover:shadow-xl transition-all duration-300"
-        >
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)] animate-pulse-slow" />
-          </div>
-          <div className="absolute -right-16 -top-16 w-64 h-64 bg-white/5 rounded-full blur-2xl animate-float" />
-          <div className="absolute -left-16 -bottom-16 w-56 h-56 bg-white/5 rounded-full blur-xl animate-float-delay" />
-          
-          <motion.h2 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-white mb-8 relative flex items-center"
-          >
-            <span className="relative inline-block group">
-              የፓርቲ ራዕይ
-              <span className="absolute bottom-0 left-0 w-full h-1 bg-gov-gold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <span className="inline-block py-2 px-5 rounded-full text-sm font-medium bg-gov-blue/10 text-gov-blue mb-4">
+              <Target className="inline-block w-4 h-4 mr-2" />
+              የብልጽግና ራዕይ
             </span>
-            <Target className="ml-3 w-6 h-6 text-gov-gold opacity-80" />
-          </motion.h2>
-          
-          <div className="text-white/90 text-lg md:text-xl leading-relaxed space-y-6 animate-fade-in-up">
-            <motion.p 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="font-semibold text-gov-gold border-l-4 border-gov-gold pl-4 transform hover:translate-x-1 transition-transform duration-300"
-            >
-              የብልፅግና ፓርቲ ራዕይ
-            </motion.p>
             
-            {/* Timeline */}
-            <div className="relative pt-6 pb-2">
-              {/* Timeline Line */}
-              <div className="absolute left-[30px] top-8 bottom-0 w-1 bg-gov-gold/30 rounded-full"></div>
-              
-              <ul className="list-none space-y-12 relative">
-                {[
-                  {year: "2018", text: "ከተስፋ ብርሀን ወደ ሚጨበጥ ብርሀን መሸጋገር", icon: <CheckCircle2 className="w-5 h-5" />},
-                  {year: "2023", text: "የአፍሪካ የብልፅግና ተምሳሌት መሆን", icon: <Award className="w-5 h-5" />},
-                  {year: "2040", text: "በአለም አቀፍ ደረጃ ስመጥር የሆነች የብልፅግና ተምሳሌት ሀገር መሆን", icon: <TrendingUp className="w-5 h-5" />}
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              ለአዲሲቷ <span className="text-gov-blue">ኢትዮጵያ</span> ራዕያችን
+            </h2>
+            
+            <div className="w-16 h-1 bg-gov-gold mx-auto mb-4"></div>
+          </div>
+
+          {/* Simplified Timeline */}
+          <div className="max-w-4xl mx-auto relative">
+            {/* Timeline center line */}
+            <div className="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-gov-blue/20"></div>
+            
+            {[
+              { 
+                year: "2018", 
+                text: "ከተስፋ ብርሀን ወደ ሚጨበጥ ብርሀን መሸጋገር", 
+                icon: <Target className="w-5 h-5" />,
+                color: "bg-blue-500"
+              },
+              { 
+                year: "2023", 
+                text: "የአፍሪካ የብልፅግና ተምሳሌት መሆን", 
+                icon: <Award className="w-5 h-5" />,
+                color: "bg-purple-500"
+              },
+              { 
+                year: "2040", 
+                text: "በአለም አቀፍ ደረጃ ስመጥር የሆነች የብልፅግና ተምሳሌት ሀገር መሆን", 
+                icon: <TrendingUp className="w-5 h-5" />,
+                color: "bg-gov-gold"
+              }
                 ].map((item, index) => (
-                  <motion.li 
+              <motion.div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 + index * 0.2 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="relative"
-                  >
-                    {/* Timeline Connector */}
-                    {index < 2 && (
-                      <motion.div 
-                        initial={{ height: 0 }}
-                        whileInView={{ height: "100%" }}
-                        transition={{ duration: 0.8, delay: 0.5 + index * 0.2 }}
-                        viewport={{ once: true }}
-                        className="absolute left-[30px] top-[60px] w-1 bg-gov-gold/50 z-[1]"
-                        style={{ height: "calc(100% - 30px)" }}
-                      />
-                    )}
-                    
-                    <div className="flex group">
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="relative pl-16 sm:pl-20 mb-12 last:mb-0"
+              >
                       {/* Year Circle */}
-                      <div className="relative z-10">
-                        <motion.div 
-                          whileHover={{ scale: 1.1 }}
-                          className="w-[60px] h-[60px] bg-gov-dark border-4 border-gov-gold rounded-full flex items-center justify-center shadow-lg group-hover:shadow-gov-gold/20 transition-all duration-300"
-                        >
-                          <span className="font-bold text-white text-sm">በ{item.year}</span>
-                        </motion.div>
+                <div className="absolute left-0 top-0 transform flex items-center justify-center">
+                  <div className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center ${item.color} text-white z-10`}>
+                    <span className="font-bold text-xs sm:text-sm">በ{item.year}</span>
+                  </div>
                       </div>
                       
                       {/* Content Card */}
-                      <motion.div 
-                        whileHover={{ y: -5, x: 5 }}
-                        className="flex-1 ml-6 bg-white/10 backdrop-blur-sm rounded-xl p-5 hover:bg-white/15 transition-all duration-300 shadow-lg hover:shadow-xl border border-white/20"
-                      >
+                <div className="bg-white rounded-lg p-4 sm:p-5 shadow-md border border-gray-100/80">
                         <div className="flex items-start gap-3">
-                          <div className="p-2 bg-gov-gold/20 rounded-full text-gov-gold">
+                    <div className={`p-2 rounded-lg ${item.color} text-white flex-shrink-0`}>
                             {item.icon}
                           </div>
-                          <p className="pt-1 font-medium">{item.text}</p>
+                    <div>
+                      <h3 className="font-bold text-base sm:text-lg text-gray-800 mb-1">ራዕይ {index + 1}</h3>
+                      <p className="text-sm sm:text-base text-gray-600">{item.text}</p>
+                    </div>
                         </div>
                         
-                        <div className="w-full flex justify-end mt-3">
+                  {/* Simple progress indicator */}
+                  <div className="w-full h-1 bg-gray-100 rounded-full mt-4 overflow-hidden">
                           <motion.div 
-                            whileHover={{ x: 5 }}
-                            className="w-8 h-8 flex items-center justify-center rounded-full bg-gov-gold/20 text-gov-gold cursor-pointer"
-                          >
-                            <ArrowRight className="w-4 h-4" />
-                          </motion.div>
+                      className={`h-full ${item.color}`}
+                      initial={{ width: 0 }}
+                      whileInView={{ width: index === 0 ? "100%" : index === 1 ? "65%" : "30%" }}
+                      transition={{ duration: 0.8 }}
+                      viewport={{ once: true }}
+                    />
+                  </div>
                         </div>
                       </motion.div>
-                    </div>
-                  </motion.li>
                 ))}
-              </ul>
-            </div>
           </div>
-        </motion.div>
       </div>
 
       {/* Mission Section */}
-      <div className="container-gov mb-20">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="relative bg-gradient-to-tr from-gov-gold/20 to-gov-gold/5 border border-gov-gold/20 rounded-2xl p-8 md:p-12 overflow-hidden hover:shadow-xl transition-all duration-300"
-        >
-          <div className="absolute -right-16 -bottom-16 w-56 h-56 bg-gov-gold/5 rounded-full blur-xl animate-float-delay" />
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <motion.h2 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-bold text-gov-dark mb-6 relative inline-block group"
-              >
-                አጠቃላይ አላማ
-                <span className="absolute bottom-0 left-0 w-full h-1 bg-gov-gold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-              </motion.h2>
-              <motion.p 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                viewport={{ once: true }}
-                className="text-gray-700 text-lg md:text-2xl leading-relaxed font-semibold border-l-4 border-gov-gold pl-4 transform hover:translate-x-1 transition-transform duration-300"
-              >
-                የበለፀገች ኢትዮጵያን እውን ማድረግ!
-              </motion.p>
+        <div className="mb-20">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100/80">
+            <div className="p-8 sm:p-10">
+              <div className="max-w-3xl mx-auto text-center">
+                <div className="mb-6 inline-flex">
+                  <div className="px-5 py-2 bg-gov-blue/10 rounded-full">
+                    <h3 className="text-lg font-semibold text-gov-blue">ተልዕኮአችን</h3>
+                  </div>
+                </div>
+                
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">
+                  <span className="relative">
+                    የበለፀገች <span className="text-gov-gold">ኢትዮጵያን</span> እውን ማድረግ
+                    <div className="absolute bottom-0 left-0 h-1 w-full bg-gov-gold"></div>
+                  </span>
+                </h2>
+                
+                <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-white shadow-md flex items-center justify-center p-4 border border-gov-gold/20 mb-6">
+                  <Globe className="w-8 h-8 text-gov-blue" />
+                </div>
+                
+                <p className="text-gray-600 max-w-2xl mx-auto">
+                  ብልፅግና ፓርቲ የሁሉም ዜጎች ተጠቃሚነት የሚረጋገጥበት፣ በአንድነት ላይ የተመሰረተች የበለፀገች ኢትዮጲያን ለመገንባት የሚተጋ ድርጅት ነው።
+                </p>
             </div>
-            <div className="flex justify-center">
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-                className="w-48 h-48 md:w-64 md:h-64 bg-gov-gold/10 rounded-full flex items-center justify-center shadow-lg"
-              >
-                <div className="w-36 h-36 md:w-48 md:h-48 bg-gov-gold/20 rounded-full pulse-animation" />
-              </motion.div>
             </div>
           </div>
-        </motion.div>
       </div>
 
       {/* Principles Section */}
-      <div className="container-gov mb-20">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="relative overflow-hidden bg-gradient-to-br from-gov-dark/5 to-gov-medium/5 rounded-2xl shadow-lg border border-gov-gold/10"
-        >
-          <div className="absolute top-0 right-0 w-48 h-48 bg-gov-accent/10 rounded-bl-full" />
-          <div className="absolute -left-16 -bottom-16 w-56 h-56 bg-gov-gold/5 rounded-full blur-xl animate-float-delay" />
-          <div className="relative p-8 md:p-12">
-            <motion.h2 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold text-gov-dark mb-6 relative inline-block group"
-            >
-              መርሆች
-              <span className="absolute bottom-0 left-0 w-full h-1 bg-gov-gold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="text-gray-700 text-lg md:text-xl leading-relaxed font-semibold border-l-4 border-gov-gold pl-4 mb-8 transform hover:translate-x-1 transition-transform duration-300"
-            >
-              ብልፅግና ፓርቲ መርሆች
-            </motion.p>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {[
-                "ህዝባዊነት",
-                "ልማትና ፍትሃዊ ተጠቃሚነት", 
-                "ዴሞክራሲያዊነት", 
-                "ተግባራዊ እውነታ", 
-                "የህግ የበላይነት", 
-                "ሀገራዊ አንድነት ህብረ ብሔራዊነት"
-              ].map((principle, index) => (
-                <motion.div 
-                  key={principle}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.03, y: -5 }}
-                  className={cn(
-                    "p-6 rounded-xl transition-all duration-300 hover:shadow-md border border-transparent",
-                    index % 3 === 0 ? "bg-gov-gold/10 hover:border-gov-gold/30" : 
-                    index % 3 === 1 ? "bg-gov-accent/10 hover:border-gov-accent/30" : 
-                    "bg-gov-dark/10 hover:border-gov-dark/30"
-                  )}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={cn(
-                      "w-8 h-8 rounded-full flex items-center justify-center text-white",
-                      index % 3 === 0 ? "bg-gov-gold/80" : 
-                      index % 3 === 1 ? "bg-gov-accent/80" : 
-                      "bg-gov-dark/80"
-                    )}>
-                      <span className="font-bold">{index + 1}</span>
-                    </div>
-                    <h3 className="font-semibold text-lg">{principle}</h3>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+        <div>
+          <div className="text-center mb-12">
+            <span className="inline-block py-2 px-5 rounded-full text-sm font-medium bg-gov-gold/10 text-gov-gold mb-4">
+              <Layers className="inline-block w-4 h-4 mr-2" />
+              መሰረታዊ መርሆች
+            </span>
+            
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              የብልጽግና ፓርቲ <span className="text-gov-blue">መርሆች</span>
+            </h2>
+            
+            <div className="w-16 h-1 bg-gov-gold mx-auto mb-4"></div>
       </div>
 
-      {/* Values Section */}
-      <div className="container-gov">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="relative bg-gradient-to-br from-gov-accent/10 to-transparent rounded-2xl p-8 md:p-12 overflow-hidden hover:shadow-xl transition-all duration-300"
-        >
-          <div className="absolute -right-16 -bottom-16 w-56 h-56 bg-gov-accent/5 rounded-full blur-xl animate-float" />
-          <motion.h2 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-gov-dark mb-6 relative inline-block group"
-          >
-            እሴቶች
-            <span className="absolute bottom-0 left-0 w-full h-1 bg-gov-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="text-gray-700 text-lg md:text-xl leading-relaxed font-semibold border-l-4 border-gov-accent pl-4 mb-8 transform hover:translate-x-1 transition-transform duration-300"
-          >
-            የብልፅግና ፓርቲ እሴቶች
-          </motion.p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {[
-              "የዜጎች ክብር",
-              "ነፃነት",
-              "ፍትሃዊነት",
-              "ህብረ ብሄራዊ ወንድማማችነት እህትማማችነት",
-              "መከባበር መቻቻል",
-              "ህብረ ብሄራዊ አንድነት",
-              "አሳታፊነት",
-              "ግልፀኝነትና ተጠያቂነት ናቸው፡፡"
-            ].map((value, index) => (
+              {
+                title: "ህዝባዊነት",
+                icon: <Users className="w-5 h-5" />,
+                color: "bg-blue-500",
+              },
+              {
+                title: "ልማትና ፍትሃዊ ተጠቃሚነት",
+                icon: <Sprout className="w-5 h-5" />,
+                color: "bg-green-500",
+              },
+              {
+                title: "የሴቶች ማህበራዊ ተሳትፎ",
+                icon: <UserCheck className="w-5 h-5" />,
+                color: "bg-purple-500",
+              },
+              {
+                title: "የወጣቶች ተሳትፎ",
+                icon: <Users className="w-5 h-5" />,
+                color: "bg-orange-500",
+              },
+              {
+                title: "የህብረተሰቡ አንደኛነት",
+                icon: <Heart className="w-5 h-5" />,
+                color: "bg-gov-blue",
+              },
+              {
+                title: "የሀገር አንደኛነት",
+                icon: <Globe className="w-5 h-5" />,
+                color: "bg-gov-gold",
+              }
+            ].map((principle, idx) => (
               <motion.div 
-                key={value}
-                initial={{ opacity: 0, y: 20 }}
+                key={idx}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
+                transition={{ duration: 0.4, delay: 0.1 + idx * 0.05 }}
                 viewport={{ once: true }}
-                whileHover={{ scale: 1.03, y: -5 }}
-                className={cn(
-                  "p-6 rounded-xl transition-all duration-300 hover:shadow-md border border-transparent",
-                  index % 4 === 0 ? "bg-gov-gold/10 hover:border-gov-gold/30" : 
-                  index % 4 === 1 ? "bg-gov-accent/10 hover:border-gov-accent/30" : 
-                  index % 4 === 2 ? "bg-gov-dark/10 hover:border-gov-dark/30" :
-                  "bg-gov-medium/10 hover:border-gov-medium/30"
-                )}
+                whileHover={{ y: -5 }}
+                className="bg-white rounded-lg shadow-md border border-gray-100/80 overflow-hidden"
               >
-                <div className="flex items-start gap-3">
-                  <div className={cn(
-                    "min-w-8 h-8 mt-1 rounded-full flex items-center justify-center text-white",
-                    index % 4 === 0 ? "bg-gov-gold/80" : 
-                    index % 4 === 1 ? "bg-gov-accent/80" : 
-                    index % 4 === 2 ? "bg-gov-dark/80" :
-                    "bg-gov-medium/80"
-                  )}>
-                    <span className="font-bold text-sm">{index + 1}</span>
+                <div className={`h-1 ${principle.color}`}></div>
+                <div className="p-4 sm:p-5 flex flex-col items-center text-center">
+                  <div className={`w-10 h-10 rounded-full ${principle.color} text-white flex items-center justify-center mb-3`} style={{ display: 'flex' }}>
+                    {principle.icon}
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg text-gov-dark">{value}</h3>
-                  </div>
+                  
+                  <h3 className="text-base sm:text-lg font-bold text-gray-800">
+                    {principle.title}
+                  </h3>
                 </div>
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 
 type StatsType = {
-  qretaCount: number;
   abalatCount: number;
   reportCount: number;
   pendingAbalatCount: number;
@@ -18,7 +17,6 @@ type StatsType = {
 
 const DashboardStats = () => {
   const [stats, setStats] = useState<StatsType>({
-    qretaCount: 0,
     abalatCount: 0,
     reportCount: 0,
     pendingAbalatCount: 0,
@@ -28,11 +26,6 @@ const DashboardStats = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        // Get qreta submissions count
-        const { count: qretaCount, error: qretaError } = await supabase
-          .from('qreta_submissions')
-          .select('*', { count: 'exact', head: true });
-
         // Get abalat submissions count
         const { count: abalatCount, error: abalatError } = await supabase
           .from('abalat_mzgeba_submissions')
@@ -49,13 +42,12 @@ const DashboardStats = () => {
           .from('report_submissions')
           .select('*', { count: 'exact', head: true });
 
-        if (qretaError || abalatError || reportError || pendingAbalatError) {
-          console.error("Error fetching stats:", { qretaError, abalatError, reportError, pendingAbalatError });
+        if (abalatError || reportError || pendingAbalatError) {
+          console.error("Error fetching stats:", { abalatError, reportError, pendingAbalatError });
           return;
         }
 
         setStats({
-          qretaCount: qretaCount || 0,
           abalatCount: abalatCount || 0,
           reportCount: reportCount || 0,
           pendingAbalatCount: pendingAbalatCount || 0,
@@ -89,16 +81,6 @@ const DashboardStats = () => {
   }
 
   const statCards = [
-    {
-      title: "ጥቆማዎች",
-      value: stats.qretaCount,
-      icon: <MessageSquare className="text-white" size={20} />,
-      color: "from-blue-500 to-blue-600",
-      bgColor: "bg-blue-50",
-      textColor: "text-blue-600",
-      borderColor: "border-blue-100",
-      increase: "12%"
-    },
     {
       title: "አባላት ምዝገባ",
       value: stats.abalatCount,

@@ -1,105 +1,194 @@
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Clock } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
+  const navLinks = [
+    { label: "መነሻ", href: "/" },
+    { label: "ስለ እኛ", href: "/sle-egna" },
+    { label: "ተግባራት", href: "/projects" },
+    { label: "አግኙን", href: "/contact" },
+  ];
+
+  const socialLinks = [
+    { icon: <Facebook className="h-5 w-5" />, href: "https://facebook.com", label: "Facebook" },
+    { icon: <Twitter className="h-5 w-5" />, href: "https://twitter.com", label: "Twitter" },
+    { icon: <Instagram className="h-5 w-5" />, href: "https://instagram.com", label: "Instagram" },
+    { icon: <Linkedin className="h-5 w-5" />, href: "https://linkedin.com", label: "LinkedIn" },
+  ];
+
+  const contactInfo = [
+    { icon: <Phone className="h-5 w-5 text-gov-gold" />, content: "+251 118-279-600" },
+    { icon: <Mail className="h-5 w-5 text-gov-gold" />, content: "info@prosperityparty.org" },
+    { icon: <MapPin className="h-5 w-5 text-gov-gold" />, content: "አቃቂ ቃሊቲ ክፍለ ከተማ" },
+  ];
+  
   return (
-    <footer className="bg-gradient-to-br from-gov-dark to-gov-medium text-white pt-12 pb-6">
-      <div className="container-gov">
-        {/* Footer Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8 pb-8 border-b border-white/10">
-          {/* Logo and Description */}
-          <div>
-            <div className="flex items-start mb-4">
+    <footer className="relative pt-24 pb-12 overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Main background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0f2b4a] via-[#143a63] to-[#1f4e89]" />
+        
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gov-gold/50 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute top-1/3 -right-40 w-96 h-96 rounded-full bg-gov-gold/10 blur-[120px]" />
+        <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-gov-gold/5 blur-[80px]" />
+        
+        {/* Subtle grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]" 
+          style={{ 
+            backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px)',
+            backgroundSize: '30px 30px'
+          }}
+        />
+      </div>
+      
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        {/* Three-column layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+          {/* Column 1: Logo and info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex flex-col"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center justify-center h-14 w-14 bg-white/15 backdrop-blur-sm rounded-xl shadow-inner border border-white/10 overflow-hidden">
               <img 
                 src="/images/Logo Beltsegena.jpg" 
-                alt="Logo Beltsegena" 
-                className="h-20 w-auto mr-2"
-              />
-              <span className="font-display font-bold text-xl mt-2">
-                <span className="text-gov-gold">ብልጽግና ፓርቲ</span>
-              </span>
+                  alt="Prosperity Party Logo"
+                  className="h-9 w-9 object-contain"
+                />
+              </div>
+              <div className="font-bold text-xl text-white">
+                <span className="text-gov-gold">ብልጽግና</span>{" "}
+                <span className="text-white">ፓርቲ</span>
+              </div>
             </div>
-            <p className="text-gray-300 text-sm mb-4">
-              የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ ቅርንጫፍ ጽ/ቤት ኃላፊነትን ባለው መንገድ ህብረተሰቡን እያገለገለ ይገኛል።
+            
+            <p className="text-white/80 mb-8 leading-relaxed">
+              የሴቶች ተሳትፎና ተጠቃሚነት ጉዳይ የብልጽግና ፓርቲ ዋነኛ ተግባራት ውስጥ የሚመደብ ሲሆን ለሴቶች ልዩ ድጋፍ እየተደረገ ይገኛል።
             </p>
-            <div className="flex space-x-3">
-              <a href="#" className="w-8 h-8 bg-white/10 hover:bg-gov-gold hover:text-gov-dark rounded-full flex items-center justify-center transition-colors duration-200">
-                <Facebook size={16} />
-              </a>
-              <a href="#" className="w-8 h-8 bg-white/10 hover:bg-gov-gold hover:text-gov-dark rounded-full flex items-center justify-center transition-colors duration-200">
-                <Twitter size={16} />
-              </a>
-              <a href="#" className="w-8 h-8 bg-white/10 hover:bg-gov-gold hover:text-gov-dark rounded-full flex items-center justify-center transition-colors duration-200">
-                <Instagram size={16} />
-              </a>
-              <a href="#" className="w-8 h-8 bg-white/10 hover:bg-gov-gold hover:text-gov-dark rounded-full flex items-center justify-center transition-colors duration-200">
-                <Linkedin size={16} />
-              </a>
+            
+            <div className="mt-auto">
+              <div className="h-px w-16 bg-gov-gold/40 mb-6"></div>
+              <div className="flex gap-3">
+                {socialLinks.map((social, idx) => (
+                  <motion.a
+                    key={idx}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.1 + idx * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ y: -3 }}
+                    className="p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-all duration-300"
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </div>
             </div>
-          </div>
+          </motion.div>
           
-          {/* Quick Links */}
-          <div>
-            <h3 className="font-display font-bold text-lg mb-4 border-b border-gov-gold/30 pb-2">
+          {/* Column 2: Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="flex flex-col"
+          >
+            <h3 className="text-white font-bold text-lg mb-6">
+              አግኙን
+            </h3>
+            
+            <div className="space-y-5">
+              {contactInfo.map((item, idx) => (
+                <motion.div 
+                  key={idx} 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.2 + idx * 0.1 }}
+                  viewport={{ once: true }}
+                  className="flex items-center gap-4"
+                >
+                  <div className="p-3 rounded-lg bg-white/10 backdrop-blur-sm shadow-inner border border-white/5">
+                    {item.icon}
+                  </div>
+                  <span className="text-white/90 font-medium">{item.content}</span>
+                </motion.div>
+              ))}
+          </div>
+          </motion.div>
+          
+          {/* Column 3: Quick Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="flex flex-col"
+          >
+            <h3 className="text-white font-bold text-lg mb-6">
               ፈጣን ማገናኛዎች
             </h3>
-            <ul className="space-y-2">
-              <li><Link to="/" className="text-gray-300 hover:text-gov-gold transition-colors">መነሻ</Link></li>
-              <li><Link to="/abalat-mzgeba" className="text-gray-300 hover:text-gov-gold transition-colors">የአባላት ምዝገባ</Link></li>
-              <li><Link to="/qreta" className="text-gray-300 hover:text-gov-gold transition-colors">ጥቆማ</Link></li>
-              <li><Link to="/projects" className="text-gray-300 hover:text-gov-gold transition-colors">ተግባራት</Link></li>
-              <li><Link to="/sle-egna" className="text-gray-300 hover:text-gov-gold transition-colors">ስለ እኛ</Link></li>
-              <li><Link to="/contact" className="text-gray-300 hover:text-gov-gold transition-colors">አግኙን</Link></li>
-            </ul>
-          </div>
-          
-          {/* Contact Info */}
-          <div className="lg:col-span-2">
-            <h3 className="font-display font-bold text-lg mb-4 border-b border-gov-gold/30 pb-2">
-              አድራሻ
-            </h3>
-            <div className="space-y-4">
-              {/* Address */}
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-gov-gold mt-0.5" />
-                <div>
-                  <p className="text-white">አቃቂ ቃሊቲ ክፍለ ከተማ</p>
-                  <p className="text-gray-300 text-sm">አዲስ አበባ, ኢትዮጵያ</p>
-                </div>
+            
+            <div className="grid grid-cols-1 gap-2">
+              {navLinks.map((link, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 + idx * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Link 
+                    to={link.href}
+                    className="text-white/70 hover:text-gov-gold transition-colors duration-300 py-2 block"
+                  >
+                    <div className="flex items-center gap-2 group">
+                      <div className="h-1 w-3 rounded-full bg-gov-gold/50 group-hover:w-5 transition-all duration-300"></div>
+                      <span className="font-medium">{link.label}</span>
               </div>
-              
-              {/* Phone */}
-              <div className="flex items-start space-x-3">
-                <Phone className="w-5 h-5 text-gov-gold mt-0.5" />
-                <p className="text-white">+251 913 975 038</p>
-              </div>
-              
-              {/* Email */}
-              <div className="flex items-start space-x-3">
-                <Mail className="w-5 h-5 text-gov-gold mt-0.5" />
-                <p className="text-white">meronmengistu910@gmail.com</p>
-              </div>
-
-              {/* Working Hours */}
-              <div className="flex items-start space-x-3">
-                 <Clock className="h-5 w-5 text-gov-gold mt-0.5" />
-                <div>
-                  <p className="text-white">ከሰኞ - ሰኞ</p>
-                  <p className="text-gray-300 text-sm">24 / 7</p>
-                </div>
-              </div>
-
+                  </Link>
+                </motion.div>
+              ))}
             </div>
+          </motion.div>
           </div>
+        
+        {/* Divider with gold accent */}
+        <div className="relative h-px w-full bg-white/10 mb-8">
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-gov-gold/50 to-transparent"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+          />
         </div>
         
-        {/* Footer Bottom Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-          <div className="text-gray-400 text-sm mb-4 md:mb-0">
-            &copy; {currentYear} የሴቶች ክንፍ። መብቱ በህግ የተጠበቀ ነው።
-          </div>
+        {/* Bottom copyright section */}
+        <div className="text-center text-white/60 text-sm">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            &copy; {currentYear} ብልጽግና ፓርቲ - የአቃቂ ቃሊቲ ክፍለ ከተማ ሴቶች ክንፍ
+          </motion.div>
         </div>
       </div>
     </footer>

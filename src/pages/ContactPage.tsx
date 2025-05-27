@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -21,7 +20,7 @@ const ContactPage = () => {
               <span className="text-gov-accent">አግኙን</span>
             </h1>
             <p className="text-gray-600 text-lg">
-              በማንኛውም ጥያቄ፣ አስተያየት ወይም ጥቆማ ከታች በተዘረዘሩት የመገኛ መንገዶች ሊያገኙን ይችላሉ
+              በማንኛውም ጥያቄ ወይም አስተያየት ከታች በተዘረዘሩት የመገኛ መንገዶች ሊያገኙን ይችላሉ
             </p>
           </div>
           

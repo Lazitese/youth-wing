@@ -1,126 +1,145 @@
-
-import { useEffect, useRef } from "react";
-import { ArrowRight, HeartHandshake } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
-  const particlesContainer = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Create particles
-    if (!particlesContainer.current) return;
-    
-    const container = particlesContainer.current;
-    const containerWidth = container.offsetWidth;
-    const containerHeight = container.offsetHeight;
-    
-    // Clear existing particles
-    container.innerHTML = "";
-    
-    // Add particles
-    for (let i = 0; i < 30; i++) {
-      createParticle(container, containerWidth, containerHeight);
-    }
-    
-    // Set up interval to continuously add particles
-    const interval = setInterval(() => {
-      if (container && document.body.contains(container)) {
-        createParticle(container, containerWidth, containerHeight);
-      } else {
-        clearInterval(interval);
-      }
-    }, 800);
-    
-    return () => clearInterval(interval);
-  }, []);
-  
-  const createParticle = (container: HTMLDivElement, width: number, height: number) => {
-    const particle = document.createElement("div");
-    particle.classList.add("particle");
-    
-    // Random position
-    const x = Math.random() * width;
-    const y = Math.random() * height * 0.7; // Keep particles in upper 70% of container
-    
-    // Random size
-    const size = Math.random() * 8 + 2; // 2-10px
-    
-    // Set styles with brand colors
-    const colors = ['#1f8cd7', '#f9dc2f', '#f2b42d', '#d9348b'];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    
-    particle.style.left = `${x}px`;
-    particle.style.top = `${y}px`;
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    particle.style.backgroundColor = randomColor;
-    
-    // Add to container
-    container.appendChild(particle);
-    
-    // Remove after animation completes
-    setTimeout(() => {
-      if (particle.parentNode === container) {
-        container.removeChild(particle);
-      }
-    }, 3000);
-  };
-
  return (
-    <section className="relative min-h-screen flex items-center justify-center text-white overflow-hidden py-20"> {/* Added padding for better spacing */}
-      {/* Hero background image */}
-      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-40"
            style={{ 
-             backgroundImage: 'url(/lovable-uploads/113a8e96-472f-42b6-a819-45ac4521b7c9.png)',
-             backgroundPosition: 'center',
-             backgroundSize: 'cover'
-           }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-black/60 to-brand-blue/50"></div>
+            backgroundImage: "url('/lovable-uploads/113a8e96-472f-42b6-a819-45ac4521b7c9.png')",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-gov-dark/90 via-gov-dark to-gov-blue/90" />
       </div>
       
-      {/* Animated Particles */}
-      <div ref={particlesContainer} className="particles relative z-10"></div>
-      
-      <div className="container-gov relative z-10 pt-16 text-center">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in text-brand-white drop-shadow-lg">
-          የአቃቂ ቃሊቲ ክፍለ ከተማ <span className="text-brand-yellow">ብልጽግና ፓርቲ</span> ሴቶች ክንፍ
-        </h1>
+      {/* Decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -right-20 w-96 h-96 rounded-full bg-gov-gold/10 blur-[120px]" />
+        <div className="absolute bottom-1/4 -left-20 w-96 h-96 rounded-full bg-gov-blue/10 blur-[120px]" />
         
-        <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-10 text-brand-white drop-shadow-lg animate-fade-in" style={{ animationDelay: "0.2s" }}>
-          የሴቶችን ኢኮኖሚያዊ , ፖለቲካዊ እና ማህበራዊ ተጠቃሚነት ማረጋገጥ
-        </p>
+        {/* Subtle grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]" 
+          style={{ 
+            backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px)',
+            backgroundSize: '30px 30px'
+          }}
+        />
+      </div>
+
+      {/* Main content */}
+      <div className="container-gov flex flex-col items-center justify-center text-center relative z-10 px-4 py-20">
+        {/* Logo symbol */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ 
+            duration: 0.6, 
+            type: "spring",
+            stiffness: 200,
+            damping: 20
+          }}
+          className="mb-6 relative"
+        >
+          <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border-2 border-gov-gold/30 p-1">
+            <img
+              src="/images/Logo Beltsegena.jpg"
+              alt="Prosperity Party Logo"
+              className="w-full h-full object-contain rounded-full"
+            />
+          </div>
+          <div className="absolute inset-0 rounded-full border-2 border-gov-gold/30 animate-ping-slow" />
+        </motion.div>
         
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 animate-fade-in" style={{ animationDelay: "0.4s" }}> {/* Reduced bottom margin */}
+        {/* Main heading with staggered animation */}
+        <div className="mb-6 overflow-hidden">
+          <motion.h1 
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white"
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="inline-block overflow-hidden">
+              የአቃቂ ቃሊቲ ክፍለ ከተማ
+            </div>{" "}
+            <div className="inline-block overflow-hidden mt-2">
+              <motion.span 
+                className="text-gov-gold font-extrabold inline-block" 
+                style={{ textShadow: "0 2px 10px rgba(255, 215, 0, 0.4)" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 1.0 }}
+              >
+                ብልጽግና ፓርቲ
+              </motion.span>
+            </div>{" "}
+            <div className="inline-block overflow-hidden mt-2">
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 1.3 }}
+              >
+                ሴቶች ክንፍ
+              </motion.span>
+            </div>
+          </motion.h1>
+        </div>
+        
+        {/* Animated underline */}
+        <motion.div 
+          className="h-1.5 bg-gradient-to-r from-gov-blue via-gov-gold to-gov-blue rounded-full mb-10 w-0"
+          initial={{ width: 0 }}
+          animate={{ width: "240px" }}
+          transition={{ duration: 1, delay: 1.6 }}
+        />
+        
+        {/* Description with animation */}
+        <motion.p 
+          className="text-xl md:text-2xl max-w-2xl mx-auto mb-12 text-white/90 font-medium"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.8 }}
+        >
+          የሴቶችን ኢኮኖሚያዊ፣ ፖለቲካዊ እና ማህበራዊ ተጠቃሚነት ማረጋገጥ
+        </motion.p>
+        
+        {/* Animated buttons */}
+        <motion.div 
+          className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 2.0 }}
+        >
           <Link to="/contact">
-            <Button className="bg-brand-yellow hover:bg-opacity-90 text-brand-black px-8 py-6 text-lg group" size="lg">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+              <Button 
+                className="bg-gradient-to-r from-gov-gold to-gov-gold/90 hover:from-gov-gold hover:to-gov-gold text-gov-dark px-8 py-7 text-lg font-semibold shadow-lg shadow-gov-gold/20 group transition-all duration-300 border border-gov-gold/20 rounded-xl"
+                size="lg"
+              >
               <span>አግኙን</span>
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
+            </motion.div>
           </Link>
           
           <Link to="/abalat-mzgeba">
-            <Button variant="outline" className="border-brand-white bg-transparent text-brand-white hover:bg-white/10 px-8 py-6 text-lg" size="lg">
-              አባላት ምዝገባ
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+              <Button 
+                variant="outline" 
+                className="border-2 border-white/30 text-gov-blue hover:bg-white/10 hover:border-white/50 px-8 py-7 text-lg font-semibold shadow-md shadow-black/5 group transition-all duration-300 backdrop-blur-sm rounded-xl"
+                size="lg"
+              >
+                <span>አባላት ምዝገባ</span>
+                <ArrowUpRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Button>
+            </motion.div>
           </Link>
-        </div>
-        
-        {/* Plain text with icon */}
- <div className="flex items-center justify-center gap-4 animate-fade-in px-4 py-3 rounded-lg backdrop-filter backdrop-blur-sm bg-white/20 max-w-fit mx-auto" style={{ animationDelay: "0.6s" }}> {/* Added background for the text container */}
- <HeartHandshake size={40} className="text-brand-yellow animate-pulse" /> {/* Added HeartHandshake icon and pulse animation */}
- <h3 className="text-3xl md:text-4xl font-bold text-center drop-shadow-lg">
- <span style={{ color: '#1f8cd7' }}>ህብረ ብሄራዊ</span> <span style={{ color: '#f9dc2f' }}>እህትማማችነት</span> <span style={{ color: '#d9348b' }}>ለብልጽግና ግብ ስኬት</span>
- <style>{`
-              @keyframes wave {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-5px); }
-              }
-              .wave-text { display: inline-block; animation: wave 3s infinite ease-in-out; }
- `}</style>
-          
-          </h3>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

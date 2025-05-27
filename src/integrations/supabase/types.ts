@@ -9,6 +9,39 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      library_documents: {
+        Row: {
+          id: string
+          title: string
+          description: string
+          file_url: string
+          file_type: string
+          file_size: number
+          category: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          description: string
+          file_url: string
+          file_type: string
+          file_size: number
+          category: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          description?: string
+          file_url?: string
+          file_type?: string
+          file_size?: number
+          category?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
       abalat_mzgeba_submissions: {
         Row: {
           age: number
