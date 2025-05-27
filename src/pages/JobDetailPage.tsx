@@ -47,7 +47,7 @@ type Job = {
   department: string;
   location: string;
   deadline: string;
-  status: string;
+  job_type: string;
   created_at: string;
 };
 
@@ -57,7 +57,7 @@ const JobDetailPage = () => {
   const { toast } = useToast();
   
   const [job, setJob] = useState<Job | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [openApplyDialog, setOpenApplyDialog] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
@@ -79,13 +79,13 @@ const JobDetailPage = () => {
   
   const fetchJob = async (jobId: string) => {
     try {
-      setIsLoading(true);
+      setLoading(true);
       
       const { data, error } = await supabase
         .from("jobs")
         .select("*")
         .eq("id", jobId)
-        .eq("status", "active")
+        .eq("is_active", true)
         .single();
       
       if (error) {
@@ -114,7 +114,7 @@ const JobDetailPage = () => {
       });
       navigate("/jobs");
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
   
@@ -196,20 +196,9 @@ const JobDetailPage = () => {
     try {
       setIsSubmitting(true);
       
-      // 1. Upload resume to Supabase Storage
-      const fileExt = resume.name.split('.').pop();
-      const fileName = `${Date.now()}_${fullName.replace(/\s+/g, '_')}.${fileExt}`;
-      const filePath = `resumes/${fileName}`;
-      
-      const { error: uploadError } = await supabase.storage
-        .from('job_documents')
-        .upload(filePath, resume);
-      
-      if (uploadError) throw uploadError;
-      
-      // 2. Create job application record
-      const { error: insertError } = await supabase
-        .from('job_applications')
+      // 1. First create the application record
+      const { data: application, error: insertError } = await supabase
+        .from('applications')
         .insert([
           {
             job_id: id,
@@ -218,29 +207,70 @@ const JobDetailPage = () => {
             phone: phone,
             education: education,
             experience: experience,
-            resume_url: filePath,
-            additional_docs: [],
             status: 'pending'
-          },
-        ]);
+          }
+        ])
+        .select()
+        .single();
       
       if (insertError) throw insertError;
+
+      // 2. Then upload resume with the application ID
+      const fileExt = resume.name.split('.').pop();
+      const fileName = `${application.id}_${Date.now()}.${fileExt}`;
+      const filePath = `${id}/${fileName}`;
       
-      // 3. Show success message
+      const { error: uploadError } = await supabase.storage
+        .from('applications')
+        .upload(filePath, resume, {
+          cacheControl: '3600',
+          upsert: false
+        });
+      
+      if (uploadError) throw uploadError;
+
+      // 3. Update application with resume URL
+      const { error: updateError } = await supabase
+        .from('applications')
+        .update({ resume_url: filePath })
+        .eq('id', application.id);
+
+      if (updateError) throw updateError;
+      
+      // 4. Show success message
       setApplicationSubmitted(true);
+      toast({
+        title: "ተሳክቷል",
+        description: "ማመልከቻዎ በተሳካ ሁኔታ ተልኳል።",
+      });
       
-      // 4. Reset form (will be hidden due to success state)
+      // 5. Reset form
       resetForm();
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting application:', error);
       toast({
         variant: "destructive",
         title: "ማመልከቻውን ማስገባት አልተቻለም",
-        description: "ማመልከቻዎን በማስገባት ላይ ችግር ተፈጥሯል። እባክዎ ዳግም ይሞክሩ።",
+        description: error?.message || "ማመልከቻዎን በማስገባት ላይ ችግር ተፈጥሯል። እባክዎ ዳግም ይሞክሩ።",
       });
     } finally {
       setIsSubmitting(false);
+    }
+  };
+  
+  const getJobTypeText = (type: string) => {
+    switch (type) {
+      case "full_time":
+        return "ሙሉ ጊዜ";
+      case "part_time":
+        return "ትርፍ ጊዜ";
+      case "contract":
+        return "ኮንትራት";
+      case "internship":
+        return "ልምምድ";
+      default:
+        return type;
     }
   };
   
@@ -261,7 +291,7 @@ const JobDetailPage = () => {
     return differenceInDays(deadlineDate, now);
   };
   
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[60vh]">
         <Loader2 className="h-8 w-8 text-gov-blue animate-spin" />
@@ -297,11 +327,15 @@ const JobDetailPage = () => {
           <div className="flex flex-wrap gap-4 mb-6">
             <div className="flex items-center text-gray-700">
               <Building className="h-5 w-5 mr-2 text-gov-blue" />
-              <span>{job.department}</span>
+              <span>{job.department || "ብልጽግና ፓርቲ"}</span>
             </div>
             <div className="flex items-center text-gray-700">
               <MapPin className="h-5 w-5 mr-2 text-gov-blue" />
-              <span>{job.location}</span>
+              <span>{job.location || "አዲስ አበባ"}</span>
+            </div>
+            <div className="flex items-center text-gray-700">
+              <Briefcase className="h-5 w-5 mr-2 text-gov-blue" />
+              <span>{getJobTypeText(job.job_type)}</span>
             </div>
             <div className="flex items-center text-gray-700">
               <Calendar className="h-5 w-5 mr-2 text-gov-blue" />
@@ -333,20 +367,14 @@ const JobDetailPage = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h2 className="text-xl font-semibold mb-4 text-gray-900 flex items-center">
-              <ListChecks className="h-5 w-5 mr-2 text-gov-blue" />
-              መስፈርቶች
-            </h2>
+            <h2 className="text-xl font-semibold mb-4 text-gray-900">መስፈርቶች</h2>
             <div className="prose max-w-none">
               <p className="whitespace-pre-line text-gray-700">{job.requirements}</p>
             </div>
           </div>
           
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h2 className="text-xl font-semibold mb-4 text-gray-900 flex items-center">
-              <CheckCircle2 className="h-5 w-5 mr-2 text-gov-blue" />
-              ኃላፊነቶች
-            </h2>
+            <h2 className="text-xl font-semibold mb-4 text-gray-900">ኃላፊነቶች</h2>
             <div className="prose max-w-none">
               <p className="whitespace-pre-line text-gray-700">{job.responsibilities}</p>
             </div>

@@ -26,14 +26,13 @@ export const JobsPage = () => {
 
       // Check if user is admin
       const { data: userProfile, error } = await supabase
-        .from("profiles")
-        .select("is_admin")
-        .eq("id", session.user.id)
+        .from("admins")
+        .select("*")
+        .eq("email", session.user.email)
         .single();
 
-      if (error) throw error;
-
-      if (!userProfile?.is_admin) {
+      if (error || !userProfile) {
+        await supabase.auth.signOut();
         navigate("/admin/login");
         return;
       }

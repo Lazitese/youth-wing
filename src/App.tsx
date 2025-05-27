@@ -21,6 +21,7 @@ import LibraryPage from "./pages/LibraryPage";
 import AdminLibraryPage from "./pages/admin/LibraryPage";
 import AdminJobsPage from './pages/admin/JobsPage';
 import JobsPage from './pages/JobsPage';
+import JobDetailPage from './pages/JobDetailPage';
 import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/achievements" element={<AllAchievements />} />
             <Route path="/library" element={<LibraryPage />} />
             <Route path="/jobs" element={<JobsPage />} />
+            <Route path="/jobs/:id" element={<JobDetailPage />} />
           
           {/* Admin Routes */}
           <Route path="/admin/login" element={<Login />} />

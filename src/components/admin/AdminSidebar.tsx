@@ -101,8 +101,8 @@ const AdminSidebar = () => {
     {
       icon: <Users size={collapsed ? 22 : 20} />,
       label: "አባላት",
-      onClick: () => navigate("/admin/members"),
-      active: isActive("/admin/members"),
+      onClick: () => navigate("/admin/abalat"),
+      active: isActive("/admin/abalat"),
     },
     {
       icon: <FileText size={collapsed ? 22 : 20} />,

@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -21,85 +19,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Briefcase,
-  Calendar,
-  ChevronRight,
-  ExternalLink,
-  Filter,
-  MapPin,
-  Search,
-  Loader2,
-} from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import { motion } from "framer-motion";
-import AdminSidebar from "@/components/admin/AdminSidebar";
-import { JobsDocuments } from "@/components/admin/JobsDocuments";
+import { Loader2, Search } from "lucide-react";
+import { Database } from "@/types/supabase";
 
-type Job = {
-  id: string;
-  title: string;
-  description: string;
-  requirements: string;
-  responsibilities: string;
-  location: string;
-  job_type: string;
-  deadline: string;
-  created_at: string;
-};
+type Job = Database['public']['Tables']['jobs']['Row'];
 
 export const JobsPage = () => {
-  const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState<string>("all");
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
   useEffect(() => {
-    document.title = "የስራ ማስታወቂያዎች አስተዳዳሪ | ብልጽግና ፓርቲ ሴቶች ክንፍ";
-    checkSession();
+    fetchJobs();
   }, []);
-
-  const checkSession = async () => {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        navigate("/admin/login");
-        return;
-      }
-
-      // Check if user is admin
-      const { data: userProfile, error } = await supabase
-        .from("profiles")
-        .select("is_admin")
-        .eq("id", session.user.id)
-        .single();
-
-      if (error) throw error;
-
-      if (!userProfile?.is_admin) {
-        navigate("/admin/login");
-        return;
-      }
-
-      setIsAdmin(true);
-      setLoading(false);
-      fetchJobs();
-    } catch (error) {
-      console.error("Error checking session:", error);
-      navigate("/admin/login");
-    }
-  };
 
   const fetchJobs = async () => {
     try {
       setLoading(true);
-      // Only fetch active jobs
       const { data, error } = await supabase
         .from("jobs")
         .select("*")
@@ -109,18 +47,8 @@ export const JobsPage = () => {
       if (error) throw error;
 
       setJobs(data || []);
-      
-      // If there are jobs, select the first one by default
-      if (data && data.length > 0) {
-        setSelectedJob(data[0]);
-      }
     } catch (error) {
       console.error("Error fetching jobs:", error);
-      toast({
-        title: "ስህተት",
-        description: "የስራ ማስታወቂያዎችን መጫን አልተቻለም",
-        variant: "destructive",
-      });
     } finally {
       setLoading(false);
     }
@@ -128,13 +56,11 @@ export const JobsPage = () => {
 
   const getFilteredJobs = () => {
     return jobs.filter(job => {
-      // Filter by search query
       const matchesSearch = 
         job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         job.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        job.location.toLowerCase().includes(searchQuery.toLowerCase());
+        (job.location?.toLowerCase() || "").includes(searchQuery.toLowerCase());
       
-      // Filter by job type
       const matchesType = selectedType === "all" || job.job_type === selectedType;
       
       return matchesSearch && matchesType;
@@ -142,15 +68,6 @@ export const JobsPage = () => {
   };
 
   const filteredJobs = getFilteredJobs();
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat('am-ET', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }).format(date);
-  };
 
   const getJobTypeText = (type: string) => {
     switch (type) {
@@ -184,21 +101,104 @@ export const JobsPage = () => {
 
   if (loading) {
     return (
-      <div className="flex h-screen w-full items-center justify-center">
+      <div className="flex h-[calc(100vh-4rem)] items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-gov-blue" />
       </div>
     );
   }
 
-  if (!isAdmin) return null;
-
   return (
-    <div className="flex h-screen bg-gray-50">
-      <AdminSidebar />
-      <div className="flex-1 overflow-auto p-8">
-        <JobsDocuments />
+    <>
+      <Helmet>
+        <title>ስራዎች | ብልጽግና ፓርቲ ሴቶች ክንፍ</title>
+        <meta
+          name="description"
+          content="የብልጽግና ፓርቲ ሴቶች ክንፍ የስራ ማስታወቂያዎች"
+        />
+      </Helmet>
+
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">የስራ ማስታወቂያዎች</h1>
+          <p className="mt-2 text-gray-600">
+            የብልጽግና ፓርቲ ሴቶች ክንፍ የስራ እድሎች
+          </p>
+        </div>
+
+        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+              <Input
+                type="search"
+                placeholder="ፈልግ..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <Select value={selectedType} onValueChange={setSelectedType}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="የስራ አይነት" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">ሁሉም</SelectItem>
+                <SelectItem value="full_time">ሙሉ ጊዜ</SelectItem>
+                <SelectItem value="part_time">ትርፍ ጊዜ</SelectItem>
+                <SelectItem value="contract">ኮንትራት</SelectItem>
+                <SelectItem value="internship">ልምምድ</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {filteredJobs.length === 0 ? (
+          <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
+            <p className="text-lg font-medium text-gray-900">ምንም የስራ ማስታወቂያ አልተገኘም</p>
+            <p className="mt-1 text-sm text-gray-500">እባክዎ ቆይተው ይሞክሩ</p>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {filteredJobs.map((job) => (
+              <Card key={job.id} className="flex flex-col">
+                <CardHeader>
+                  <CardTitle className="line-clamp-2">{job.title}</CardTitle>
+                  <CardDescription>
+                    <span
+                      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getJobTypeColorClass(
+                        job.job_type
+                      )}`}
+                    >
+                      {getJobTypeText(job.job_type)}
+                    </span>
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600 line-clamp-3">
+                    {job.description}
+                  </p>
+                  {job.location && (
+                    <p className="mt-2 text-sm text-gray-500">📍 {job.location}</p>
+                  )}
+                  <p className="mt-2 text-sm text-gray-500">
+                    ⏰ የመጨረሻ ቀን:{" "}
+                    {new Date(job.deadline).toLocaleDateString("am-ET")}
+                  </p>
+                </CardContent>
+                <CardFooter className="mt-auto">
+                  <Button
+                    className="w-full"
+                    onClick={() => navigate(`/jobs/${job.id}`)}
+                  >
+                    ዝርዝር ይመልከቱ
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 

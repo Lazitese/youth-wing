@@ -327,11 +327,11 @@ export const JobsList = () => {
 
       {/* Add Job Dialog */}
       <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-        <DialogContent>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>አዲስ የስራ ማስታወቂያ</DialogTitle>
             <DialogDescription>
-              እባክዎ የስራ ማስታወቂያውን ዝርዝሮች ያስገቡ
+              አዲስ የስራ ማስታወቂያ ለመጨመር ቅጹን ይሙሉ
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
@@ -436,11 +436,11 @@ export const JobsList = () => {
 
       {/* Edit Job Dialog */}
       <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
-        <DialogContent>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>የስራ ማስታወቂያ አስተካክል</DialogTitle>
+            <DialogTitle>የስራ ማስታወቂያ ማስተካከያ</DialogTitle>
             <DialogDescription>
-              እባክዎ የስራ ማስታወቂያውን ዝርዝሮች ያስተካክሉ
+              የስራ ማስታወቂያውን መረጃ ያስተካክሉ
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
