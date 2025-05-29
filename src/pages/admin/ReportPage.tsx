@@ -73,12 +73,12 @@ const ReportPage = () => {
       
       <main className={cn(
         "flex-1 transition-all duration-300 ease-in-out",
-        "lg:ml-64" // Default sidebar width
+        "pl-[72px] lg:pl-64" // Adjust padding to account for fixed sidebar
       )}>
-        <div className="p-8">
+        <div className="p-6 lg:p-8">
           <div className="max-w-7xl mx-auto">
             {/* Header section */}
-            <div className="mb-8 mt-12 lg:mt-0">
+            <div className="mb-8 mt-4">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">ሪፖርቶች</h1>

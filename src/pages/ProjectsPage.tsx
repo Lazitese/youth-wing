@@ -2,13 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { ZoomIn, X, ArrowLeft, ArrowRight, BarChart, Heart, Users, TrendingUp, Sprout, PiggyBank } from "lucide-react";
-import { 
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { ZoomIn, X, ArrowLeft, ArrowRight } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   Carousel,
@@ -22,66 +16,69 @@ import {
   DialogContent,
   DialogClose,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button"; // Assuming Card is imported from your UI library
 
 const ProjectsPage = () => {
   const [currentZoomedImageSet, setCurrentZoomedImageSet] = useState<string[] | null>(null);
   const [currentZoomedImageIndex, setCurrentZoomedImageIndex] = useState<number>(0);
 
   useEffect(() => {
-    document.title =
-      "በ2017 በብልጽና ሴቶች ክንፍ የተሰሩ ስራዎች";
+    document.title = "በብልፅግና ወጣቶች ክንፍ የተካሄዱ ስራዎች";
     window.scrollTo(0, 0);
   }, []);
 
-  const politicalProjects = [
+  const projects = [
     {
-      title: "ከወረዳ እስከ ክ/ ከተማ ያሉ ሴት አመራሮች በአገልግሎት አሰጣጥና በግጭት አፈታት ዙሪያ ስልጠና ተሰጥቷል።",
-      images: ["/images/1.jpg", "/images/11.jpg", "/images/111.jpg", "/images/1111.jpg", "/images/11111.jpg"]
+      title: "በወጣቶች የተካሄደ የህዳሴ ግድብ የቦንድ ንቅናቄ ተግባራት",
+      images: ["/images/1.jpg", "/images/11.jpg", "/images/111.jpg", "/images/1111.jpg"]
     },
     {
-      title: "በገዢ ትርክት ዙሪያ በወረዳና በክ/ ከተማ ደረጃ ላሉ የበታች አመራሮችና ለአባላት የተሰጠ ስልጠና",
-      images: ["/images/2.jpg", "/images/22.jpg", "/images/222.jpg", "/images/2222.jpg", "/images/22222.jpg", "/images/222222.jpg", "/images/2222222.jpg", "/images/22222222.jpg", "/images/222222222.jpg", "/images/2222222222.jpg", "/images/222222222222.jpg"]
+      title: "በብልፅግና ወጣቶች ክንፍ የተካሄዱ የከተማ ግብርና ተግባራት",
+      images: ["/images/2.jpg", "/images/22.jpg", "/images/222.jpg"]
     },
     {
-      title: "ለሴት ክንፍ የሚዲያ አርሚዎች የተሰጠ ስልጠና",
-      images: ["/images/33.jpg", "/images/3.jpg", "/images/333.jpg", "/images/333333.jpg"]
+      title: "በብልፅግና ወጣቶች ክንፍ የተካሄዱ በጎነት በሆስፒታል",
+      images: ["/images/3.jpg", "/images/33.jpg"]
+    },
+    {
+      title: "በብልፅግና ወጣቶች ክንፍ የተካሄዱ የደም ልገሳ ፕሮግራም",
+      images: ["/images/4.jpg", "/images/44.jpg", "/images/444.jpg", "/images/4444.jpg", "/images/44444.jpg"]
+    },
+    {
+      title: "በብልፅግና ወጣቶች ክንፍ የተካሄዱ ስራ የሌላቸዉ ወጣቶች የግንዛቤ መድረኮች",
+      images: ["/images/5.jpg", "/images/55.jpg", "/images/555.jpg", "/images/5555.jpg", "/images/55555.jpg", "/images/555555.jpg", "/images/5555555.jpg", "/images/55555555.jpg", "/images/555555555.jpg"]
+    },
+    {
+      title: "በብልፅግና ወጣቶች ክንፍ የችግኝ እንክብካቤ ተግባራት",
+      images: ["/images/6.jpg", "/images/66.jpg", "/images/666.jpg", "/images/6666.jpg", "/images/66666.jpg", "/images/666666.jpg", "/images/6666666.jpg"]
+    },
+    {
+      title: "በብልፅግና ወጣቶች ክንፍ ማህበራዊ ሚዲያን አጠቃቅምን አስመልክቶ ከወጣቶች ጋር የተደረገ የምክክር መድረክ",
+      images: ["/images/7.jpg", "/images/77.jpg"]
+    },
+    {
+      title: "ገዥ ትርክትን የማስረፅ ስራዎች በስፖርታዊ እንቅስቃሴ",
+      images: ["/images/8.jpg", "/images/88.jpg", "/images/888.jpg"]
+    },
+    {
+      title: "አፈፃፅምን መሰረት ያደረገ የእዉቅና መድረክ",
+      images: ["/images/9.jpg", "/images/99.jpg"]
+    },
+    {
+      title: "የገዥ ትርክት የማስረፅ መድረኮች",
+      images: ["/images/10.jpg", "/images/1010.jpg", "/images/101010.jpg", "/images/10101010.jpg"]
+    },
+    {
+      title: "የገዥ ትርክት የማስረጫ የኪነ-ጥበብ ምሽቶች",
+      images: ["/images/B.jpg", "/images/BB.jpg", "/images/BBB.jpg", "/images/BBBB.jpg"]
+    },
+    {
+      title: "ወጣቶችን ያሳተፈ የፅዳት ስራዎች",
+      images: ["/images/C.jpg"]
+    },
+    {
+      title: "ገዥ ትርክትን መሰረት ያደረገ የስራ አስፈፃሚ አመራሮች ፈተና",
+      images: ["/images/D.jpg", "/images/DD.jpg", "/images/DDD.jpg", "/images/DDDD.jpg", "/images/DDDDD.jpg"]
     }
-  ];
-
-  // Only keep social projects with stats
-  const socialProjects = [
-    { title: "ጤና መድህን", value: "72,622", label: "የጤና መድህን ተጠቃሚ ሴቶች" },
-    { title: "የማህፀን ጫፍ ካንሰር ምርመራ", value: "6,351", label: "ምርመራ የተደረገላቸው ሴቶች" }
-  ];
-
-  // Keep economic projects that have stats or are በንግድ የተሰማሩ ሴቶች
-  const economicProjects = [
- { 
-    title: "በንግድ የተሰማሩ ሴቶች", 
-    hasImage: true, 
-    images: ["/images/4.jpg", "/images/44.jpg"] 
- },
-// Modified "የሌማት ትፋት" to include images and value/label
- { 
-    title: "የሌማት ትሩፋት {ተጠቃሚ ሴቶች፣ 9,040 }", 
-    hasImage: true, 
-    images: ["/images/5.jpg", "/images/55.jpg", "/images/555.jpg", "/images/5555.jpg", "/images/55555.jpg", "/images/555555.jpg"], // Updated image paths
-    value: "9,040", 
- label: "ተጠቃሚ ሴቶች"
- },
-
- { 
-    title: "የብልፅግና ቤተሰብ እየቆጠቡ ያሉ {807 ሴቶች}", 
- hasImage: true,
- images: ["/images/6.jpg", "/images/66.jpg", "/images/666.jpg"],
- value: "807", 
- label: "ሴቶች", icon: <PiggyBank className="h-10 w-10 text-blue-600 opacity-60" /> }
-  ];
-
-  const leadershipStats = [
-    { title: "ከአጠቃላይ ክ/ከተማ አመራር የሴቶች ድርሻ", value: "36.3%", icon: <Users className="h-10 w-10 text-brand-blue/70" /> },
-    { title: "ከአጠቃላይ ወረዳ አመራር የሴቶች ድርሻ", value: "26.8%", icon: <Users className="h-10 w-10 text-brand-red/70" /> },
   ];
 
   const handleZoomImage = (images: string[], startIndex: number) => {
@@ -106,50 +103,12 @@ const ProjectsPage = () => {
   const ProjectCard = ({ 
     title, 
     index, 
-    category, 
     images = [] 
   }: { 
     title: string; 
     index: number; 
-    category: string; 
     images?: string[] 
-    value?: string; // Added value property
-    label?: string; // Added label property
-  }) => { // Added value and label to ProjectCard props
-    // Get category display name
-    const getCategoryDisplayName = () => {
-      switch (category) {
-        case "political":
-          return "ስልጠና";
-        case "social":
-          return "ማህበራዊ";
-        case "economic":
-          return "ኢኮኖሚ";
-        default:
-          return "ሌላ";
-      }
-    };
-
-    // Different accent colors based on category
-    const getCategoryColor = () => {
-      switch (category) {
-        case "political":
-          return "bg-gov-accent/90";
-        case "social":
-          return "bg-purple-500/90";
-        case "economic":
-          return "bg-green-500/90";
-        default:
-          return "bg-gov-gold/90";
-      }
-    };
-
-    // Use provided images or default images
-    const defaultImages = [
-      `/images/project-${category}-${(index % 3) + 1}.jpg`,
-    ];
-    const cardImages = images.length > 0 ? images : defaultImages;
-
+  }) => {
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -160,422 +119,100 @@ const ProjectsPage = () => {
         <div 
           className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full transform hover:-translate-y-1"
         >
-          {/* Image Section - Main Feature */}
           <div className="relative overflow-hidden">
-            <div className="absolute top-4 left-4 z-10">
-              <span className={`${getCategoryColor()} backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-md`}>
-                {getCategoryDisplayName()}
-              </span>
-            </div>
-            
             <AspectRatio ratio={16 / 9} className="bg-gray-100">
-            <Carousel className="w-full h-full">
-              <CarouselContent>
-                {cardImages.map((image, idx) => (
- <CarouselItem key={idx} className="h-full">
-                      <div className="relative w-full h-full overflow-hidden cursor-pointer" onClick={() => handleZoomImage(cardImages, idx)}>
-                      <img 
-                        src={image} 
-                        alt={`${title} - slide ${idx + 1}`}
+              <Carousel className="w-full h-full">
+                <CarouselContent>
+                  {images.map((image, idx) => (
+                    <CarouselItem key={idx} className="h-full">
+                      <div className="relative w-full h-full overflow-hidden cursor-pointer" onClick={() => handleZoomImage(images, idx)}>
+                        <img 
+                          src={image} 
+                          alt={`${title} - slide ${idx + 1}`}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        onError={(e: any) => {
-                          e.currentTarget.src = "/placeholder.svg";
- }}
-                      />
+                          onError={(e: any) => {
+                            e.currentTarget.src = "/placeholder.svg";
+                          }}
+                        />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div
-                          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300"
-                        >
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
                           <ZoomIn size={24} className="text-white drop-shadow-lg" />
                         </div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
                 <CarouselPrevious className="left-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <CarouselNext className="right-2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity" />
-            </Carousel>
-          </AspectRatio>
+              </Carousel>
+            </AspectRatio>
           </div>
           
-          {/* Only the title */}
           <div className="p-4 flex-1 flex flex-col">
             <h3 className="text-md font-bold text-gov-dark line-clamp-2">
               {title}
             </h3>
           </div>
-            </div>
-      </motion.div>
-    );
-  };
-  
-  const EconomicStatCard = ({ title, value, label, index, hasImage = false, images = [], icon }:
-  { title: string; value?: string; label?: string; index: number; hasImage?: boolean; images?: string[]; icon?: JSX.Element }) => {
-    if (hasImage) {
-      // This case represents the "በንግድ የተሰማሩ ሴቶች" card with images - this will be replaced by ProjectCard
-      return (
-        <motion.div
-          initial={{ opacity: 0, y: 50 }} 
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }} 
-          className="h-full" // Ensure card takes full height
-        >
-          <Card className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full transform hover:-translate-y-1 border border-green-100 hover:border-green-200">
-            <CardHeader className="pb-0">
-              <CardTitle className="text-lg font-semibold text-gray-800">{title}</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-4 flex-1 flex flex-col">
-              <AspectRatio ratio={16 / 9} className="bg-gray-100">
-                <Carousel className="w-full h-full">
-                  <CarouselContent>
-                    {images.map((image, idx) => (
-                      <CarouselItem key={`economic-image-${idx}`}>
-                        <div className="relative w-full h-full overflow-hidden cursor-pointer" onClick={() => handleZoomImage(images, idx)}>
-                          <img src={image} alt={`${title} - slide ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
-              </AspectRatio>
-            </CardContent>
-          </Card>
-        </motion.div>
-      );
-    }
-    
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 50 }} 
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }} 
-        className="w-full h-full"
-      >
-        <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between border border-green-100 hover:border-green-200">
-          <CardHeader className="pb-0">
-            <CardTitle className="text-lg font-semibold text-gray-800">{title}</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0 mt-4">
-            <p className="text-3xl font-bold text-green-600 mb-1">{value}</p>
-            {label && <p className="text-sm text-gray-500">{label}</p>}
-          </CardContent>
-        </Card>
-      </motion.div>
-    );
-  };
-  const StatCard = ({ title, value, icon, color = "bg-gradient-to-br from-brand-blue/20 to-brand-blue/10" }: 
-  { title: string; value: string; icon?: JSX.Element; color?: string }) => {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="w-full"
-      >
-        <div className={`p-6 rounded-xl shadow-md ${color} relative overflow-hidden border border-white/20`}>
-          <div className="flex items-center justify-between">
-            <div className="space-y-2">
-              <h4 className="text-lg font-medium text-gray-700">{title}</h4>
-              <p className="text-3xl font-bold text-brand-dark">{value}</p>
-            </div>
-            {icon && (
-              <div className="bg-white/80 p-3 rounded-lg shadow-sm">
-                {icon}
-              </div>
-            )}
-          </div>
-          <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full bg-white/10"></div>
         </div>
-      </motion.div>
-    );
-  };
-
-  const SocialStatCard = ({ title, value, label, index }: 
-  { title: string; value?: string; label?: string; index: number }) => {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="w-full h-full"
-      >
-        <div className="bg-white rounded-xl shadow-md p-6 h-full flex flex-col justify-between border border-purple-100 hover:border-purple-200 transition-all duration-300 hover:shadow-lg">
-          <h4 className="text-lg font-medium text-gray-700 mb-2">{title}</h4>
-          
-          {value && (
-            <div className="mt-4">
-              <p className="text-3xl font-bold text-purple-600 mb-1">{value}</p>
-              {label && <p className="text-sm text-gray-500">{label}</p>}
-            </div>
-          )}
-          
-          {!value && (
-            <div className="flex items-center justify-center h-full opacity-50">
-              <Heart className="h-8 w-8 text-purple-400 mb-2" />
-            </div>
-          )}
-        </div>
-      </motion.div>
-    );
-  };
-
-
-  const SectionHeader = ({ title }: { title: string }) => {
-    // Different colors for each section
-    const getTitleColor = () => {
-      switch(title) {
-        case "የፖለቲካ ተሳትፎ":
-          return "from-brand-blue to-brand-blue/70";
-        case "ማህበራዊ ተጠቃሚነት":
-          return "from-brand-red to-brand-red/70";
-        case "ኢኮኖሚያዊ ተሳትፎ":
-          return "from-brand-yellow to-brand-orange";
-        default:
-          return "from-brand-blue to-brand-blue/70";
-      }
-    };
-
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-12"
-      >
-        <h2 className="text-3xl font-bold text-brand-black relative inline-block">
-          {title}
-          <span className={`absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r ${getTitleColor()} transform translate-y-2`}></span>
-        </h2>
-        <p className="text-gray-600 mt-3 max-w-2xl">
-          {title === "የፖለቲካ ተሳትፎ" && "የሴቶችን የፖለቲካ ተሳትፎ ማሳደግ እና በአመራር ደረጃ እንዲሳተፉ የሚያስችሉ ተግባራት"}
-          {title === "ማህበራዊ ተጠቃሚነት" && "የሴቶችን ማህበራዊ ፍትህ እና ጤና ማረጋገጥ የሚያስችሉ ተግባራት"}
-          {title === "ኢኮኖሚያዊ ተሳትፎ" && "የሴቶችን የኢኮኖሚ ተጠቃሚነት እና ተሳትፎ ማሳደግ የሚያስችሉ ተግባራት"}
-        </p>
       </motion.div>
     );
   };
 
   return (
-    <div className="min-h-screen bg-brand-white">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-
-      <div className="relative py-20 md:py-28 overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/lovable-uploads/113a8e96-472f-42b6-a819-45ac4521b7c9.png" 
-            alt="Colorful Background" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-brand-black/40"></div>
-        </div>
-
-        {/* Content with good contrast */}
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-brand-white drop-shadow-lg">
-              ተግባራት <span className="text-brand-yellow"></span>
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto text-brand-white drop-shadow-md">
-            </p>
-          </motion.div>
-
-          {/* Decorative elements */}
-          <div className="hidden md:block">
-            <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-brand-blue/20 blur-2xl"></div>
-            <div className="absolute bottom-10 right-10 w-32 h-32 rounded-full bg-brand-yellow/20 blur-2xl"></div>
-          </div>
-        </div>
-      </div>
-
-      <main className="container mx-auto px-4 py-16 space-y-24">
-        {/* Brief intro section */}
-     
-        <section>
-          <SectionHeader title="የአመራር ስምሪት ውስጥ የሴቶች ድርሻ" /> {/* New section header for stats */}
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {leadershipStats.map((stat, idx) => (
-              <StatCard 
-                key={idx} 
-                title={stat.title} 
-                value={stat.value} 
-                icon={stat.icon} 
-                color={idx === 0 ? "bg-gradient-to-br from-brand-blue/20 to-brand-blue/5" : "bg-gradient-to-br from-brand-red/20 to-brand-red/5"}
-              />
-            ))}
-          </div>
-        </section>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-center max-w-4xl mx-auto mb-8"
-        >
-          <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-brand-black">በ2017 በብልጽና ሴቶች ክንፍ የተሰሩ ስራዎች
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-brand-blue via-brand-red to-brand-yellow mx-auto mb-6"></div>
-          
-        </motion.div>
-        <section>
-          <SectionHeader title="ፖለቲካዊ ተጠቃሚነት" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {politicalProjects.map((project, idx) => (
-              <ProjectCard 
-                key={`political-${idx}`}
-                title={project.title} 
-                index={idx} 
-                category="political" 
-                images={project.images}
-              />
-            ))}
-          </div>
-        </section>
+      
+      <main className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-center mb-8 text-gov-dark">
+          በብልፅግና ወጣቶች ክንፍ የተካሄዱ ስራዎች
+        </h1>
         
-        <section>
-          <SectionHeader title="ማህበራዊ ተጠቃሚነት" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {socialProjects.map((project, idx) => (
-              <SocialStatCard
-                key={`social-${idx}`}
-                title={project.title}
-                value={project.value}
-                label={project.label}
-                index={idx}
-              />
-            ))}
-          </div>
-        </section>
-        
-        <section>
-          <SectionHeader title="ኢኮኖሚያዊ ተሳትፎ" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {economicProjects.map((project, idx) => (
-              project.hasImage ? ( // Render ProjectCard if hasImage is true
-                <ProjectCard
-                  key={`economic-${idx}`}
-                  title={project.title}
-                  index={idx}
-                  category="economic"
-                  value={project.value}
-                  label={project.label}
- images={project.images} // Pass images array
-                />
-              ) : (
-                <EconomicStatCard
-                  key={`economic-${idx}`}
-                  title={project.title}
-                  value={project.value}
-                  label={project.label}
-                  index={idx}
-                  hasImage={false}
-                />
-              )
-            ))}
-          </div>
-        </section>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={index}
+              title={project.title}
+              images={project.images}
+              index={index}
+            />
+          ))}
+        </div>
       </main>
 
-      <Footer />
-
-      {/* Enhanced Image Zoom Dialog with Better Navigation and Thumbnails */}
-      <Dialog 
-        open={!!currentZoomedImageSet} 
-        onOpenChange={(isOpen) => !isOpen && setCurrentZoomedImageSet(null)}
-      >
-        <DialogContent className="max-w-4xl p-0 bg-black/95 border-none">
-          <div className="relative">
-            <DialogClose className="absolute top-2 right-2 z-10 rounded-full bg-black/70 p-2 hover:bg-black/90 transition-colors">
-              <X className="h-6 w-6 text-white" />
-            </DialogClose>
-            
-            {currentZoomedImageSet && (
-              <div className="w-full h-full flex flex-col items-center justify-center">
-                {/* Main image display - bigger area */}
-                <div className="relative w-full h-[70vh] flex items-center justify-center p-4">
-                <img 
-                  src={currentZoomedImageSet[currentZoomedImageIndex] || ''}
-                  alt="Zoomed image" 
-                    className="max-w-full max-h-full object-contain"
-                  />
-                </div>
-                
-                {/* Navigation controls - improved layout */}
-                <div className="w-full px-6 pb-6 pt-2 flex flex-col gap-4 bg-black/80">
-                  {/* Slider for navigation - more visible */}
-                  <div className="px-4 w-full">
-                    <input
-                      type="range"
-                      min="0"
-                      max={currentZoomedImageSet.length - 1}
-                      value={currentZoomedImageIndex}
-                      onChange={(e) => setCurrentZoomedImageIndex(Number(e.target.value))}
-                      className="w-full"
-                    />
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    {/* Button controls - more prominent */}
-                <Button 
-                  variant="outline" 
-                      size="sm"
-                      className="bg-black/50 border-gray-700 hover:bg-black/70 text-white"
-                  onClick={() => navigateZoomedImage('prev')}
-                >
-                      <ArrowLeft className="h-5 w-5 mr-2" />
-                      ቀዳሚ
-                </Button>
-                    
-                    {/* Image counter - better visibility */}
-                    <div className="text-white px-3 py-1 bg-black/50 rounded-full text-sm">
-                      {currentZoomedImageIndex + 1} / {currentZoomedImageSet.length}
-                    </div>
-                
-                <Button 
-                  variant="outline" 
-                      size="sm"
-                      className="bg-black/50 border-gray-700 hover:bg-black/70 text-white"
-                  onClick={() => navigateZoomedImage('next')}
-                >
-                      ቀጣይ
-                      <ArrowRight className="h-5 w-5 ml-2" />
-                </Button>
-                  </div>
-                  
-                  {/* Thumbnails row - larger, more visible */}
-                  <div className="flex gap-2 overflow-x-auto pb-2 px-2 scrollbar-hide">
-                    {currentZoomedImageSet.map((img, idx) => (
-                      <div 
-                        key={idx}
-                        onClick={() => setCurrentZoomedImageIndex(idx)}
-                        className={`
-                          w-20 h-16 flex-shrink-0 cursor-pointer border-2 overflow-hidden transition-all
-                          ${idx === currentZoomedImageIndex 
-                            ? "border-gov-accent opacity-100 scale-110" 
-                            : "border-transparent opacity-70 hover:opacity-100"
-                          }
-                        `}
-                      >
-                        <img 
-                          src={img} 
-                          alt={`Thumbnail ${idx + 1}`} 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
+      {/* Image Zoom Dialog */}
+      <Dialog open={!!currentZoomedImageSet} onOpenChange={() => setCurrentZoomedImageSet(null)}>
+        <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none">
+          <DialogClose className="absolute right-4 top-4 z-50 bg-black/50 rounded-full p-2 text-white hover:bg-black/70">
+            <X className="h-6 w-6" />
+          </DialogClose>
+          
+          {currentZoomedImageSet && (
+            <div className="relative w-full h-[80vh]">
+              <img
+                src={currentZoomedImageSet[currentZoomedImageIndex]}
+                alt="Zoomed project"
+                className="w-full h-full object-contain"
+              />
+              
+              <button
+                onClick={() => navigateZoomedImage('prev')}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 rounded-full p-2 text-white hover:bg-black/70"
+              >
+                <ArrowLeft className="h-6 w-6" />
+              </button>
+              
+              <button
+                onClick={() => navigateZoomedImage('next')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 rounded-full p-2 text-white hover:bg-black/70"
+              >
+                <ArrowRight className="h-6 w-6" />
+              </button>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
+
+      <Footer />
     </div>
   );
 };

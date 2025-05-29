@@ -10,7 +10,7 @@ const Principles = () => {
     },
     {
       icon: <Scale className="h-10 w-10 text-gov-accent" />,
-      title: "የሴቶች ማህበራዊ እኩልነት",
+      title: "የወጣቶች ማህበራዊ እኩልነት",
       description: "በማህበረሰቡ ውስጥ ለሴቶች እኩል ዕድል፣ መብት እና ክብር"
     },
     {
@@ -20,13 +20,13 @@ const Principles = () => {
     },
     {
       icon: <Zap className="h-10 w-10 text-gov-accent" />,
-      title: "የሴቶች ኃይል እና እውቀት",
-      description: "የሴቶችን እውቀት፣ ሙያ እና ችሎታ ለማጎልበት የሚደረግ ጥረት"
+      title: "የወጣቶች ኃይል እና እውቀት",
+      description: "የወጣቶችን እውቀት፣ ሙያ እና ችሎታ ለማጎልበት የሚደረግ ጥረት"
     },
     {
       icon: <Users className="h-10 w-10 text-gov-accent" />,
       title: "የፖለቲካ ተሳትፎ",
-      description: "በፖለቲካ ውሳኔ አሰጣጥ ላይ የሴቶችን ድምጽ ማሰማት"
+      description: "በፖለቲካ ውሳኔ አሰጣጥ ላይ የወጣቶችን ድምጽ ማሰማት"
     },
     {
       icon: <Heart className="h-10 w-10 text-gov-accent" />,
@@ -43,7 +43,7 @@ const Principles = () => {
             የብልፅግና ፓርቲ <span className="text-gov-accent">መሠረታዊ መርሆች</span>
           </h2>
           <p className="text-gray-600">
-            በቃሊቲ ክፍለ ከተማ ሴቶች ክንፍ ሥራዎቻችን የሚመሩባቸው መሠረታዊ እሴቶች እና አቅጣጫዎች
+            በቃሊቲ ክፍለ ከተማ ወጣት ክንፍ ሥራዎቻችን የሚመሩባቸው መሠረታዊ እሴቶች እና አቅጣጫዎች
           </p>
         </div>
 

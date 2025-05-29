@@ -15,7 +15,7 @@ import MedemerPillars from "@/components/MedemerPillars";
 const Index = () => {
   // Change page title on mount
   useEffect(() => {
-    document.title = "የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ የሴቶች ክንፍ";
+    document.title = "የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ የወጣት ክንፍ";
     
     // Apply brand colors to the body
     document.body.classList.add("bg-brand-white");

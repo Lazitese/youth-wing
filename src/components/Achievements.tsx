@@ -9,7 +9,7 @@ const Achievements = () => {
   const achievements = [
     {
       id: 1,
-      title: "የሴቶች የገቢ ማስገኛ ስልጠና",
+      title: "የወጣቶች የገቢ ማስገኛ ስልጠና",
       description: "በአምስት ወረዳዎች ውስጥ 500+ ሴቶች በተለያዩ የገቢ ማስገኛ ስልጠናዎች ላይ ተሳትፈዋል",
       image: "/placeholder.svg",
       stats: "500+ ሴቶች"
@@ -23,8 +23,8 @@ const Achievements = () => {
     },
     {
       id: 3,
-      title: "የሴቶች ጤና ግንዛቤ ማስጨበጫ",
-      description: "በ10 ወረዳዎች ውስጥ የተካሄደ የሴቶችን ጤና በተመለከተ ግንዛቤ ለማስጨበጥ የተዘጋጀ ፕሮግራም",
+      title: "የወጣቶች ጤና ግንዛቤ ማስጨበጫ",
+      description: "በ10 ወረዳዎች ውስጥ የተካሄደ የወጣቶችን ጤና በተመለከተ ግንዛቤ ለማስጨበጥ የተዘጋጀ ፕሮግራም",
       image: "/placeholder.svg",
       stats: "2000+ ሴቶች"
     }
@@ -38,7 +38,7 @@ const Achievements = () => {
             <span className="text-gov-accent">የእስካሁን ድርሻችን</span>
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ ቅርንጫፍ ጽ/ቤት ያስመዘገባቸው ውጤቶች
+            የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ወጣት ክንፍ ቅርንጫፍ ጽ/ቤት ያስመዘገባቸው ውጤቶች
           </p>
         </div>
 

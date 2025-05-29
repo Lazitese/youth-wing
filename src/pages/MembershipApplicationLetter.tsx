@@ -176,7 +176,7 @@ const MembershipApplicationLetter = () => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
                 >
-                  <p className="text-xs md:text-base text-gray-700 text-center font-medium mb-1 md:mb-4">የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ ቅርንጫፍ ጽ/ቤት</p>
+                  <p className="text-xs md:text-base text-gray-700 text-center font-medium mb-1 md:mb-4">የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ወጣት ክንፍ ቅርንጫፍ ጽ/ቤት</p>
                   <p className="text-xs md:text-base text-gray-700 text-center mb-2 md:mb-6">አዲስ አባል ለመሆን በፍቃድ የሚሞላ ማመልከቻ ቅጽ</p>
                 </motion.div>
                 <div className="flex flex-wrap items-center justify-end gap-1 md:gap-2 mb-2 md:mb-4">
@@ -193,7 +193,7 @@ const MembershipApplicationLetter = () => {
                       error={errors.woredaName}
                     />
                   </motion.div>
-                  <span className="text-xs md:text-base text-gray-700">ሴቶች ክንፍ ጽ/ቤት</span>
+                  <span className="text-xs md:text-base text-gray-700">ወጣት ክንፍ ጽ/ቤት</span>
                 </div>
               </div>
 
@@ -285,7 +285,7 @@ const MembershipApplicationLetter = () => {
                   )}
                   
                   <span className="block mt-1 md:mt-0 md:inline">
-                    ብልጽግና ፓርቲ ሴቶች ክንፍ አባል ሆኜ ለመሳተፍ እና በፓርቲው ፕሮግራም እና ዓላማ እንዲሁም ራዕይ እና ተዕልኮን በመረዳት አባል ሆኜ ከፓርቲው ጋር ለመስራት በራሴ ፍቃድ ይህንን ማመልከቻ መሙላቴን እና ፓርቲው አባል አድርጎ እንዲቀበለኝ ስል እጠይቃለሁ፡፡
+                    ብልጽግና ፓርቲ ወጣት ክንፍ አባል ሆኜ ለመሳተፍ እና በፓርቲው ፕሮግራም እና ዓላማ እንዲሁም ራዕይ እና ተዕልኮን በመረዳት አባል ሆኜ ከፓርቲው ጋር ለመስራት በራሴ ፍቃድ ይህንን ማመልከቻ መሙላቴን እና ፓርቲው አባል አድርጎ እንዲቀበለኝ ስል እጠይቃለሁ፡፡
                   </span>
                 </p>
 

@@ -158,7 +158,7 @@ const PartyVisionStructure = () => {
                 color: "bg-green-500",
               },
               {
-                title: "የሴቶች ማህበራዊ ተሳትፎ",
+                title: "የወጣቶች ማህበራዊ ተሳትፎ",
                 icon: <UserCheck className="w-5 h-5" />,
                 color: "bg-purple-500",
               },

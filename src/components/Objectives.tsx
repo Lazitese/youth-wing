@@ -3,14 +3,14 @@ import { Check } from "lucide-react";
 
 const Objectives = () => {
   const objectives = [
-    "የሴቶች ኃይል እና እውቀት መሻሻል",
+    "የወጣቶች ኃይል እና እውቀት መሻሻል",
     "የፖለቲካ እና ማህበረሰብ ተሳትፎ ማሳደግ",
     "እኩልነት በቤተሰብ እና ሥራ ቦታ",
     "ለሴቶች የምክር እና የሥነ ልቦና ድጋፍ መስጠት",
     "ለሴቶች ምቹ የጤና ፖሊሲዎችን መተግበር",
-    "የሴቶችን የኢኮኖሚ ተሳትፎ ማሳደግ",
+    "የወጣቶችን የኢኮኖሚ ተሳትፎ ማሳደግ",
     "ለሴት ልጆች ትምህርት ማበረታታት",
-    "የሴቶችን መብት መጠበቅ",
+    "የወጣቶችን መብት መጠበቅ",
   ];
 
   return (
@@ -40,7 +40,7 @@ const Objectives = () => {
             </h2>
             
             <p className="text-gray-700 mb-6 leading-relaxed">
-              የብልጽግና ፓርቲ ቀልጣፋ፣ ተጠሪነት ያለው እና ለሕዝብ አገልጋይ የሆነ የመንግስት አስተዳደር በመፍጠር ላይ ያተኮረ ነው። በዚህ የሴቶች ክንፍ፣ ለሴቶች ልዩ ትኩረት በመስጠት አላማዎቻችንን በዘላቂነት ለማሳካት እንሰራለን።
+              የብልጽግና ፓርቲ ቀልጣፋ፣ ተጠሪነት ያለው እና ለሕዝብ አገልጋይ የሆነ የመንግስት አስተዳደር በመፍጠር ላይ ያተኮረ ነው። በዚህ የወጣት ክንፍ፣ ለሴቶች ልዩ ትኩረት በመስጠት አላማዎቻችንን በዘላቂነት ለማሳካት እንሰራለን።
             </p>
             
             <p className="text-gray-700 mb-6 leading-relaxed">
@@ -48,7 +48,7 @@ const Objectives = () => {
             </p>
 
             <div className="mt-8 inline-block py-2 px-4 bg-gov-dark/5 rounded-lg border border-gov-dark/10">
-              <span className="text-gov-dark font-semibold">ራዕያችን:</span> <span className="text-gray-700">በሁሉም መስኮች የሴቶች ድምጽ የሚሰማበት፣ እኩልነት የሰፈነበት ማህበረሰብ መገንባት።</span>
+              <span className="text-gov-dark font-semibold">ራዕያችን:</span> <span className="text-gray-700">በሁሉም መስኮች የወጣቶች ድምጽ የሚሰማበት፣ እኩልነት የሰፈነበት ማህበረሰብ መገንባት።</span>
             </div>
           </div>
         </div>

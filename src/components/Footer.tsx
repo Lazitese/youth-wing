@@ -74,7 +74,7 @@ const Footer = () => {
             </div>
             
             <p className="text-white/80 mb-8 leading-relaxed">
-              የሴቶች ተሳትፎና ተጠቃሚነት ጉዳይ የብልጽግና ፓርቲ ዋነኛ ተግባራት ውስጥ የሚመደብ ሲሆን ለሴቶች ልዩ ድጋፍ እየተደረገ ይገኛል።
+              የወጣቶች ተሳትፎና ተጠቃሚነት ጉዳይ የብልጽግና ፓርቲ ዋነኛ ተግባራት ውስጥ የሚመደብ ሲሆን ለሴቶች ልዩ ድጋፍ እየተደረገ ይገኛል።
             </p>
             
             <div className="mt-auto">
@@ -187,7 +187,7 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            &copy; {currentYear} ብልጽግና ፓርቲ - የአቃቂ ቃሊቲ ክፍለ ከተማ ሴቶች ክንፍ
+            &copy; {currentYear} ብልጽግና ፓርቲ - የአቃቂ ቃሊቲ ክፍለ ከተማ ወጣት ክንፍ
           </motion.div>
         </div>
       </div>

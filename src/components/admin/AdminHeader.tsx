@@ -39,7 +39,7 @@ const AdminHeader = () => {
               className="h-10 w-auto"
             />
             <h1 className="text-xl font-bold">
-              <span className="text-gov-gold">ብልጽግና ፓርቲ</span> ሴቶች ክንፍ
+              <span className="text-gov-gold">ብልጽግና ፓርቲ</span> ወጣት ክንፍ
             </h1>
           </div>
           

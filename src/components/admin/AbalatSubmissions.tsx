@@ -38,502 +38,147 @@ interface AbalatSubmission {
 }
 
 interface AbalatSubmissionsProps {
-  showAddForm?: boolean;
-  setShowAddForm?: React.Dispatch<React.SetStateAction<boolean>>;
-  filterType?: string;
-  searchQuery?: string;
+  searchQuery: string;
+  activeFilter: string;
 }
 
-const AbalatSubmissions = ({ showAddForm, setShowAddForm, filterType = "all", searchQuery = "" }: AbalatSubmissionsProps = {}) => {
+const AbalatSubmissions: React.FC<AbalatSubmissionsProps> = ({ searchQuery, activeFilter }) => {
   const { toast } = useToast();
   const [submissions, setSubmissions] = useState<AbalatSubmission[]>([]);
-  const [filteredSubmissions, setFilteredSubmissions] = useState<AbalatSubmission[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("all");
-  const [selectedSubmission, setSelectedSubmission] = useState<AbalatSubmission | null>(null);
-  const [detailsOpen, setDetailsOpen] = useState(false);
-  const [updatingStatus, setUpdatingStatus] = useState(false);
-
-  // Use props if provided, otherwise use local state
-  useEffect(() => {
-    if (searchQuery !== undefined) {
-      setSearchTerm(searchQuery);
-    }
-  }, [searchQuery]);
 
   useEffect(() => {
-    if (filterType !== undefined) {
-      setStatusFilter(filterType);
-    }
-  }, [filterType]);
-
-  useEffect(() => {
-    const fetchSubmissions = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('abalat_mzgeba_submissions')
-          .select('*')
-          .order('created_at', { ascending: false });
-
-        if (error) {
-          throw error;
-        }
-
-        // Cast the status to match the TypeScript type
-        const typedData = data?.map(item => ({
-          ...item,
-          status: item.status as 'pending' | 'accepted' | 'rejected'
-        })) || [];
-
-        setSubmissions(typedData);
-        setFilteredSubmissions(typedData);
-      } catch (error) {
-        console.error("Error fetching submissions:", error);
-        toast({
-          title: "Error",
-          description: "የአባላት ምዝገባ ማግኘት አልተቻለም",
-          variant: "destructive",
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchSubmissions();
-  }, [toast]);
+  }, [activeFilter]);
 
-  useEffect(() => {
-    let filtered = submissions;
-    
-    // Apply status filter
-    if (statusFilter !== "all") {
-      filtered = filtered.filter(item => item.status === statusFilter);
-    }
-    
-    // Apply search filter
-    if (searchTerm.trim() !== "") {
-      const lowercasedFilter = searchTerm.toLowerCase();
-      filtered = filtered.filter(item => {
-        return (
-          item.full_name.toLowerCase().includes(lowercasedFilter) ||
-          item.woreda.toLowerCase().includes(lowercasedFilter) ||
-          item.kebele.toLowerCase().includes(lowercasedFilter) ||
-          item.occupation.toLowerCase().includes(lowercasedFilter) ||
-          (item.email && item.email.toLowerCase().includes(lowercasedFilter)) ||
-          item.phone.includes(searchTerm) ||
-          item.age.toString().includes(searchTerm)
-        );
-      });
-    }
-
-    setFilteredSubmissions(filtered);
-  }, [searchTerm, statusFilter, submissions]);
-
-  const handleViewDetails = (submission: AbalatSubmission) => {
-    setSelectedSubmission(submission);
-    setDetailsOpen(true);
-  };
-
-  const updateStatus = async (id: string, status: 'accepted' | 'rejected') => {
-    setUpdatingStatus(true);
+  const fetchSubmissions = async () => {
     try {
-      const { error } = await supabase
+      setLoading(true);
+      let query = supabase
         .from('abalat_mzgeba_submissions')
-        .update({ status })
-        .eq('id', id);
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      // Apply filter
+      if (activeFilter !== 'all') {
+        query = query.eq('status', activeFilter);
+      }
+
+      const { data, error } = await query;
 
       if (error) {
         throw error;
       }
 
-      // Update the submissions in state
-      setSubmissions(prevSubmissions => 
-        prevSubmissions.map(sub => 
-          sub.id === id ? { ...sub, status } : sub
-        )
-      );
-
-      // Update the selected submission if open in details view
-      if (selectedSubmission && selectedSubmission.id === id) {
-        setSelectedSubmission({ ...selectedSubmission, status });
-      }
-
-      // Update filtered submissions to reflect the new status
-      setFilteredSubmissions(prevFiltered => 
-        prevFiltered.map(sub => 
-          sub.id === id ? { ...sub, status } : sub
-        )
-      );
-
-      toast({
-        title: "ተሳክቷል",
-        description: `አባል ሁኔታ ወደ ${status === 'accepted' ? 'ተቀባይነት አግኝቷል' : 'ተቀባይነት አላገኘም'} ተቀይሯል`,
-      });
+      setSubmissions(data || []);
     } catch (error) {
-      console.error("Error updating status:", error);
+      console.error('Error fetching submissions:', error);
       toast({
-        title: "Error",
-        description: "ሁኔታን ለመቀየር አልተቻለም",
+        title: "ስህተት",
+        description: "መረጃዎችን ማግኘት አልተቻለም",
         variant: "destructive",
       });
     } finally {
-      setUpdatingStatus(false);
+      setLoading(false);
     }
   };
 
-  const exportToCsv = (singleSubmission?: AbalatSubmission) => {
-    try {
-      const dataToExport = singleSubmission ? [singleSubmission] : filteredSubmissions;
-      const csvHeader = "ID,ሙሉ ስም,ስልክ,ኢሜይል,ወረዳ,ቀበሌ,እድሜ,የትምህርት ደረጃ,ስራ,ሁኔታ,የተፈጠረበት ጊዜ\n";
-      
-      const csvRows = dataToExport.map(item => {
-        // Format the date
-        const formattedDate = format(new Date(item.created_at), "yyyy-MM-dd HH:mm:ss");
-        
-        // Translate status
-        let statusTranslated = "";
-        switch(item.status) {
-          case 'pending': statusTranslated = "በመጠባበቅ ላይ"; break;
-          case 'accepted': statusTranslated = "ተቀባይነት አግኝቷል"; break;
-          case 'rejected': statusTranslated = "ተቀባይነት አላገኘም"; break;
-        }
-        
-        const email = item.email ? item.email : '';
-        
-        return `${item.id},${item.full_name},${item.phone},${email},${item.woreda},${item.kebele},${item.age},${item.education_level},${item.occupation},${statusTranslated},${formattedDate}`;
-      });
-      
-      const csvString = csvHeader + csvRows.join("\n");
-      const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
-      const link = document.createElement("a");
-      
-      // Create a URL for the blob
-      const url = URL.createObjectURL(blob);
-      link.setAttribute("href", url);
-      link.setAttribute("download", singleSubmission ? `abalat_${singleSubmission.id}.csv` : "abalat_submissions.csv");
-      link.style.visibility = "hidden";
-      
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      toast({
-        title: "ወርዷል",
-        description: "CSV ፋይል በተሳካ ሁኔታ ወርዷል",
-      });
-    } catch (error) {
-      console.error("Export error:", error);
-      toast({
-        title: "Error",
-        description: "የCSV ፋይል ለማውረድ ችግር ተፈጥሯል",
-        variant: "destructive",
-      });
-    }
-  };
-
-  // Render status badge with appropriate color
-  const StatusBadge = ({ status, size = "default" }: { status: 'pending' | 'accepted' | 'rejected', size?: "default" | "large" }) => {
-    const iconSize = size === "large" ? 16 : 14;
-    const paddingClass = size === "large" ? "px-4 py-2" : "";
-    const textClass = size === "large" ? "text-sm" : "text-xs";
+  // Filter submissions based on search query
+  const filteredSubmissions = submissions.filter(submission => {
+    if (!searchQuery) return true;
     
-    switch (status) {
-      case 'pending':
-        return (
-          <Badge 
-            variant="outline" 
-            className={`bg-yellow-50 border border-yellow-200 text-yellow-700 flex items-center gap-1.5 ${paddingClass} ${textClass}`}
-          >
-            <Calendar size={iconSize} className="text-yellow-600" />
-            በመጠባበቅ ላይ
-          </Badge>
-        );
-      case 'accepted':
-        return (
-          <Badge 
-            variant="outline" 
-            className={`bg-green-50 border border-green-200 text-green-700 flex items-center gap-1.5 ${paddingClass} ${textClass}`}
-          >
-            <Check size={iconSize} className="text-green-600" />
-            ተቀባይነት አግኝቷል
-          </Badge>
-        );
-      case 'rejected':
-        return (
-          <Badge 
-            variant="outline" 
-            className={`bg-red-50 border border-red-200 text-red-700 flex items-center gap-1.5 ${paddingClass} ${textClass}`}
-          >
-            <X size={iconSize} className="text-red-600" />
-            ተቀባይነት አላገኘም
-          </Badge>
-        );
-      default:
-        return null;
-    }
-  };
+    const searchLower = searchQuery.toLowerCase();
+    return (
+      submission.full_name?.toLowerCase().includes(searchLower) ||
+      submission.email?.toLowerCase().includes(searchLower) ||
+      submission.phone?.includes(searchQuery)
+    );
+  });
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gov-accent"></div>
+      <div className="flex justify-center items-center p-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-blue"></div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-        <h2 className="text-2xl font-bold text-gov-dark">የአባላት ምዝገባዎች</h2>
-        
-        <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-          {/* Only render search input if searchQuery prop is not provided */}
-          {searchQuery === "" && (
-            <div className="relative w-full md:w-64">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
-              <Input
-                placeholder="ፈልግ..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8"
-              />
-            </div>
-          )}
-          
-          {/* Only render status filter if filterType prop is not provided */}
-          {filterType === "all" && (
-            <Select 
-              value={statusFilter} 
-              onValueChange={setStatusFilter}
+    <div className="bg-white rounded-lg shadow-sm">
+      <div className="mb-6 border-b border-gray-200">
+        <div className="flex overflow-x-auto hide-scrollbar">
+          {["all", "active", "pending", "rejected"].map((filter) => (
+            <button
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              className={`px-4 py-2 border-b-2 font-medium text-sm whitespace-nowrap ${
+                activeFilter === filter
+                  ? "border-brand-blue text-brand-blue"
+                  : "border-transparent text-gray-500 hover:text-gray-700"
+              }`}
             >
-              <SelectTrigger className="w-full md:w-48">
-                <SelectValue placeholder="ሁኔታ ይምረጡ" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">ሁሉም</SelectItem>
-                <SelectItem value="pending">በመጠባበቅ ላይ</SelectItem>
-                <SelectItem value="accepted">ተቀባይነት ያገኙ</SelectItem>
-                <SelectItem value="rejected">ተቀባይነት ያላገኘም</SelectItem>
-              </SelectContent>
-            </Select>
-          )}
-          
-          <Button
-            onClick={() => exportToCsv()}
-            className="bg-gov-accent hover:bg-gov-accent/90 gap-2 w-full md:w-auto"
-            disabled={filteredSubmissions.length === 0}
-          >
-            <Download size={16} />
-            ሁሉንም ወርድ (CSV)
-          </Button>
+              {filter === "all" && "ሁሉም አባላት"}
+              {filter === "active" && "ንቁ አባላት"}
+              {filter === "pending" && "በመጠባበቅ ላይ"}
+              {filter === "rejected" && "ተቀባይነት ያላገኙ"}
+            </button>
+          ))}
         </div>
       </div>
 
-      {filteredSubmissions.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
-          {searchTerm.trim() !== "" || statusFilter !== "all" ? (
-            <p>ምንም ምዝገባ አልተገኘም። እባክዎን ሌላ ፍለጋ ይሞክሩ ወይም ማጣሪያዎችን ያስወግዱ።</p>
-          ) : (
-            <p>ምንም የአባላት ምዝገባ አልተገኘም።</p>
-          )}
-        </div>
-      ) : (
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>ሙሉ ስም</TableHead>
-                <TableHead>ወረዳ/ቀበሌ</TableHead>
-                <TableHead>እድሜ</TableHead>
-                <TableHead>ሁኔታ</TableHead>
-                <TableHead>ቀን</TableHead>
-                <TableHead className="text-right">ድርጊቶች</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredSubmissions.map((submission) => (
-                <TableRow key={submission.id}>
-                  <TableCell className="font-medium">{submission.full_name}</TableCell>
-                  <TableCell>{submission.woreda}/{submission.kebele}</TableCell>
-                  <TableCell>{submission.age}</TableCell>
-                  <TableCell>
-                    <StatusBadge status={submission.status} />
-                  </TableCell>
-                  <TableCell>{format(new Date(submission.created_at), "MMM dd, yyyy")}</TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleViewDetails(submission)}
-                        className="gap-1"
-                      >
-                        <Eye size={14} />
-                        ዝርዝር
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => exportToCsv(submission)}
-                        className="gap-1"
-                      >
-                        <Download size={14} />
-                        CSV
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      )}
-
-      {/* Details Dialog */}
-      <Dialog open={detailsOpen} onOpenChange={setDetailsOpen}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-white rounded-xl p-0">
-          {selectedSubmission && (
-            <>
-              <div className="bg-gradient-to-r from-gov-accent/10 to-gray-50 p-6 border-b">
-                <div className="flex items-center gap-3">
-                  <div className="bg-gov-accent text-white p-2 rounded-full">
-                    <User size={24} />
-                  </div>
-                  <DialogHeader>
-                    <DialogTitle className="text-2xl text-gray-900 font-bold">{selectedSubmission.full_name}</DialogTitle>
-                    <DialogDescription className="text-gray-600 flex items-center gap-2">
-                      <Calendar size={14} />
-                      የተመዘገበው በ {format(new Date(selectedSubmission.created_at), "MMMM dd, yyyy HH:mm")}
-                    </DialogDescription>
-                  </DialogHeader>
-                </div>
-              </div>
-              
-              <div className="p-6">
-                <div className="mb-6 pb-4 border-b flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-                  <StatusBadge status={selectedSubmission.status} size="large" />
-                  
-                  {selectedSubmission.status === 'pending' && (
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => updateStatus(selectedSubmission.id, 'rejected')}
-                        disabled={updatingStatus}
-                        className="gap-1 border-red-200 text-red-600 hover:bg-red-50"
-                      >
-                        <X size={14} />
-                        ውድቅ አድርግ
-                      </Button>
-                      <Button
-                        size="sm"
-                        onClick={() => updateStatus(selectedSubmission.id, 'accepted')}
-                        disabled={updatingStatus}
-                        className="gap-1 bg-green-600 hover:bg-green-700"
-                      >
-                        <Check size={14} />
-                        ተቀበል
-                      </Button>
-                    </div>
-                  )}
-                </div>
-                
-                <h3 className="text-lg font-semibold mb-4 text-gray-700">የግል መረጃ</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
-                        <User size={18} className="text-gov-accent" />
-                      </div>
-                      <h3 className="text-sm font-semibold text-gray-700">ሙሉ ስም</h3>
-                    </div>
-                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.full_name}</p>
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
-                        <Phone size={18} className="text-gov-accent" />
-                      </div>
-                      <h3 className="text-sm font-semibold text-gray-700">ስልክ</h3>
-                    </div>
-                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.phone}</p>
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
-                        <Mail size={18} className="text-gov-accent" />
-                      </div>
-                      <h3 className="text-sm font-semibold text-gray-700">ኢሜይል</h3>
-                    </div>
-                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.email || "N/A"}</p>
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
-                        <MapPin size={18} className="text-gov-accent" />
-                      </div>
-                      <h3 className="text-sm font-semibold text-gray-700">ወረዳ/ቀበሌ</h3>
-                    </div>
-                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.woreda}/{selectedSubmission.kebele}</p>
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
-                        <Calendar size={18} className="text-gov-accent" />
-                      </div>
-                      <h3 className="text-sm font-semibold text-gray-700">እድሜ</h3>
-                    </div>
-                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.age}</p>
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
-                        <BookOpen size={18} className="text-gov-accent" />
-                      </div>
-                      <h3 className="text-sm font-semibold text-gray-700">የትምህርት ደረጃ</h3>
-                    </div>
-                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.education_level}</p>
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow md:col-span-2">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="bg-gov-accent/10 p-1.5 rounded-full">
-                        <Briefcase size={18} className="text-gov-accent" />
-                      </div>
-                      <h3 className="text-sm font-semibold text-gray-700">ሙያ</h3>
-                    </div>
-                    <p className="text-base font-medium text-gray-900 pl-6">{selectedSubmission.occupation}</p>
-                  </div>
-                </div>
-                
-                <div className="flex justify-end gap-4 mt-6 pt-6 border-t border-gray-100">
-                  <Button
-                    variant="outline"
-                    onClick={() => setDetailsOpen(false)}
-                    className="font-medium"
-                  >
-                    ዝጋ
-                  </Button>
-                  
-                  <Button
-                    onClick={() => exportToCsv(selectedSubmission)}
-                    className="bg-gov-accent hover:bg-gov-accent/90 gap-2 font-medium"
-                  >
-                    <Download size={16} />
-                    CSV ወርድ
-                  </Button>
-                </div>
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                ሙሉ ስም
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                ኢሜይል
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                ስልክ ቁጥር
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                ሁኔታ
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                የተመዘገበበት ቀን
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {filteredSubmissions.map((submission) => (
+              <tr key={submission.id}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">{submission.full_name}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-500">{submission.email}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-500">{submission.phone}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                    submission.status === 'active' ? 'bg-green-100 text-green-800' :
+                    submission.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-red-100 text-red-800'
+                  }`}>
+                    {submission.status === 'active' ? 'ንቁ' :
+                     submission.status === 'pending' ? 'በመጠባበቅ ላይ' :
+                     'ተቀባይነት አላገኘም'}
+                  </span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {new Date(submission.created_at).toLocaleDateString('am-ET')}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

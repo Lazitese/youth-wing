@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,6 +6,7 @@ import AbalatSubmissions from "@/components/admin/AbalatSubmissions";
 import { Button } from "@/components/ui/button";
 import { Search, Download } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 const AbalatPage = () => {
   const navigate = useNavigate();
@@ -46,67 +46,46 @@ const AbalatPage = () => {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-50 flex">
       <AdminSidebar />
-      <div className="flex-1 ml-0 lg:ml-64 overflow-x-hidden overflow-y-auto">
-        <main className="p-6">
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            {/* Controls section - Search and Export only */}
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
-              <div className="relative w-full md:w-auto">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                <Input
-                  type="text"
-                  placeholder="በስም፣ በስልክ ቁጥር፣ ወይም በኢሜል ፈልግ..."
-                  className="pl-10 pr-4 py-2 w-full md:w-80"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              
-              <div className="flex items-center gap-2 w-full md:w-auto">
-                <Button variant="outline" 
-                  className="text-brand-black border-gray-300 hover:bg-gray-50" 
-                  onClick={handleExport}
-                >
-                  <Download size={18} className="mr-2" />
-                  አዉርድ CSV
-                </Button>
-              </div>
-            </div>
-            
-            {/* Filters */}
-            <div className="mb-6 border-b border-gray-200">
-              <div className="flex overflow-x-auto hide-scrollbar">
-                {["all", "active", "pending", "rejected"].map((filter) => (
-                  <button
-                    key={filter}
-                    onClick={() => setActiveFilter(filter)}
-                    className={`px-4 py-2 border-b-2 font-medium text-sm whitespace-nowrap ${
-                      activeFilter === filter
-                        ? "border-brand-blue text-brand-blue"
-                        : "border-transparent text-gray-500 hover:text-gray-700"
-                    }`}
+      <main className={cn(
+        "flex-1 transition-all duration-300 ease-in-out",
+        "pl-[72px] lg:pl-64" // Adjust padding to account for fixed sidebar
+      )}>
+        <div className="p-6 lg:p-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-8 mt-4">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900">አባላት</h1>
+                  <p className="text-gray-500 mt-1">የአባላት ምዝገባ እና አስተዳደር</p>
+                </div>
+                <div className="flex items-center gap-2 w-full md:w-auto">
+                  <div className="relative flex-1 md:flex-initial">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                    <Input
+                      type="text"
+                      placeholder="በስም፣ በስልክ ቁጥር፣ ወይም በኢሜል ፈልግ..."
+                      className="pl-10 pr-4 py-2 w-full md:w-80"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                  </div>
+                  <Button variant="outline" 
+                    className="text-brand-black border-gray-300 hover:bg-gray-50 whitespace-nowrap" 
+                    onClick={handleExport}
                   >
-                    {filter === "all" && "ሁሉም አባላት"}
-                    {filter === "active" && "ንቁ አባላት"}
-                    {filter === "pending" && "በመጠባበቅ ላይ"}
-                    {filter === "rejected" && "ተቀባይነት ያላገኙ"}
-                  </button>
-                ))}
+                    <Download size={18} className="mr-2" />
+                    አዉርድ CSV
+                  </Button>
+                </div>
               </div>
             </div>
             
-            {/* Submissions Table - passing props without "Add New" button functionality */}
-            <AbalatSubmissions 
-              showAddForm={false}
-              setShowAddForm={setShowAddForm} 
-              filterType={activeFilter}
-              searchQuery={searchQuery}
-            />
+            <AbalatSubmissions searchQuery={searchQuery} activeFilter={activeFilter} />
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };

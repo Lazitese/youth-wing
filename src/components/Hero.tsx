@@ -84,7 +84,7 @@ const Hero = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 1.3 }}
               >
-                ሴቶች ክንፍ
+                ወጣት ክንፍ
               </motion.span>
             </div>
           </motion.h1>
@@ -105,7 +105,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.8 }}
         >
-          የሴቶችን ኢኮኖሚያዊ፣ ፖለቲካዊ እና ማህበራዊ ተጠቃሚነት ማረጋገጥ
+          የወጣቶችን ኢኮኖሚያዊ፣ ፖለቲካዊ እና ማህበራዊ ተጠቃሚነት ማረጋገጥ
         </motion.p>
         
         {/* Animated buttons */}

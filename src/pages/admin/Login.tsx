@@ -113,7 +113,7 @@ const Login = () => {
           className="h-16 w-auto mx-auto mb-3"
         />
         <h1 className="text-2xl font-bold">
-          <span className="text-gov-gold">ብልጽግና ፓርቲ</span> <span className="text-gov-dark">ሴቶች ክንፍ</span>
+          <span className="text-gov-gold">ብልጽግና ፓርቲ</span> <span className="text-gov-dark">ወጣት ክንፍ</span>
         </h1>
       </div>
       

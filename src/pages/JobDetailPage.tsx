@@ -19,7 +19,8 @@ import {
   FileText,
   Upload,
   AlertCircle,
-  Loader2
+  Loader2,
+  ChevronRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,6 +38,8 @@ import {
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { differenceInDays, format, isAfter } from "date-fns";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 type Job = {
   id: string;
@@ -103,7 +106,7 @@ const JobDetailPage = () => {
       }
       
       setJob(data);
-      document.title = `${data.title} | ብልጽግና ፓርቲ ሴቶች ክንፍ`;
+      document.title = `${data.title} | ብልጽግና ፓርቲ ወጣት ክንፍ`;
       
     } catch (error) {
       console.error("Error fetching job:", error);
@@ -293,9 +296,12 @@ const JobDetailPage = () => {
   
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <Loader2 className="h-8 w-8 text-gov-blue animate-spin" />
-        <span className="ml-3 text-gray-600">በመጫን ላይ...</span>
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <div className="flex h-[calc(100vh-4rem)] items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -305,92 +311,167 @@ const JobDetailPage = () => {
   }
   
   return (
-    <>
+    <div className="min-h-screen bg-gray-50">
       <Helmet>
-        <title>{job?.title || "ስራ"} | ብልጽግና ፓርቲ ሴቶች ክንፍ</title>
+        <title>{job?.title || "ስራ"} | ብልጽግና ፓርቲ ወጣት ክንፍ</title>
         <meta name="description" content={job?.description} />
       </Helmet>
       
+      <Navbar />
+      
+      {/* Job header section with breadcrumb */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="container mx-auto px-4 py-4 max-w-5xl">
+          <div className="flex items-center text-sm text-gray-600 mb-4">
+            <Button 
+              variant="link" 
+              className="p-0 h-auto text-gray-600 hover:text-primary"
+              onClick={() => navigate("/")}
+            >
+              ዋና ገጽ
+            </Button>
+            <ChevronRight className="h-4 w-4 mx-1" />
+            <Button 
+              variant="link" 
+              className="p-0 h-auto text-gray-600 hover:text-primary"
+              onClick={() => navigate("/jobs")}
+            >
+              ስራዎች
+            </Button>
+            <ChevronRight className="h-4 w-4 mx-1" />
+            <span className="text-primary font-medium truncate max-w-[200px]">{job.title}</span>
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{job.title}</h1>
+              <div className="flex items-center text-gray-700">
+                <Building className="h-5 w-5 mr-2 text-primary/80" />
+                <span className="font-medium">{job.department || "ብልጽግና ፓርቲ"}</span>
+              </div>
+            </div>
+            
+            {/* CTA for medium and larger screens */}
+            <div className="hidden md:block">
+              <Button 
+                className="bg-primary hover:bg-primary/90 text-white px-6 py-2 h-auto shadow-sm"
+                onClick={() => setOpenApplyDialog(true)}
+                disabled={isDeadlinePassed(job.deadline)}
+              >
+                {isDeadlinePassed(job.deadline) 
+                  ? "የማመልከቻ ጊዜው አልፏል" 
+                  : "አሁን አመልክት"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 py-8 max-w-5xl">
-        <div className="mb-6">
-          <Button 
-            variant="outline" 
-            className="mb-4"
-            onClick={() => navigate("/jobs")}
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            ወደ ስራዎች ይመለሱ
-          </Button>
-          
-          <h1 className="text-3xl font-bold mb-3 text-gray-900">{job.title}</h1>
-          
-          <div className="flex flex-wrap gap-4 mb-6">
-            <div className="flex items-center text-gray-700">
-              <Building className="h-5 w-5 mr-2 text-gov-blue" />
-              <span>{job.department || "ብልጽግና ፓርቲ"}</span>
+        {/* Job details card */}
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 mb-8 overflow-hidden">
+          {/* Job metadata section */}
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200 bg-gray-50 border-b border-gray-200">
+            <div className="p-4 flex flex-col">
+              <span className="text-xs uppercase text-gray-500 font-medium mb-1">ቦታ</span>
+              <div className="flex items-center text-gray-800 font-medium">
+                <MapPin className="h-4 w-4 mr-1.5 text-primary/70" />
+                <span>{job.location || "አዲስ አበባ"}</span>
+              </div>
             </div>
-            <div className="flex items-center text-gray-700">
-              <MapPin className="h-5 w-5 mr-2 text-gov-blue" />
-              <span>{job.location || "አዲስ አበባ"}</span>
+            <div className="p-4 flex flex-col">
+              <span className="text-xs uppercase text-gray-500 font-medium mb-1">የስራ አይነት</span>
+              <div className="flex items-center text-gray-800 font-medium">
+                <Briefcase className="h-4 w-4 mr-1.5 text-primary/70" />
+                <span>{getJobTypeText(job.job_type)}</span>
+              </div>
             </div>
-            <div className="flex items-center text-gray-700">
-              <Briefcase className="h-5 w-5 mr-2 text-gov-blue" />
-              <span>{getJobTypeText(job.job_type)}</span>
+            <div className="p-4 flex flex-col border-t md:border-t-0">
+              <span className="text-xs uppercase text-gray-500 font-medium mb-1">የመጨረሻ ቀን</span>
+              <div className="flex items-center text-gray-800 font-medium">
+                <Calendar className="h-4 w-4 mr-1.5 text-primary/70" />
+                <span>{format(new Date(job.deadline), "MMMM d, yyyy")}</span>
+              </div>
             </div>
-            <div className="flex items-center text-gray-700">
-              <Calendar className="h-5 w-5 mr-2 text-gov-blue" />
-              <span>{format(new Date(job.deadline), "MMMM d, yyyy")}</span>
+            <div className="p-4 flex flex-col border-t md:border-t-0">
+              <span className="text-xs uppercase text-gray-500 font-medium mb-1">ሁኔታ</span>
+              <div>
+                {isDeadlinePassed(job.deadline) ? (
+                  <Badge variant="destructive" className="text-xs py-1 px-2 font-medium">
+                    <Clock className="h-3 w-3 mr-1" />
+                    ማመልከቻው ተዘግቷል
+                  </Badge>
+                ) : (
+                  <Badge className="text-xs py-1 px-2 font-medium bg-primary/10 text-primary border-primary/20">
+                    <Clock className="h-3 w-3 mr-1" />
+                    {getDaysRemaining(job.deadline) === 0 
+                      ? "ዛሬ ይዘጋል" 
+                      : `${getDaysRemaining(job.deadline)} ቀናት ቀርተዋል`}
+                  </Badge>
+                )}
+              </div>
             </div>
           </div>
-          
-          {isDeadlinePassed(job.deadline) ? (
-            <Badge variant="destructive" className="mb-6 text-sm py-1.5">
-              <Clock className="h-4 w-4 mr-1.5" />
-              ማመልከቻው ተዘግቷል
-            </Badge>
-          ) : (
-            <Badge variant="outline" className="mb-6 text-sm py-1.5 border-gov-blue text-gov-blue">
-              <Clock className="h-4 w-4 mr-1.5" />
-              {getDaysRemaining(job.deadline) === 0 
-                ? "ዛሬ ይዘጋል" 
-                : `${getDaysRemaining(job.deadline)} ቀናት ቀርተዋል`}
-            </Badge>
-          )}
-        </div>
-        
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4 text-gray-900">የስራ ዝርዝር</h2>
-          <div className="prose max-w-none">
-            <p className="whitespace-pre-line text-gray-700">{job.description}</p>
+
+          {/* Job description */}
+          <div className="p-6 md:p-8">
+            <h2 className="text-xl font-semibold mb-6 text-gray-900 flex items-center">
+              <ListChecks className="h-5 w-5 mr-2 text-primary" />
+              የስራ ዝርዝር
+            </h2>
+            <div className="prose max-w-none mb-6">
+              <p className="whitespace-pre-line text-gray-700 leading-relaxed">{job.description}</p>
+            </div>
+
+            {/* CTA for small screens */}
+            <div className="md:hidden mt-8 mb-4">
+              <Button 
+                className="w-full bg-primary hover:bg-primary/90 text-white py-2.5 h-auto"
+                onClick={() => setOpenApplyDialog(true)}
+                disabled={isDeadlinePassed(job.deadline)}
+              >
+                {isDeadlinePassed(job.deadline) 
+                  ? "የማመልከቻ ጊዜው አልፏል" 
+                  : "አሁን አመልክት"}
+              </Button>
+            </div>
           </div>
         </div>
         
+        {/* Requirements and responsibilities cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h2 className="text-xl font-semibold mb-4 text-gray-900">መስፈርቶች</h2>
+          <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-md hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-semibold mb-4 text-gray-900 flex items-center pb-2 border-b border-gray-100">
+              <GraduationCap className="h-5 w-5 mr-2 text-primary" />
+              መስፈርቶች
+            </h2>
             <div className="prose max-w-none">
-              <p className="whitespace-pre-line text-gray-700">{job.requirements}</p>
+              <p className="whitespace-pre-line text-gray-700 leading-relaxed">{job.requirements}</p>
             </div>
           </div>
           
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h2 className="text-xl font-semibold mb-4 text-gray-900">ኃላፊነቶች</h2>
+          <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-md hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-semibold mb-4 text-gray-900 flex items-center pb-2 border-b border-gray-100">
+              <ListChecks className="h-5 w-5 mr-2 text-primary" />
+              ኃላፊነቶች
+            </h2>
             <div className="prose max-w-none">
-              <p className="whitespace-pre-line text-gray-700">{job.responsibilities}</p>
+              <p className="whitespace-pre-line text-gray-700 leading-relaxed">{job.responsibilities}</p>
             </div>
           </div>
         </div>
         
-        <div className="bg-gov-blue text-white rounded-xl shadow-md p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-3 flex items-center">
-            <Briefcase className="h-5 w-5 mr-2" />
+        {/* Application section - keeping this as is since it's already perfect */}
+        <div className="bg-gradient-to-r from-primary to-primary/90 text-white rounded-xl shadow-md p-8 mb-8">
+          <h2 className="text-2xl font-semibold mb-3 flex items-center">
+            <Briefcase className="h-6 w-6 mr-3" />
             ለዚህ ስራ ማመልከት ይፈልጋሉ?
           </h2>
-          <p className="mb-4 text-white/90">
+          <p className="mb-6 text-white/90 text-lg">
             የራስዎን መረጃ እና የሕይወት ታሪክዎን (CV) በማስገባት አሁኑኑ ያመልክቱ።
           </p>
           <Button 
-            className="bg-white text-gov-blue hover:bg-white/90"
+            className="bg-white text-primary hover:bg-white/90 font-semibold text-base px-6 py-5 h-auto shadow-lg"
             onClick={() => setOpenApplyDialog(true)}
             disabled={isDeadlinePassed(job.deadline)}
           >
@@ -401,10 +482,12 @@ const JobDetailPage = () => {
         </div>
       </div>
       
+      <Footer />
+      
       {/* Application Dialog */}
       <Dialog open={openApplyDialog} onOpenChange={setOpenApplyDialog}>
-        <DialogContent className="sm:max-w-lg max-h-[90vh] flex flex-col">
-          <DialogHeader className="bg-gov-blue p-6 -mx-6 -mt-6 rounded-t-lg flex-shrink-0">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] flex flex-col p-0 gap-0 overflow-hidden">
+          <DialogHeader className="bg-primary p-6 rounded-t-lg flex-shrink-0">
             <DialogTitle className="text-white text-xl flex items-center">
               <Briefcase className="h-5 w-5 mr-2" />
               ለ{job.title} ማመልከቻ
@@ -415,14 +498,14 @@ const JobDetailPage = () => {
           </DialogHeader>
           
           {applicationSubmitted ? (
-            <div className="flex flex-col items-center justify-center py-12 text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <CheckCircle2 className="h-10 w-10 text-green-600" />
+            <div className="flex flex-col items-center justify-center py-12 text-center px-6">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6 shadow-inner">
+                <CheckCircle2 className="h-12 w-12 text-green-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">
                 ማመልከቻዎ ተቀብሏል!
               </h3>
-              <p className="text-gray-600 max-w-md mb-6">
+              <p className="text-gray-600 max-w-md mb-8 text-lg">
                 ለ "{job.title}" ያስገቡት ማመልከቻ በሚገባ ተቀብሏል። ከሂደቱ ጋር በተያያዘ ለተጨማሪ መረጃ 
                 ወደ {email} ኢሜይል ልንልክልዎ እንችላለን።
               </p>
@@ -431,13 +514,14 @@ const JobDetailPage = () => {
                   setOpenApplyDialog(false);
                   setApplicationSubmitted(false);
                 }}
+                className="bg-primary hover:bg-primary/90 px-6"
               >
                 ፎርሙን ዝጋ
               </Button>
             </div>
           ) : (
             <>
-              <form onSubmit={handleSubmit} className="space-y-6 py-4 overflow-y-auto flex-1">
+              <form onSubmit={handleSubmit} className="space-y-6 p-6 overflow-y-auto flex-1 bg-gray-50">
                 <div className="space-y-2">
                   <Label htmlFor="fullName" className="text-gray-900 font-semibold">
                     ሙሉ ስም <span className="text-red-500">*</span>
@@ -447,7 +531,7 @@ const JobDetailPage = () => {
                     <Input
                       id="fullName"
                       placeholder="ሙሉ ስምዎን ያስገቡ"
-                      className="pl-10 bg-white border-2 border-gray-200"
+                      className="pl-10 bg-white border-2 border-gray-200 h-11"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       required
@@ -466,7 +550,7 @@ const JobDetailPage = () => {
                         id="email"
                         type="email"
                         placeholder="የኢሜይል አድራሻዎን ያስገቡ"
-                        className="pl-10 bg-white border-2 border-gray-200"
+                        className="pl-10 bg-white border-2 border-gray-200 h-11"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -483,7 +567,7 @@ const JobDetailPage = () => {
                       <Input
                         id="phone"
                         placeholder="የስልክ ቁጥርዎን ያስገቡ"
-                        className="pl-10 bg-white border-2 border-gray-200"
+                        className="pl-10 bg-white border-2 border-gray-200 h-11"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         required
@@ -533,25 +617,25 @@ const JobDetailPage = () => {
                   <div className="flex items-center justify-center w-full">
                     <label 
                       htmlFor="resume-upload" 
-                      className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer transition-all ${
+                      className={`flex flex-col items-center justify-center w-full h-36 border-2 border-dashed rounded-lg cursor-pointer transition-all ${
                         fileError 
                           ? 'border-red-300 bg-red-50 hover:bg-red-100 hover:border-red-400' 
                           : resume 
-                            ? 'border-gov-blue bg-gov-blue/5 hover:bg-gov-blue/10 hover:border-gov-blue' 
+                            ? 'border-primary bg-primary/5 hover:bg-primary/10 hover:border-primary' 
                             : 'border-gray-300 bg-gray-50 hover:bg-gray-100 hover:border-gray-400'
                       }`}
                     >
                       <div className="flex flex-col items-center justify-center pt-5 pb-6">
                         {resume ? (
                           <>
-                            <FileText className="w-8 h-8 mb-2 text-gov-blue" />
+                            <FileText className="w-10 h-10 mb-3 text-primary" />
                             <p className="text-sm font-medium text-gray-900">{resume.name}</p>
                             <p className="text-xs text-gray-600 mt-1">{(resume.size / 1024 / 1024).toFixed(2)} MB</p>
                             <p className="text-xs text-gray-500 mt-2">ሌላ ፋይል ለመምረጥ ጠቅ ያድርጉ</p>
                           </>
                         ) : (
                           <>
-                            <Upload className="w-8 h-8 mb-3 text-gov-blue" />
+                            <Upload className="w-10 h-10 mb-4 text-primary" />
                             <p className="mb-1 text-sm text-gray-900">
                               <span className="font-semibold">ለመጫን ጠቅ ያድርጉ</span> ወይም ፋይል ይጎትቱ
                             </p>
@@ -580,7 +664,7 @@ const JobDetailPage = () => {
                 </div>
               </form>
               
-              <DialogFooter className="flex-shrink-0 gap-3 flex-col sm:flex-row border-t border-gray-200 pt-6 mt-2">
+              <DialogFooter className="flex-shrink-0 gap-3 flex-col sm:flex-row p-6 bg-white border-t border-gray-200">
                 <Button
                   type="button"
                   variant="outline"
@@ -595,7 +679,7 @@ const JobDetailPage = () => {
                 </Button>
                 <Button
                   type="button"
-                  className="w-full sm:w-auto bg-gov-blue hover:bg-gov-blue/90 text-white"
+                  className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-medium h-11"
                   disabled={isSubmitting}
                   onClick={handleSubmit}
                 >
@@ -613,7 +697,7 @@ const JobDetailPage = () => {
           )}
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 };
 

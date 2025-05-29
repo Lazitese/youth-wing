@@ -5,7 +5,7 @@ import { ArrowLeft, FileX } from "lucide-react";
 
 const NotFound = () => {
   useEffect(() => {
-    document.title = "ገጹ አልተገኘም | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
+    document.title = "ገጹ አልተገኘም | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ወጣት ክንፍ";
   }, []);
 
   // Check if the URL contains "documents" to show a specific message

@@ -29,7 +29,7 @@ const stats = [
   },
   {
     value: 42,
-    label: "የሴቶች አመራር",
+    label: "የወጣቶች አመራር",
     icon: Shield,
     color: "text-gov-gold",
     bgColor: "bg-amber-500/10",
@@ -122,7 +122,7 @@ const Stats = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            የብልፅግና ፓርቲ የሴቶች ክንፍ <span className="text-gov-blue">በቁጥር</span>
+            የብልፅግና ፓርቲ የወጣት ክንፍ <span className="text-gov-blue">በቁጥር</span>
           </h2>
           <div className="w-16 h-1 bg-gov-gold mx-auto mb-4" />
           <p className="text-gray-600 max-w-2xl mx-auto">

@@ -146,12 +146,12 @@ const Projects = () => {
           >
             <span className="inline-block py-2 px-5 rounded-full text-sm font-medium bg-gov-blue/10 text-gov-blue mb-4">
               <Images className="inline-block w-4 h-4 mr-2" />
-              የሴቶች ክንፍ ተግባራት
+              የወጣት ክንፍ ተግባራት
             </span>
           </motion.div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-gov-blue">የሴቶች ክንፍ</span>{" "}
+            <span className="text-gov-blue">የወጣት ክንፍ</span>{" "}
             <span className="text-gov-gold">ተግባራት</span>
           </h2>
           
@@ -164,7 +164,7 @@ const Projects = () => {
           />
           
           <p className="text-gray-600 text-lg mb-12">
-            የሴቶች ክንፍ በማህበረሰቡ ላይ ለውጥ ለማምጣት የተለያዩ ተግባራትን በመተግበር ላይ ይገኛል
+            የወጣት ክንፍ በማህበረሰቡ ላይ ለውጥ ለማምጣት የተለያዩ ተግባራትን በመተግበር ላይ ይገኛል
           </p>
           
           <div className="flex flex-wrap justify-center gap-3 mb-8">

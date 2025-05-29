@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const achievements = [
   {
     id: 1,
-    title: "የሴቶች የገቢ ማስገኛ ስልጠና",
+    title: "የወጣቶች የገቢ ማስገኛ ስልጠና",
     description: "በአምስት ወረዳዎች ውስጥ 500+ ሴቶች በተለያዩ የገቢ ማስገኛ ስልጠናዎች ላይ የተሳተፉበት፣ የራሳቸውን ንግድ ለመጀመር የሚያስችል ክህሎት እና እውቀት የተጎናጸፉበት ፕሮግራም።",
     image: "/placeholder.svg",
     category: "ስልጠና",
@@ -24,16 +24,16 @@ const achievements = [
   },
   {
     id: 3,
-    title: "የሴቶች ጤና ግንዛቤ ማስጨበጫ",
-    description: "በ10 ወረዳዎች ውስጥ የተካሄደ የሴቶችን ጤና በተመለከተ ግንዛቤ ለማስጨበጥ የተዘጋጀ ፕሮግራም። ይህም 2000+ ሴቶች ስለ ሴቶች ጤና ተጨማሪ ዕውቀት እንዲኖራቸው ረድቷል።",
+    title: "የወጣቶች ጤና ግንዛቤ ማስጨበጫ",
+    description: "በ10 ወረዳዎች ውስጥ የተካሄደ የወጣቶችን ጤና በተመለከተ ግንዛቤ ለማስጨበጥ የተዘጋጀ ፕሮግራም። ይህም 2000+ ሴቶች ስለ ሴቶች ጤና ተጨማሪ ዕውቀት እንዲኖራቸው ረድቷል።",
     image: "/placeholder.svg",
     category: "ጤና",
     date: "2014-2015"
   },
   {
     id: 4,
-    title: "የሴቶች የመብት ጥበቃ",
-    description: "በወረዳ ደረጃ የተካሄደ የሴቶችን መብት ለመጠበቅ የተዘጋጀ የግንዛቤ ማስጨበጫ ፕሮግራም። ይህም ሴቶች መብታቸውን እንዲያውቁና እንዲጠብቁ ረድቷል።",
+    title: "የወጣቶች የመብት ጥበቃ",
+    description: "በወረዳ ደረጃ የተካሄደ የወጣቶችን መብት ለመጠበቅ የተዘጋጀ የግንዛቤ ማስጨበጫ ፕሮግራም። ይህም ሴቶች መብታቸውን እንዲያውቁና እንዲጠብቁ ረድቷል።",
     image: "/placeholder.svg",
     category: "መብት",
     date: "2014-2015"
@@ -48,7 +48,7 @@ const achievements = [
   },
   {
     id: 6,
-    title: "የሴቶች የሙያ ስልጠና",
+    title: "የወጣቶች የሙያ ስልጠና",
     description: "አዳዲስ ቴክኖሎጂን መሰረት ያደረገ የስልጠና ፕሮግራም ተካሂዷል። ይህም 300+ ሴቶች በኮምፒውተር እና በሌሎች አዳዲስ ቴክኖሎጂዎች ላይ ስልጠና እንዲወስዱ ረድቷል።",
     image: "/placeholder.svg",
     category: "ስልጠና",
@@ -64,7 +64,7 @@ const achievements = [
   },
   {
     id: 8,
-    title: "የሴቶች የስራ ማህበራት ምስረታ",
+    title: "የወጣቶች የስራ ማህበራት ምስረታ",
     description: "በወረዳ ደረጃ በሴቶች የሚመሩ 25 የስራ ማህበራት ተመስርተዋል። እነዚህም ማህበራት ለበርካታ ሴቶች የስራ እድል ፈጥረዋል።",
     image: "/placeholder.svg",
     category: "ማህበራት",
@@ -74,7 +74,7 @@ const achievements = [
 
 const AllAchievements = () => {
   useEffect(() => {
-    document.title = "ውጤቶች | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
+    document.title = "ውጤቶች | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ወጣት ክንፍ";
     window.scrollTo(0, 0);
   }, []);
 
@@ -94,7 +94,7 @@ const AllAchievements = () => {
                 <span className="text-gov-accent">የእስካሁን ድርሻችን</span>
               </h1>
               <p className="text-gray-600 max-w-2xl">
-                በአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ የተከናወኑ ሥራዎች እና የተገኙ ውጤቶች
+                በአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ወጣት ክንፍ የተከናወኑ ሥራዎች እና የተገኙ ውጤቶች
               </p>
             </div>
           </div>

@@ -99,7 +99,7 @@ const AbalatMzgebaForm = () => {
             <CardHeader className="bg-gov-medium text-white">
               <CardTitle className="text-2xl font-bold">የአባላት ምዝገባ ቅጽ</CardTitle>
               <CardDescription className="text-white/80">
-                የብልጽግና ፓርቲ ሴቶች ክንፍ አባል ለመሆን ይህንን ቅጽ ይሙሉ
+                የብልጽግና ፓርቲ ወጣት ክንፍ አባል ለመሆን ይህንን ቅጽ ይሙሉ
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-6 pb-8">

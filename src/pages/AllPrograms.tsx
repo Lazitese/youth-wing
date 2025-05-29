@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 const programs = [
   {
     id: 1,
-    title: "የሴቶች ማሰልጠኛ ፕሮግራሞች",
-    description: "የሥራ ዕድልን ለማስፋት እና የሴቶችን ተሳትፎ ለማጎልበት የተዘጋጁ ልዩ ልዩ ስልጠናዎች። ስልጠናዎቹ የተለያዩ ሙያዎችን ያካትታሉ፣ እንደ የኮምፒውተር ክህሎት፣ የገበያ ትንታኔ፣ የሂሳብ አያያዝ፣ እና የመሪነት ጥበብ።",
+    title: "የወጣቶች ማሰልጠኛ ፕሮግራሞች",
+    description: "የሥራ ዕድልን ለማስፋት እና የወጣቶችን ተሳትፎ ለማጎልበት የተዘጋጁ ልዩ ልዩ ስልጠናዎች። ስልጠናዎቹ የተለያዩ ሙያዎችን ያካትታሉ፣ እንደ የኮምፒውተር ክህሎት፣ የገበያ ትንታኔ፣ የሂሳብ አያያዝ፣ እና የመሪነት ጥበብ።",
     icon: "Briefcase",
     bgColor: "bg-gradient-to-br from-white to-blue-50",
     image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
@@ -50,22 +50,22 @@ const programs = [
   {
     id: 6,
     title: "ማህበራዊ ፍትህ ፕሮግራሞች",
-    description: "ለሴቶች እኩልነት እና ፍትህ የሚደረጉ ልዩ ልዩ የህግ ድጋፎች እና የመብት ተሟጋችነት ሥራዎች። የመብት ግንዛቤ ማስጨበጫ፣ የህግ ድጋፍ አገልግሎቶች፣ ለጥቃት ለተጋለጡ ሴቶች መጠለያዎች፣ እና የሴቶች መብት ተሟጋችነት ሥራዎችን ይሰራል።",
+    description: "ለሴቶች እኩልነት እና ፍትህ የሚደረጉ ልዩ ልዩ የህግ ድጋፎች እና የመብት ተሟጋችነት ሥራዎች። የመብት ግንዛቤ ማስጨበጫ፣ የህግ ድጋፍ አገልግሎቶች፣ ለጥቃት ለተጋለጡ ሴቶች መጠለያዎች፣ እና የወጣቶች መብት ተሟጋችነት ሥራዎችን ይሰራል።",
     icon: "Map",
     bgColor: "bg-gradient-to-br from-white to-indigo-50",
     image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
   },
   {
     id: 7,
-    title: "የሴቶች የልማት ማህበራት",
-    description: "የሴቶች የልማት ማህበራት በተለያዩ ቀበሌዎች ደረጃ ተቋቁመው ሴቶችን አቅም በተለያዩ መንገዶች ለማሳደግ ይሰራሉ። እነዚህ ማህበራት የገቢ ማስገኛ ስራዎችን፣ የአነስተኛ ብድር አገልግሎቶችን፣ እና የህብረት ስራን ያበረታታሉ።",
+    title: "የወጣቶች የልማት ማህበራት",
+    description: "የወጣቶች የልማት ማህበራት በተለያዩ ቀበሌዎች ደረጃ ተቋቁመው ሴቶችን አቅም በተለያዩ መንገዶች ለማሳደግ ይሰራሉ። እነዚህ ማህበራት የገቢ ማስገኛ ስራዎችን፣ የአነስተኛ ብድር አገልግሎቶችን፣ እና የህብረት ስራን ያበረታታሉ።",
     icon: "Users",
     bgColor: "bg-gradient-to-br from-white to-pink-50",
     image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1746&q=80"
   },
   {
     id: 8,
-    title: "የሴቶች የፖለቲካ ተሳትፎ",
+    title: "የወጣቶች የፖለቲካ ተሳትፎ",
     description: "ሴቶች በፖለቲካ ውሳኔ አሰጣጥ ሂደቶች እንዲሳተፉ ለማበረታታት እና ለማገዝ የተዘጋጁ ልዩ ልዩ ፕሮግራሞች። የአመራር ክህሎት ስልጠናዎች፣ የምርጫ ዘመቻ አመራር ምክሮች፣ እና የፖለቲካ ግንዛቤ ማስጨበጫ ክፍለ ጊዜዎችን ያቀርባል።",
     icon: "FileText",
     bgColor: "bg-gradient-to-br from-white to-green-50",
@@ -75,7 +75,7 @@ const programs = [
 
 const AllPrograms = () => {
   useEffect(() => {
-    document.title = "ሁሉም ፕሮግራሞች | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
+    document.title = "ሁሉም ፕሮግራሞች | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ወጣት ክንፍ";
     window.scrollTo(0, 0);
   }, []);
 
@@ -95,7 +95,7 @@ const AllPrograms = () => {
                 <span className="text-gov-accent">ሁሉም ፕሮግራሞች</span>
               </h1>
               <p className="text-gray-600 max-w-2xl">
-                የሴቶችን ኢኮኖሚያዊ፣ ማህበራዊ እና የፖለቲካ ተሳትፎ ለማሳደግ የተዘጋጁ ልዩ ልዩ ፕሮግራሞች እና አገልግሎቶች
+                የወጣቶችን ኢኮኖሚያዊ፣ ማህበራዊ እና የፖለቲካ ተሳትፎ ለማሳደግ የተዘጋጁ ልዩ ልዩ ፕሮግራሞች እና አገልግሎቶች
               </p>
             </div>
           </div>

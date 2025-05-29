@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import LibraryDocuments from "@/components/admin/LibraryDocuments";
 import { Session } from "@supabase/supabase-js";
+import { cn } from "@/lib/utils";
 
 const LibraryPage = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const LibraryPage = () => {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    document.title = "ቤተመጻሕፍት አስተዳዳሪ | ብልጽግና ፓርቲ ሴቶች ክንፍ";
+    document.title = "ቤተመጻሕፍት አስተዳዳሪ | ብልጽግና ፓርቲ ወጣት ክንፍ";
     
     const checkSession = async () => {
       // First, get the current session
@@ -81,25 +82,22 @@ const LibraryPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       <AdminSidebar />
-      
-      <main className="flex-1 ml-0 lg:ml-64 transition-all duration-300 ease-in-out">
+      <main className={cn(
+        "flex-1 transition-all duration-300 ease-in-out",
+        "pl-[72px] lg:pl-64" // Adjust padding to account for fixed sidebar
+      )}>
         <div className="p-6 lg:p-8">
           <div className="max-w-7xl mx-auto">
             {/* Header section */}
-            <div className="mb-8 mt-12 lg:mt-2">
+            <div className="mb-8 mt-4">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl lg:text-3xl font-bold text-brand-black tracking-tight">
-                    የቤተመጻሕፍት አስተዳደር
-                  </h1>
-                  <p className="text-gray-500 mt-1.5">
-                    ሰነዶችን ማከል፣ ማስተካከል እና መሰረዝ ይችላሉ
-                  </p>
+                  <h1 className="text-2xl font-bold text-gray-900">ቤተመጻሕፍት</h1>
+                  <p className="text-gray-500 mt-1">የመጽሐፍት እና ሰነዶች ስብስብ</p>
                 </div>
               </div>
             </div>
             
-            {/* Library Documents Component */}
             <LibraryDocuments />
           </div>
         </div>

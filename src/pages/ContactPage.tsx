@@ -5,7 +5,7 @@ import { Mail, Phone, MapPin, Clock, Globe } from "lucide-react";
 
 const ContactPage = () => {
   useEffect(() => {
-    document.title = "አግኙን | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ሴቶች ክንፍ";
+    document.title = "አግኙን | የአቃቂ ቃሊቲ ክፍለ ከተማ ብልጽግና ፓርቲ ወጣት ክንፍ";
     window.scrollTo(0, 0);
   }, []);
 
