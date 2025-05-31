@@ -165,16 +165,30 @@ const AdminSidebar = () => {
       initial={isMobile ? { x: -80 } : { x: 0 }}
       animate={isMobile ? { x: 0 } : { x: 0 }}
       className={cn(
-        "bg-white border-r border-gray-200 flex flex-col transition-all duration-300 fixed h-screen z-50 shadow-sm",
+        "bg-white border-r border-gray-200 flex flex-col transition-all duration-300 fixed h-screen z-50 shadow-sm top-0 left-0",
         collapsed ? "w-[72px]" : "w-64"
       )}
     >
-      <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-brand-blue/5 to-transparent">
+      <div className="p-3 border-b border-gray-200 bg-gradient-to-r from-brand-blue/5 to-transparent">
         <div className={cn("flex items-center", collapsed ? "justify-center" : "justify-between")}>
-          {!collapsed && (
+          {!collapsed ? (
             <div className="font-bold text-lg text-brand-blue flex items-center gap-2">
-              <div className="h-7 w-7 rounded-md bg-brand-blue text-white flex items-center justify-center text-xs font-bold">YW</div>
+              <div className="h-8 w-8 rounded-md overflow-hidden">
+                <img 
+                  src="/images/Logo Beltsegena.jpg" 
+                  alt="Prosperity Party Logo"
+                  className="h-full w-full object-cover"
+                />
+              </div>
               አስተዳዳሪ
+            </div>
+          ) : (
+            <div className="h-8 w-8 rounded-md overflow-hidden">
+              <img 
+                src="/images/Logo Beltsegena.jpg" 
+                alt="Prosperity Party Logo"
+                className="h-full w-full object-cover"
+              />
             </div>
           )}
           <Button
