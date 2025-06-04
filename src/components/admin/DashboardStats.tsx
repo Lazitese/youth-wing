@@ -47,17 +47,24 @@ const DashboardStats = () => {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
         {[...Array(5)].map((_, index) => (
-          <Card key={index} className="animate-pulse bg-white/50 rounded-xl border border-gray-100 shadow-sm h-28">
-            <div className="p-4 h-full">
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 rounded-lg bg-gray-200"></div>
-                <div className="w-12 h-5 rounded-full bg-gray-200"></div>
+          <Card key={index} className="animate-pulse bg-white rounded-xl border border-gray-100 shadow-md h-32">
+            <div className="p-5 h-full flex flex-col">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-10 h-10 rounded-xl bg-gray-200"></div>
+                <div className="w-16 h-6 rounded-full bg-gray-200"></div>
               </div>
-              <div className="space-y-2">
-                <div className="h-3 w-20 bg-gray-200 rounded"></div>
-                <div className="h-6 w-16 bg-gray-200 rounded"></div>
+              <div className="space-y-2 mb-auto">
+                <div className="h-3 w-20 bg-gray-200 rounded-md"></div>
+                <div className="h-6 w-20 bg-gray-200 rounded-md"></div>
+              </div>
+              <div className="mt-4 pt-3 border-t border-gray-100">
+                <div className="flex justify-between items-center">
+                  <div className="h-2 w-6 bg-gray-200 rounded-full"></div>
+                  <div className="bg-gray-200 w-full mx-2 h-1.5 rounded-full"></div>
+                  <div className="h-2 w-6 bg-gray-200 rounded-full"></div>
+                </div>
               </div>
             </div>
           </Card>
@@ -130,27 +137,27 @@ const DashboardStats = () => {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
       {statCards.map((card, index) => (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: card.delay }}
+          transition={{ duration: 0.5, delay: card.delay }}
           key={index}
           className="h-full"
         >
           <Card 
-            className={`overflow-hidden rounded-xl border ${card.borderColor} shadow-sm transition-all duration-300 hover:shadow-md hover:translate-y-[-2px] ${card.bgColor} group h-full`}
+            className={`overflow-hidden rounded-xl border ${card.borderColor} shadow-md transition-all duration-300 hover:shadow-lg hover:translate-y-[-3px] ${card.bgColor} group h-full`}
           >
-            <div className="p-4 relative h-full flex flex-col">
-              <div className="absolute right-2 bottom-2 transform transition-all duration-300 opacity-20 group-hover:opacity-30">
+            <div className="p-5 relative h-full flex flex-col">
+              <div className="absolute right-0 top-0 w-20 h-20 transform transition-all duration-300 opacity-10 group-hover:opacity-20">
                 {card.chartIcon}
               </div>
-              <div className="flex items-center justify-between mb-3">
-                <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${card.color} flex items-center justify-center shadow-sm transform transition-all duration-300 group-hover:rotate-3 group-hover:scale-110`}>
+              <div className="flex items-center justify-between mb-4 relative z-10">
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${card.color} flex items-center justify-center shadow-sm transform transition-all duration-300 group-hover:rotate-6 group-hover:scale-110`}>
                   {card.icon}
                 </div>
-                <div className={`flex items-center gap-1 px-2 py-1 rounded-full bg-white shadow-sm border ${card.change >= 0 ? 'border-green-100' : 'border-red-100'}`}>
+                <div className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-white/80 backdrop-blur-sm shadow-sm border ${card.change >= 0 ? 'border-green-100' : 'border-red-100'}`}>
                   {card.change >= 0 ? (
                     <ArrowUpRight size={12} className="text-green-500" />
                   ) : (
@@ -162,22 +169,22 @@ const DashboardStats = () => {
                 </div>
               </div>
               
-              <div className="space-y-1 mb-auto">
+              <div className="space-y-1 mb-auto relative z-10">
                 <h3 className="text-gray-700 text-xs font-medium">{card.title}</h3>
                 <div className="flex items-baseline">
-                  <span className={`text-xl font-bold ${card.textColor}`}>{card.value}</span>
+                  <span className={`text-2xl font-bold ${card.textColor}`}>{card.value}</span>
                   <span className="ml-1.5 text-[10px] text-gray-500 font-medium">ጠቅላላ</span>
                 </div>
               </div>
               
-              <div className="mt-3 pt-2 border-t border-gray-100">
+              <div className="mt-4 pt-3 border-t border-gray-100 relative z-10">
                 <div className="flex justify-between items-center">
-                  <span className="text-[10px] text-gray-500">ዛሬ</span>
-                  <div className="bg-white w-full mx-1.5 h-1 rounded-full overflow-hidden">
+                  <span className="text-[10px] text-gray-500 font-medium">ዛሬ</span>
+                  <div className="bg-white/70 w-full mx-2 h-1.5 rounded-full overflow-hidden">
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: `${Math.min(Math.max(30, card.value * 2), 100)}%` }}
-                      transition={{ duration: 1, delay: card.delay + 0.3 }}
+                      transition={{ duration: 1.2, delay: card.delay + 0.3 }}
                       className={`h-full rounded-full bg-gradient-to-r ${card.color}`}
                     />
                   </div>
