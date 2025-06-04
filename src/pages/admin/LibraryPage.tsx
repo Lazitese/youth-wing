@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import AdminSidebar from "@/components/admin/AdminSidebar";
+import AdminLayout from "@/components/admin/AdminLayout";
 import LibraryDocuments from "@/components/admin/LibraryDocuments";
 import { Session } from "@supabase/supabase-js";
-import { cn } from "@/lib/utils";
 
 const LibraryPage = () => {
   const navigate = useNavigate();
@@ -80,29 +79,19 @@ const LibraryPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      <AdminSidebar />
-      <main className={cn(
-        "flex-1 transition-all duration-300 ease-in-out",
-        "pl-[72px] lg:pl-64" // Adjust padding to account for fixed sidebar
-      )}>
-        <div className="p-6 lg:p-8">
-          <div className="max-w-7xl mx-auto">
-            {/* Header section */}
-            <div className="mb-8 mt-4">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                  <h1 className="text-2xl font-bold text-gray-900">ቤተመጻሕፍት</h1>
-                  <p className="text-gray-500 mt-1">የመጽሐፍት እና ሰነዶች ስብስብ</p>
-                </div>
-              </div>
-            </div>
-            
-            <LibraryDocuments />
+    <AdminLayout>
+      {/* Header section */}
+      <div className="mb-6 mt-0">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">ቤተመጻሕፍት</h1>
+            <p className="text-gray-500 mt-1">የመጽሐፍት እና ሰነዶች ስብስብ</p>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+      
+      <LibraryDocuments />
+    </AdminLayout>
   );
 };
 

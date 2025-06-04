@@ -34,7 +34,7 @@ const AdminHeader = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <img 
-              src="/images/prosperity-party-logo.svg" 
+              src="/images/Logo Beltsegena.jpg" 
               alt="Prosperity Party Logo" 
               className="h-10 w-auto"
             />

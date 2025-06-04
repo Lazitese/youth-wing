@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -105,10 +104,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center bg-gray-50 p-4">
-      <div className="text-center mb-8">
+    <div className="flex flex-col min-h-screen items-center justify-center bg-gray-50 p-0 m-0 overflow-hidden">
+      <div className="text-center mb-6">
         <img 
-          src="/images/prosperity-party-logo.svg" 
+          src="/images/Logo Beltsegena.jpg" 
           alt="Prosperity Party Logo" 
           className="h-16 w-auto mx-auto mb-3"
         />

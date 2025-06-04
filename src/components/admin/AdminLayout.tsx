@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Session } from "@supabase/supabase-js";
@@ -6,7 +6,7 @@ import AdminSidebar from "./AdminSidebar";
 import { cn } from "@/lib/utils";
 
 interface AdminLayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
@@ -78,13 +78,17 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-white flex relative overflow-x-hidden">
       <AdminSidebar />
       <main className={cn(
-        "flex-1 transition-all duration-300 ease-in-out",
+        "flex-1 transition-all duration-300 ease-in-out relative",
         "pl-[72px] lg:pl-64" // Adjust padding to account for fixed sidebar
       )}>
-        {children}
+        <div className="p-4 lg:p-5 pt-0 lg:pt-0 relative z-10">
+          <div className="max-w-7xl mx-auto">
+            {children}
+          </div>
+        </div>
       </main>
     </div>
   );

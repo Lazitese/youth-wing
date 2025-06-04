@@ -4,5 +4,15 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "VITE_SUPABASE_URL": "https://jkljafodcemdvoruxspl.supabase.co",
+    "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImprbGphZm9kY2VtZHZvcnV4c3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzNTM0MTEsImV4cCI6MjA2MzkyOTQxMX0.uWwKiZdEzvLVF-JHwyrTaBf-D-Am2j1IpF2mmzzyDxw"
+  },
+  "build": {
+    "env": {
+      "VITE_SUPABASE_URL": "https://jkljafodcemdvoruxspl.supabase.co",
+      "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImprbGphZm9kY2VtZHZvcnV4c3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzNTM0MTEsImV4cCI6MjA2MzkyOTQxMX0.uWwKiZdEzvLVF-JHwyrTaBf-D-Am2j1IpF2mmzzyDxw"
+    }
+  }
 } 

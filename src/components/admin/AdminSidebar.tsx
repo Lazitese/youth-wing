@@ -59,10 +59,16 @@ const AdminSidebar = () => {
       <div className="flex h-full flex-col justify-between">
         <div>
           {/* Logo */}
-          <div className="flex h-16 items-center justify-center lg:justify-start px-4 border-b border-gray-200">
+          <div className="flex h-16 items-center justify-center lg:justify-start px-4 border-b border-gray-200 bg-gradient-to-r from-brand-blue/5 to-transparent">
             <Link to="/admin/dashboard" className="flex items-center gap-2">
-              <img src="/logo.png" alt="Logo" className="h-8 w-8" />
-              <span className="hidden lg:block text-xl font-bold text-gov-primary">
+              <div className="h-8 w-8 rounded-md overflow-hidden">
+                <img 
+                  src="/images/Logo Beltsegena.jpg" 
+                  alt="Prosperity Party Logo"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <span className="hidden lg:block text-xl font-bold text-brand-blue">
                 አስተዳዳሪ
               </span>
             </Link>
@@ -81,7 +87,7 @@ const AdminSidebar = () => {
                   className={cn(
                     "flex items-center gap-3 px-3 py-2 rounded-md transition-colors",
                     "hover:bg-gray-100",
-                    isActive && "bg-gov-accent/10 text-gov-accent hover:bg-gov-accent/20"
+                    isActive && "bg-brand-blue/10 text-brand-blue hover:bg-brand-blue/20"
                   )}
                 >
                   <Icon className="h-5 w-5" />

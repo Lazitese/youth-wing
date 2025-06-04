@@ -72,6 +72,7 @@ const BackgroundDecoration = ({ className }: BackgroundDecorationProps) => {
     <div 
       ref={containerRef} 
       className={`pointer-events-none overflow-hidden absolute inset-0 z-0 ${className || ''}`}
+      style={{ top: 0, left: 0, right: 0, bottom: 0 }}
     >
       {/* Grid decoration - more subtle */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(31,140,215,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(31,140,215,0.02)_1px,transparent_1px)] bg-[size:35px_35px] z-[-1] opacity-60"></div>

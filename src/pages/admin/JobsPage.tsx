@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Briefcase, Users, BriefcaseBusiness } from "lucide-react";
-import AdminSidebar from "@/components/admin/AdminSidebar";
+import AdminLayout from "@/components/admin/AdminLayout";
 import { JobsList } from "@/components/admin/JobsList";
 import { JobApplications } from "@/components/admin/JobApplications";
 import { cn } from "@/lib/utils";
@@ -65,64 +65,56 @@ export const JobsPage = () => {
   if (!isAdmin) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      <AdminSidebar />
-      <main className={cn(
-        "flex-1 transition-all duration-300 ease-in-out",
-        "pl-[72px] lg:pl-64" // Adjust padding to account for fixed sidebar
-      )}>
-        <div className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="py-4 flex items-center justify-between">
-              <div className="flex items-center">
-                <BriefcaseBusiness className="h-6 w-6 text-brand-blue mr-3" />
-                <h1 className="text-xl font-semibold text-gray-900">የስራ ማስታወቂያዎች</h1>
-              </div>
+    <AdminLayout>
+      <div className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm -mt-4 -mx-4 lg:-mx-5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="py-4 flex items-center justify-between">
+            <div className="flex items-center">
+              <BriefcaseBusiness className="h-6 w-6 text-brand-blue mr-3" />
+              <h1 className="text-xl font-semibold text-gray-900">የስራ ማስታወቂያዎች</h1>
             </div>
           </div>
+        </div>
+      </div>
+      
+      <div className="mt-6">
+        <div className="mb-6">
+          <p className="text-gray-500">የስራ ማስታወቂያዎችን እና ማመልከቻዎችን ያስተዳድሩ</p>
         </div>
         
-        <div className="p-6 lg:p-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="mb-6">
-              <p className="text-gray-500">የስራ ማስታወቂያዎችን እና ማመልከቻዎችን ያስተዳድሩ</p>
-            </div>
-            
-            <Tabs 
-              defaultValue="jobs" 
-              value={activeTab} 
-              onValueChange={setActiveTab} 
-              className="w-full"
+        <Tabs 
+          defaultValue="jobs" 
+          value={activeTab} 
+          onValueChange={setActiveTab} 
+          className="w-full"
+        >
+          <TabsList className="mb-6 grid w-full grid-cols-2 bg-gray-100 p-1 rounded-lg">
+            <TabsTrigger 
+              value="jobs" 
+              className="flex items-center gap-2 rounded-md data-[state=active]:bg-white data-[state=active]:text-brand-blue data-[state=active]:shadow-sm"
             >
-              <TabsList className="mb-6 grid w-full grid-cols-2 bg-gray-100 p-1 rounded-lg">
-                <TabsTrigger 
-                  value="jobs" 
-                  className="flex items-center gap-2 rounded-md data-[state=active]:bg-white data-[state=active]:text-brand-blue data-[state=active]:shadow-sm"
-                >
-                  <Briefcase className="h-4 w-4" />
-                  <span>ስራዎች</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="applications" 
-                  className="flex items-center gap-2 rounded-md data-[state=active]:bg-white data-[state=active]:text-brand-blue data-[state=active]:shadow-sm"
-                >
-                  <Users className="h-4 w-4" />
-                  <span>አመልካቾች</span>
-                </TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="jobs" className="mt-0 focus-visible:outline-none focus-visible:ring-0">
-                <JobsList />
-              </TabsContent>
-              
-              <TabsContent value="applications" className="mt-0 focus-visible:outline-none focus-visible:ring-0">
-                <JobApplications />
-              </TabsContent>
-            </Tabs>
-          </div>
-        </div>
-      </main>
-    </div>
+              <Briefcase className="h-4 w-4" />
+              <span>ስራዎች</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="applications" 
+              className="flex items-center gap-2 rounded-md data-[state=active]:bg-white data-[state=active]:text-brand-blue data-[state=active]:shadow-sm"
+            >
+              <Users className="h-4 w-4" />
+              <span>አመልካቾች</span>
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="jobs" className="mt-0 focus-visible:outline-none focus-visible:ring-0">
+            <JobsList />
+          </TabsContent>
+          
+          <TabsContent value="applications" className="mt-0 focus-visible:outline-none focus-visible:ring-0">
+            <JobApplications />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </AdminLayout>
   );
 };
 
