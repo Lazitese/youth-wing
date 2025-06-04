@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { Check, ChevronRight, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
 
 // Form validation schema
 const letterFormSchema = z.object({
@@ -86,8 +87,21 @@ const MembershipApplicationLetter = () => {
       letterFormSchema.parse(formData);
       setErrors({});
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Save to Supabase
+      const { error } = await supabase
+        .from('membership_letters')
+        .insert({
+          top_date: formData.topDate,
+          woreda_name: formData.woredaName,
+          full_name: formData.fullName,
+          residence_woreda: formData.residenceWoreda,
+          workplace_woreda: formData.workplaceWoreda || null,
+          signature: formData.signature,
+          bottom_date: formData.bottomDate,
+          status: 'pending'
+        });
+
+      if (error) throw error;
       
       // Show success message
       toast({
@@ -107,6 +121,12 @@ const MembershipApplicationLetter = () => {
           }
         });
         setErrors(newErrors);
+      } else {
+        toast({
+          title: "ስህተት ተፈጥሯል",
+          description: "ማመልከቻውን መላክ አልተቻለም። እባክዎ ዳግም ይሞክሩ።",
+          variant: "destructive",
+        });
       }
     } finally {
       setIsSubmitting(false);

@@ -77,6 +77,7 @@ const LibraryDocuments = () => {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [openUploadDialog, setOpenUploadDialog] = useState(false);
   const [documentToDelete, setDocumentToDelete] = useState<Document | null>(null);
@@ -132,9 +133,27 @@ const LibraryDocuments = () => {
       return;
     }
     
-    // Check file size (max 10MB)
-    if (selectedFile.size > 10 * 1024 * 1024) {
-      setFileError("ፋይል መጠን ከ10MB መብለጥ የለበትም");
+    // Check file size (max 50MB)
+    if (selectedFile.size > 50 * 1024 * 1024) {
+      setFileError("ፋይል መጠን ከ50MB መብለጥ የለበትም");
+      setFile(null);
+      return;
+    }
+
+    // Validate file type
+    const allowedTypes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-powerpoint',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'text/plain'
+    ];
+
+    if (!allowedTypes.includes(selectedFile.type)) {
+      setFileError("እባክዎ ተፈቅዶ የሚታወቅ የፋይል አይነት ይጫኑ (PDF, Word, Excel, PowerPoint, or Text)");
       setFile(null);
       return;
     }
@@ -165,22 +184,47 @@ const LibraryDocuments = () => {
       });
       return;
     }
+
+    // Validate file size (50MB)
+    const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB in bytes
+    if (file.size > MAX_FILE_SIZE) {
+      setFileError("ፋይል መጠን ከ50MB መብለጥ የለበትም");
+      return;
+    }
     
     try {
       setIsUploading(true);
+      setUploadProgress(0);
       
-      // 1. Upload file to Supabase Storage
+      // 1. Create a unique file name to avoid conflicts
       const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}.${fileExt}`;
-      const filePath = `documents/${fileName}`;
+      const uniqueId = Math.random().toString(36).substring(2, 15);
+      const fileName = `${uniqueId}.${fileExt}`;
+      const filePath = fileName; // Don't include 'documents/' prefix
       
-      const { error: uploadError } = await supabase.storage
+      // Upload the file directly
+      const { data: uploadData, error: uploadError } = await supabase.storage
         .from('library')
-        .upload(filePath, file);
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true,
+          contentType: file.type // Explicitly set content type
+        });
       
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        throw new Error(uploadError.message);
+      }
       
-      // 2. Create record in library_documents table
+      // Set progress to 100% when upload is complete
+      setUploadProgress(100);
+
+      // Get the public URL for the uploaded file
+      const { data: { publicUrl } } = supabase.storage
+        .from('library')
+        .getPublicUrl(filePath);
+      
+      // 3. Create record in library_documents table
       const { error: insertError } = await supabase
         .from('library_documents')
         .insert([
@@ -194,9 +238,15 @@ const LibraryDocuments = () => {
           },
         ]);
       
-      if (insertError) throw insertError;
+      if (insertError) {
+        // If database insert fails, clean up the uploaded file
+        await supabase.storage
+          .from('library')
+          .remove([filePath]);
+        throw new Error(insertError.message);
+      }
       
-      // 3. Reset form and refresh documents
+      // 4. Reset form and refresh documents
       resetForm();
       setOpenUploadDialog(false);
       fetchDocuments();
@@ -210,10 +260,11 @@ const LibraryDocuments = () => {
       toast({
         variant: "destructive",
         title: "ሰነድ መጫን አልተቻለም",
-        description: "ሰነዱን በመጫን ላይ ችግር ተፈጥሯል። እባክዎ ዳግም ይሞክሩ።",
+        description: error.message || "ሰነዱን በመጫን ላይ ችግር ተፈጥሯል። እባክዎ ዳግም ይሞክሩ።",
       });
     } finally {
       setIsUploading(false);
+      setUploadProgress(0);
     }
   };
   
@@ -542,7 +593,7 @@ const LibraryDocuments = () => {
               {isUploading ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  በመጫን ላይ...
+                  በመጫን ላይ... {uploadProgress}%
                 </>
               ) : (
                 <>
@@ -554,6 +605,25 @@ const LibraryDocuments = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      
+      {isUploading && (
+        <div className="fixed bottom-4 right-4 bg-white p-4 rounded-lg shadow-lg border border-gray-200 w-80 z-50">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center">
+              <FileText className="h-5 w-5 text-gov-blue mr-2" />
+              <span className="font-medium text-gray-900 truncate max-w-[180px]">{file?.name}</span>
+            </div>
+            <span className="text-sm font-medium text-gov-blue">{uploadProgress}%</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2.5">
+            <div 
+              className="bg-gov-blue h-2.5 rounded-full transition-all duration-300" 
+              style={{ width: `${uploadProgress}%` }}
+            ></div>
+          </div>
+          <p className="text-xs text-gray-500 mt-2">ሰነድ በመጫን ላይ...</p>
+        </div>
+      )}
       
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={!!documentToDelete} onOpenChange={(open) => !open && setDocumentToDelete(null)}>
