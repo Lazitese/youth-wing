@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { format } from "date-fns";
 import { 
@@ -14,9 +14,12 @@ import {
   Search,
   Calendar,
   MapPin,
-  User
+  User,
+  Trash2,
+  AlertCircle
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 interface MembershipLetter {
   id: string;
@@ -38,6 +41,9 @@ const MembershipLetters = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLetter, setSelectedLetter] = useState<MembershipLetter | null>(null);
   const [showDetails, setShowDetails] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [letterToDelete, setLetterToDelete] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const fetchLetters = async () => {
     try {
@@ -110,6 +116,45 @@ const MembershipLetters = () => {
     }
   };
 
+  const handleDeleteClick = (id: string) => {
+    setLetterToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const deleteApplication = async () => {
+    if (!letterToDelete) return;
+    
+    setIsDeleting(true);
+    try {
+      const { error } = await supabase
+        .from('membership_letters')
+        .delete()
+        .eq('id', letterToDelete);
+
+      if (error) throw error;
+
+      // Update the local state to remove the deleted letter
+      setLetters(letters.filter(letter => letter.id !== letterToDelete));
+      
+      toast({
+        title: "Deleted",
+        description: "Application letter has been deleted successfully",
+      });
+      
+      setDeleteDialogOpen(false);
+    } catch (error) {
+      console.error('Error deleting application letter:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete application letter",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDeleting(false);
+      setLetterToDelete(null);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -176,6 +221,14 @@ const MembershipLetters = () => {
                         </Button>
                       </>
                     )}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDeleteClick(letter.id)}
+                      className="text-red-600 hover:text-red-700"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </div>
                 </TableCell>
               </TableRow>
@@ -254,6 +307,34 @@ const MembershipLetters = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <AlertCircle className="h-5 w-5 text-red-500" />
+              Delete Application Letter
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this application letter? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={(e) => {
+                e.preventDefault();
+                deleteApplication();
+              }}
+              disabled={isDeleting}
+              className="bg-red-600 hover:bg-red-700 text-white"
+            >
+              {isDeleting ? "Deleting..." : "Delete"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

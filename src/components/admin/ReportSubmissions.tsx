@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -7,7 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { format } from "date-fns";
-import { Download, Eye, Search } from "lucide-react";
+import { Download, Eye, Search, Paperclip } from "lucide-react";
+
+interface FileAttachment {
+  name: string;
+  path: string;
+  size: number;
+  type: string;
+}
 
 interface ReportSubmission {
   id: string;
@@ -19,6 +25,7 @@ interface ReportSubmission {
   report_type: string;
   report_details: string;
   created_at: string;
+  attachments?: FileAttachment[];
 }
 
 const ReportSubmissions = () => {
@@ -29,26 +36,42 @@ const ReportSubmissions = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSubmission, setSelectedSubmission] = useState<ReportSubmission | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [pageSize] = useState(10);
+  const [totalCount, setTotalCount] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
       try {
-        const { data, error } = await supabase
+        setLoading(true);
+        setError(null);
+
+        // First get the total count
+        const { count, error: countError } = await supabase
+          .from('report_submissions')
+          .select('*', { count: 'exact', head: true });
+
+        if (countError) throw countError;
+        setTotalCount(count || 0);
+
+        // Then fetch the paginated data
+        const { data, error: fetchError } = await supabase
           .from('report_submissions')
           .select('*')
-          .order('created_at', { ascending: false });
+          .order('created_at', { ascending: false })
+          .range((page - 1) * pageSize, page * pageSize - 1);
 
-        if (error) {
-          throw error;
-        }
+        if (fetchError) throw fetchError;
 
         setSubmissions(data || []);
         setFilteredSubmissions(data || []);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error fetching submissions:", error);
+        setError(error.message || "ሪፖርቶችን በማግኘት ላይ ችግር ተፈጥሯል");
         toast({
           title: "Error",
-          description: "ሪፖርቶችን በማግኘት ላይ ችግር ተፈጥሯል",
+          description: error.message || "ሪፖርቶችን በማግኘት ላይ ችግር ተፈጥሯል",
           variant: "destructive",
         });
       } finally {
@@ -57,7 +80,7 @@ const ReportSubmissions = () => {
     };
 
     fetchSubmissions();
-  }, [toast]);
+  }, [toast, page, pageSize]);
 
   useEffect(() => {
     if (searchTerm.trim() === "") {
@@ -84,6 +107,39 @@ const ReportSubmissions = () => {
   const handleViewDetails = (submission: ReportSubmission) => {
     setSelectedSubmission(submission);
     setDetailsOpen(true);
+  };
+
+  const downloadAttachment = async (path: string, fileName: string) => {
+    try {
+      const { data, error } = await supabase.storage
+        .from('report-attachments')
+        .download(path);
+      
+      if (error) {
+        throw error;
+      }
+
+      // Create a download link
+      const url = URL.createObjectURL(data);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toast({
+        title: "ወርዷል",
+        description: `${fileName} በተሳካ ሁኔታ ወርዷል`,
+      });
+    } catch (error: any) {
+      console.error("Download error:", error);
+      toast({
+        title: "Error",
+        description: `ፋይል ለማውረድ ችግር ተፈጥሯል: ${error.message}`,
+        variant: "destructive",
+      });
+    }
   };
 
   const exportToCsv = (singleSubmission?: ReportSubmission) => {
@@ -130,6 +186,8 @@ const ReportSubmissions = () => {
     }
   };
 
+  const totalPages = Math.ceil(totalCount / pageSize);
+
   if (loading) {
     return (
       <div className="flex justify-center items-center py-12">
@@ -140,6 +198,12 @@ const ReportSubmissions = () => {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
+      {error && (
+        <div className="mb-4 p-4 bg-red-50 text-red-700 rounded-lg">
+          {error}
+        </div>
+      )}
+      
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <h2 className="text-2xl font-bold text-gov-dark">ሪፖርቶች</h2>
         
@@ -188,7 +252,14 @@ const ReportSubmissions = () => {
             <TableBody>
               {filteredSubmissions.map((submission) => (
                 <TableRow key={submission.id}>
-                  <TableCell className="font-medium">{submission.full_name}</TableCell>
+                  <TableCell className="font-medium">
+                    {submission.full_name}
+                    {submission.attachments && submission.attachments.length > 0 && (
+                      <span className="ml-2 inline-flex items-center">
+                        <Paperclip size={14} className="text-gray-400" />
+                      </span>
+                    )}
+                  </TableCell>
                   <TableCell>{submission.woreda}/{submission.kebele}</TableCell>
                   <TableCell>{submission.report_type}</TableCell>
                   <TableCell>{format(new Date(submission.created_at), "MMM dd, yyyy")}</TableCell>
@@ -266,6 +337,33 @@ const ReportSubmissions = () => {
                   {selectedSubmission.report_details}
                 </div>
               </div>
+
+              {/* Attachments section */}
+              {selectedSubmission.attachments && selectedSubmission.attachments.length > 0 && (
+                <div className="space-y-2 mt-4">
+                  <p className="text-sm font-medium text-gray-500">አባሪዎች</p>
+                  <div className="bg-gray-50 p-4 rounded-md">
+                    <ul className="space-y-2">
+                      {selectedSubmission.attachments.map((file, index) => (
+                        <li key={index} className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <Paperclip size={16} className="text-gray-500" />
+                            <span className="text-sm truncate max-w-[200px]">{file.name}</span>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => downloadAttachment(file.path, file.name)}
+                            className="text-gov-accent hover:text-gov-accent/90"
+                          >
+                            <Download size={16} />
+                          </Button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
               
               <div className="flex justify-end gap-4 mt-6">
                 <Button
@@ -287,6 +385,34 @@ const ReportSubmissions = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Add pagination controls */}
+      <div className="mt-4 flex items-center justify-between">
+        <div className="text-sm text-gray-500">
+          ጠቅላላ {totalCount} ሪፖርቶች
+        </div>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setPage(p => Math.max(1, p - 1))}
+            disabled={page === 1 || loading}
+          >
+            ቀዳሚ
+          </Button>
+          <span className="px-4 py-2 text-sm">
+            ገጽ {page} ከ {totalPages}
+          </span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages || loading}
+          >
+            ቀጣይ
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
