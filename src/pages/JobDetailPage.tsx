@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
+import ReactConfetti from "react-confetti";
 // Removed the import for 'react-helmet-async' due to the error
 import { 
   Briefcase, 
@@ -20,7 +21,9 @@ import {
   Upload,
   AlertCircle,
   Loader2,
-  ChevronRight
+  ChevronRight,
+  Info,
+  Check
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -64,6 +67,11 @@ const JobDetailPage = () => {
   const [openApplyDialog, setOpenApplyDialog] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
   
   // Form states
   const [fullName, setFullName] = useState("");
@@ -79,6 +87,18 @@ const JobDetailPage = () => {
       fetchJob(id);
     }
   }, [id]);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+    
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   
   const fetchJob = async (jobId: string) => {
     try {
@@ -199,31 +219,12 @@ const JobDetailPage = () => {
     try {
       setIsSubmitting(true);
       
-      // 1. First create the application record
-      const { data: application, error: insertError } = await supabase
-        .from('applications')
-        .insert([
-          {
-            job_id: id,
-            full_name: fullName,
-            email: email,
-            phone: phone,
-            education: education,
-            experience: experience,
-            status: 'pending'
-          }
-        ])
-        .select()
-        .single();
-      
-      if (insertError) throw insertError;
-
-      // 2. Then upload resume with the application ID
+      // 1. First upload the resume file
       const fileExt = resume.name.split('.').pop();
-      const fileName = `${application.id}_${Date.now()}.${fileExt}`;
-      const filePath = `${id}/${fileName}`;
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = `applications/${fileName}`;
       
-      const { error: uploadError } = await supabase.storage
+      const { error: uploadError, data: uploadData } = await supabase.storage
         .from('applications')
         .upload(filePath, resume, {
           cacheControl: '3600',
@@ -232,22 +233,42 @@ const JobDetailPage = () => {
       
       if (uploadError) throw uploadError;
 
-      // 3. Update application with resume URL
-      const { error: updateError } = await supabase
+      // Get the public URL for the uploaded file
+      const { data: { publicUrl } } = supabase.storage
         .from('applications')
-        .update({ resume_url: filePath })
-        .eq('id', application.id);
-
-      if (updateError) throw updateError;
+        .getPublicUrl(filePath);
       
-      // 4. Show success message
+      // 2. Then create the application record with the resume URL
+      const { data: application, error: insertError } = await supabase
+        .from('job_applications')
+        .insert([
+          {
+            job_id: id,
+            full_name: fullName,
+            email: email,
+            phone: phone,
+            education: education,
+            experience: experience,
+            status: 'pending',
+            resume_url: publicUrl
+          }
+        ])
+        .select()
+        .single();
+      
+      if (insertError) throw insertError;
+      
+      // 3. Show success message
       setApplicationSubmitted(true);
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 5000); // Hide confetti after 5 seconds
+      
       toast({
         title: "ተሳክቷል",
         description: "ማመልከቻዎ በተሳካ ሁኔታ ተልኳል።",
       });
       
-      // 5. Reset form
+      // 4. Reset form
       resetForm();
       
     } catch (error: any) {
@@ -312,6 +333,17 @@ const JobDetailPage = () => {
   
   return (
     <div className="min-h-screen bg-gray-50">
+      {showConfetti && (
+        <ReactConfetti
+          width={windowSize.width}
+          height={windowSize.height}
+          recycle={false}
+          numberOfPieces={200}
+          gravity={0.15}
+          colors={["#FFC107", "#4CAF50", "#2196F3", "#9C27B0", "#F44336"]}
+        />
+      )}
+      
       <Helmet>
         <title>{job?.title || "ስራ"} | ብልጽግና ፓርቲ ወጣት ክንፍ</title>
         <meta name="description" content={job?.description} />
@@ -486,52 +518,83 @@ const JobDetailPage = () => {
       
       {/* Application Dialog */}
       <Dialog open={openApplyDialog} onOpenChange={setOpenApplyDialog}>
-        <DialogContent className="sm:max-w-lg max-h-[90vh] flex flex-col p-0 gap-0 overflow-hidden">
-          <DialogHeader className="bg-primary p-6 rounded-t-lg flex-shrink-0">
+        <DialogContent className="sm:max-w-xl max-h-[90vh] flex flex-col p-0 gap-0 overflow-hidden">
+          <DialogHeader className="bg-gradient-to-r from-primary to-primary/90 p-6 rounded-t-lg flex-shrink-0">
             <DialogTitle className="text-white text-xl flex items-center">
               <Briefcase className="h-5 w-5 mr-2" />
-              ለ{job.title} ማመልከቻ
+              ለ{job?.title} ማመልከቻ
             </DialogTitle>
             <DialogDescription className="text-white/90 mt-1">
-              እባክዎ የተሟላ መረጃ ያስገቡ። ሁሉም ያስፈልጋሉ።
+              እባክዎ የተሟላ መረጃ ያስገቡ። ሁሉም መስኮች ያስፈልጋሉ።
             </DialogDescription>
           </DialogHeader>
           
           {applicationSubmitted ? (
-            <div className="flex flex-col items-center justify-center py-12 text-center px-6">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6 shadow-inner">
-                <CheckCircle2 className="h-12 w-12 text-green-600" />
+            <div className="flex flex-col items-center justify-center py-12 text-center px-6 bg-white">
+              {showConfetti && (
+                <ReactConfetti
+                  width={550}  // Limit confetti to dialog width
+                  height={400} // Limit confetti to dialog height
+                  recycle={false}
+                  numberOfPieces={150}
+                  gravity={0.2}
+                  colors={["#FFC107", "#4CAF50", "#2196F3", "#9C27B0", "#F44336"]}
+                  confettiSource={{
+                    x: 275, // Center of dialog
+                    y: 0,   // Top of dialog
+                    w: 0,
+                    h: 0
+                  }}
+                />
+              )}
+              <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mb-6 shadow-lg">
+                <CheckCircle2 className="h-14 w-14 text-green-600" />
               </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-3">
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
                 ማመልከቻዎ ተቀብሏል!
               </h3>
-              <p className="text-gray-600 max-w-md mb-8 text-lg">
-                ለ "{job.title}" ያስገቡት ማመልከቻ በሚገባ ተቀብሏል። ከሂደቱ ጋር በተያያዘ ለተጨማሪ መረጃ 
-                ወደ {email} ኢሜይል ልንልክልዎ እንችላለን።
+              <p className="text-gray-600 max-w-md mb-4 text-lg">
+                ለ <span className="font-semibold">"{job?.title}"</span> ያስገቡት ማመልከቻ በሚገባ ተቀብሏል።
               </p>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-left">
+                <div className="flex">
+                  <Info className="h-5 w-5 text-blue-500 mr-2 flex-shrink-0 mt-0.5" />
+                  <p className="text-blue-800 text-sm">
+                    ከሂደቱ ጋር በተያያዘ ለተጨማሪ መረጃ በሰጡት ኢሜይል አድራሻ (<span className="font-medium">{email}</span>) ልናሳውቅዎ እንችላለን።
+                  </p>
+                </div>
+              </div>
               <Button 
                 onClick={() => {
                   setOpenApplyDialog(false);
                   setApplicationSubmitted(false);
+                  setShowConfetti(false);
                 }}
-                className="bg-primary hover:bg-primary/90 px-6"
+                className="bg-primary hover:bg-primary/90 px-8 py-2 h-auto text-base font-medium"
               >
                 ፎርሙን ዝጋ
               </Button>
             </div>
           ) : (
             <>
-              <form onSubmit={handleSubmit} className="space-y-6 p-6 overflow-y-auto flex-1 bg-gray-50">
+              <div className="bg-blue-50 border-b border-blue-100 px-6 py-3 flex items-start">
+                <Info className="h-5 w-5 text-blue-500 mr-2 flex-shrink-0 mt-0.5" />
+                <p className="text-blue-800 text-sm">
+                  ለ <span className="font-medium">{job?.title}</span> ስራ ማመልከቻ ሲያስገቡ፣ እባክዎ ትክክለኛ እና የተሟላ መረጃ ያቅርቡ። ይህ የሚያመለክቱበት ስራ ከእርስዎ ችሎታ ጋር የሚጣጣም መሆኑን ያረጋግጡ።
+                </p>
+              </div>
+              
+              <form onSubmit={handleSubmit} className="space-y-6 p-6 overflow-y-auto flex-1 bg-white">
                 <div className="space-y-2">
-                  <Label htmlFor="fullName" className="text-gray-900 font-semibold">
-                    ሙሉ ስም <span className="text-red-500">*</span>
+                  <Label htmlFor="fullName" className="text-gray-900 font-semibold flex items-center">
+                    ሙሉ ስም <span className="text-red-500 ml-1">*</span>
                   </Label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
                     <Input
                       id="fullName"
                       placeholder="ሙሉ ስምዎን ያስገቡ"
-                      className="pl-10 bg-white border-2 border-gray-200 h-11"
+                      className="pl-10 bg-white border-2 border-gray-200 h-11 focus:border-primary focus:ring-1 focus:ring-primary"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       required
@@ -541,8 +604,8 @@ const JobDetailPage = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-gray-900 font-semibold">
-                      ኢሜይል <span className="text-red-500">*</span>
+                    <Label htmlFor="email" className="text-gray-900 font-semibold flex items-center">
+                      ኢሜይል <span className="text-red-500 ml-1">*</span>
                     </Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
@@ -550,7 +613,7 @@ const JobDetailPage = () => {
                         id="email"
                         type="email"
                         placeholder="የኢሜይል አድራሻዎን ያስገቡ"
-                        className="pl-10 bg-white border-2 border-gray-200 h-11"
+                        className="pl-10 bg-white border-2 border-gray-200 h-11 focus:border-primary focus:ring-1 focus:ring-primary"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -559,15 +622,15 @@ const JobDetailPage = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-gray-900 font-semibold">
-                      ስልክ ቁጥር <span className="text-red-500">*</span>
+                    <Label htmlFor="phone" className="text-gray-900 font-semibold flex items-center">
+                      ስልክ ቁጥር <span className="text-red-500 ml-1">*</span>
                     </Label>
                     <div className="relative">
                       <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
                       <Input
                         id="phone"
-                        placeholder="የስልክ ቁጥርዎን ያስገቡ"
-                        className="pl-10 bg-white border-2 border-gray-200 h-11"
+                        placeholder="የስልክ ቁጥርዎን ያስገቡ (ምሳሌ: 0911234567)"
+                        className="pl-10 bg-white border-2 border-gray-200 h-11 focus:border-primary focus:ring-1 focus:ring-primary"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         required
@@ -577,15 +640,15 @@ const JobDetailPage = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="education" className="text-gray-900 font-semibold">
-                    የትምህርት ደረጃ <span className="text-red-500">*</span>
+                  <Label htmlFor="education" className="text-gray-900 font-semibold flex items-center">
+                    የትምህርት ደረጃ <span className="text-red-500 ml-1">*</span>
                   </Label>
                   <div className="relative">
                     <GraduationCap className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
                     <Textarea
                       id="education"
-                      placeholder="የትምህርት ደረጃዎን፣ የተማሩበትን ተቋም እና ዓመት ያስገቡ"
-                      className="pl-10 min-h-[100px] bg-white border-2 border-gray-200"
+                      placeholder="የትምህርት ደረጃዎን፣ የተማሩበትን ተቋም እና ዓመት ያስገቡ (ምሳሌ: የመጀመሪያ ዲግሪ፣ ኢንፎርሜሽን ቴክኖሎጂ፣ አዲስ አበባ ዩኒቨርሲቲ፣ 2015)"
+                      className="pl-10 min-h-[100px] bg-white border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary"
                       value={education}
                       onChange={(e) => setEducation(e.target.value)}
                       required
@@ -594,15 +657,15 @@ const JobDetailPage = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="experience" className="text-gray-900 font-semibold">
-                    የስራ ልምድ <span className="text-red-500">*</span>
+                  <Label htmlFor="experience" className="text-gray-900 font-semibold flex items-center">
+                    የስራ ልምድ <span className="text-red-500 ml-1">*</span>
                   </Label>
                   <div className="relative">
                     <Briefcase className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
                     <Textarea
                       id="experience"
-                      placeholder="የስራ ልምድዎን፣ የሰሩበትን ድርጅት እና ዓመት ያስገቡ"
-                      className="pl-10 min-h-[100px] bg-white border-2 border-gray-200"
+                      placeholder="የስራ ልምድዎን፣ የሰሩበትን ድርጅት እና ዓመት ያስገቡ (ምሳሌ: የፕሮጀክት ሥራ አስኪያጅ፣ ABC ኩባንያ፣ 2018-2022)"
+                      className="pl-10 min-h-[100px] bg-white border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary"
                       value={experience}
                       onChange={(e) => setExperience(e.target.value)}
                       required
@@ -611,35 +674,43 @@ const JobDetailPage = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="resume" className="text-gray-900 font-semibold">
-                    የሕይወት ታሪክ (CV) <span className="text-red-500">*</span>
+                  <Label htmlFor="resume" className="text-gray-900 font-semibold flex items-center">
+                    የሕይወት ታሪክ (CV) <span className="text-red-500 ml-1">*</span>
                   </Label>
                   <div className="flex items-center justify-center w-full">
                     <label 
                       htmlFor="resume-upload" 
-                      className={`flex flex-col items-center justify-center w-full h-36 border-2 border-dashed rounded-lg cursor-pointer transition-all ${
+                      className={`flex flex-col items-center justify-center w-full h-40 border-2 border-dashed rounded-lg cursor-pointer transition-all ${
                         fileError 
                           ? 'border-red-300 bg-red-50 hover:bg-red-100 hover:border-red-400' 
                           : resume 
-                            ? 'border-primary bg-primary/5 hover:bg-primary/10 hover:border-primary' 
+                            ? 'border-primary/60 bg-primary/5 hover:bg-primary/10 hover:border-primary' 
                             : 'border-gray-300 bg-gray-50 hover:bg-gray-100 hover:border-gray-400'
                       }`}
                     >
                       <div className="flex flex-col items-center justify-center pt-5 pb-6">
                         {resume ? (
                           <>
-                            <FileText className="w-10 h-10 mb-3 text-primary" />
-                            <p className="text-sm font-medium text-gray-900">{resume.name}</p>
-                            <p className="text-xs text-gray-600 mt-1">{(resume.size / 1024 / 1024).toFixed(2)} MB</p>
+                            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                              <FileText className="w-8 h-8 text-primary" />
+                            </div>
+                            <p className="text-base font-medium text-gray-900">{resume.name}</p>
+                            <p className="text-sm text-gray-600 mt-1">{(resume.size / 1024 / 1024).toFixed(2)} MB</p>
+                            <div className="flex items-center mt-3 text-primary">
+                              <Check className="w-4 h-4 mr-1.5" />
+                              <span className="text-sm font-medium">ፋይል ተመርጧል</span>
+                            </div>
                             <p className="text-xs text-gray-500 mt-2">ሌላ ፋይል ለመምረጥ ጠቅ ያድርጉ</p>
                           </>
                         ) : (
                           <>
-                            <Upload className="w-10 h-10 mb-4 text-primary" />
-                            <p className="mb-1 text-sm text-gray-900">
+                            <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4 border border-gray-200">
+                              <Upload className="w-8 h-8 text-primary" />
+                            </div>
+                            <p className="mb-2 text-sm text-gray-900">
                               <span className="font-semibold">ለመጫን ጠቅ ያድርጉ</span> ወይም ፋይል ይጎትቱ
                             </p>
-                            <p className="text-xs text-gray-600">
+                            <p className="text-xs text-gray-600 mb-2">
                               PDF ወይም Word (doc/docx) ፎርማት ብቻ (ከ5MB በታች)
                             </p>
                             {fileError && (
@@ -664,7 +735,7 @@ const JobDetailPage = () => {
                 </div>
               </form>
               
-              <DialogFooter className="flex-shrink-0 gap-3 flex-col sm:flex-row p-6 bg-white border-t border-gray-200">
+              <DialogFooter className="flex-shrink-0 gap-3 flex-col sm:flex-row p-6 bg-gray-50 border-t border-gray-200">
                 <Button
                   type="button"
                   variant="outline"
@@ -679,7 +750,7 @@ const JobDetailPage = () => {
                 </Button>
                 <Button
                   type="button"
-                  className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-medium h-11"
+                  className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-medium h-11 px-8"
                   disabled={isSubmitting}
                   onClick={handleSubmit}
                 >
