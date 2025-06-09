@@ -40,7 +40,7 @@ const Navbar = () => {
     { path: "/abalat-mzgeba", label: "አባላት ምዝገባ", icon: FileText },
     { path: "/projects", label: "ፕሮጀክቶች", icon: FolderGit2 },
     { path: "/library", label: "ቤተመጻሕፍት", icon: BookOpen },
-    { path: "/jobs", label: "ስራዎች", icon: Briefcase },
+    { path: "/jobs", label: "ለስራ ፈላጊዎች", icon: Briefcase },
     { path: "/contact", label: "አግኙን", icon: Mail },
   ];
 

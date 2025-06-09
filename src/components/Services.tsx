@@ -1,151 +1,87 @@
-import { GlobeIcon, Briefcase, Scale, Landmark } from "lucide-react";
-import { motion } from "framer-motion";
+import React from "react";
+import { CheckCircle, Circle } from "lucide-react";
 
-const partyPrograms = [
-  {
-    id: 1,
-    title: "የዴሞክራሲ አቅጣጫ",
-    description:
-      "ትብብርና ውድድር ላይ የተመሰረተ ለብዝሀነት እና በህብረ ብሔራዊነት የተለየ ቦታ የሚሰጥ የመግባባት ዴሞክራሲ ነው፡፡",
-    icon: Scale,
-    color: "#3B82F6",
-    gradientFrom: "from-blue-500",
-    gradientTo: "to-blue-600",
-    shadow: "shadow-blue-500/30",
-  },
-  {
-    id: 2,
-    title: "የፖለቲካ ስርአት",
-    description:
-      "በህገ መንግስታችን ላይ የተመለከተውን አውነተኛ የመድብለ ፓርቲ እና ህብረ ብሄራዊ የፌደራል ስርዓት ነው፡፡",
-    icon: Landmark,
-    color: "#7C3AED",
-    gradientFrom: "from-purple-500",
-    gradientTo: "to-purple-600",
-    shadow: "shadow-purple-500/30",
-  },
-  {
-    id: 3,
-    title: "የኢኮኖሚ ስርአት",
-    description:
-      "የዜጎች ፍትሃዊ ተጠቃሚነት ማእከል ያደረገ የመንግስት ጣልቃ ገብነት የሚፈቅድ አካታች ካፒታሊዝም ነው፡፡",
-    icon: Briefcase,
-    color: "#10B981",
-    gradientFrom: "from-emerald-500",
-    gradientTo: "to-emerald-600",
-    shadow: "shadow-emerald-500/30",
-  },
-  {
-    id: 4,
-    title: "የውጭ ግንኙነት",
-    description:
-      "በትብብር በፉክክር መሃል ሚዛን የሚጠብቅ ነው ለዜጎች ክብር በቅድሚያ የሚሰጥ ነው ብሄራዊ ጥቅም የሚያስጠብቅ ነው ጎረቤት ሀገራትን የሚያስቀድም ነው፡፡",
-    icon: GlobeIcon,
-    color: "#F59E0B",
-    gradientFrom: "from-amber-400",
-    gradientTo: "to-amber-600",
-    shadow: "shadow-amber-500/30",
-  },
+const sectionColors = [
+  "bg-blue-100 border-blue-400 text-blue-900",
+  "bg-green-100 border-green-400 text-green-900",
+  "bg-yellow-100 border-yellow-400 text-yellow-900",
+  "bg-purple-100 border-purple-400 text-purple-900",
 ];
 
-const Services = () => {
-  return (
-    <section id="services" className="relative py-24 md:py-32 overflow-hidden bg-slate-50/50">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Clean gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-blue-50/20" />
-        
-        {/* Subtle decorative elements */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gov-blue/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gov-blue/20 to-transparent" />
-        
-        {/* Professional background elements */}
-        <div className="absolute right-0 top-20 w-[50vw] h-[50vw] bg-gov-blue/5 rounded-full blur-[120px] opacity-60" />
-        <div className="absolute -left-40 bottom-20 w-[60vw] h-[60vw] bg-gov-gold/5 rounded-full blur-[130px] opacity-50" />
-        </div>
+const sections = [
+  {
+    title: "የብልጽግና ፓርቲ የውጭ ግንኙነት ፕሮግራም ቀጣይ ግቦች",
+    goals: [
+      "01 ሀገራዊ ክብርን የሚያረጋግጥ የውጭ ግንኙነት",
+      "02 ለትብብርና ለጋራ ተጠቃሚነት ትኩረት በመሰጠት አጋሮቻችንን ማስፋት",
+      "03 የብዙዮሽ ትብብር ተቋማት ተሰሚነትን መጨመር እና ፖሊሲያዊ ነፃነትን ማስከበር",
+      "04 ለጎረቤት ሀገራት ትኩረት በመስጠት ዘርፈ ብዙ የጋራ ተጠቃሚነትን ማረጋገጥ",
+      "05 የኢትዮጵያውያንና ትውልደ ኢትዮጵያውያንን ተሳትፎ ማሳደግ",
+      "06 ሀገራዊ ክብርን እና ሀገራዊ ጥቅምን የሚያስጠብቅ የውጭ ግንኙነት የመፈፀም አቅም መገንባት ናቸው፡፡"
+    ]
+  },
+  {
+    title: "የብልጽግና ፓርቲ የኢኮኖሚ ፕሮግራም ቀጣይ ግቦች",
+    goals: [
+      "01 የብዝሃ ዘርፍ የኢኮኖሚ መዋቅር መገንባት",
+      "02 ሀብት ፈጠራን የሚያሳድግ እውቀት-መር ኢኮኖሚ መገንባት",
+      "03 ከተሜነት እና የከተማ ልማትን ማስፋፋት ናቸው፡፡",
+      "04 ጥራት ያለው የኢኮኖሚ ልማትና ምርታማነትን መሰረት ያደረገ"
+    ]
+  },
+  {
+    title: "የብልጽግና ፓርቲ የማህበራዊ ፕሮግራም ቀጣይ ግቦች",
+    goals: [
+      "01 ፍትሃዊነት፣ ጥራት እና አግባብነት ያለው የትምህርትና ስልጠና ስርዓት ማረጋገጥ",
+      "02 መከላከልን መሰረት ያደረገ የጤና ስርዓት መዘርጋት",
+      "03 የሀገራችንን አቅም ያገናዘበ የማህበራዊ ጥበቃ ስርዓት መዘርጋት",
+      "04 የሴቶችና የወጣቶች የፖለትካ የኢኮኖሚና ማህበራዊ ተሳትፎና ተጠቃሚነት ማጎልበት",
+      "05 ብዙሃነታችንን ማዕከል ያደረገ የቋንቋ ባህልና ቅርጽ ልማት ናቸው።"
+    ]
+  },
+  {
+    title: "የብልጽግና ፓርቲ የፖለቲካ ፕሮግራም ግቦች",
+    goals: [
+      "01 ዘላቂና አዎንታዊ ሰላምን ማረጋገጥ",
+      "02 በተቋማዊና ሕዝባዊ ባህል ላይ የቆመ የዴሞክሪሲ ሥርዓት መገነባት",
+      "03 ቅቡል ሀገረ መንግሥት ለመገነባት የሚያስችል ሀገራዊ መግባባት መፍጠር"
+    ]
+  }
+];
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        {/* Single clear header */}
-        <motion.div 
-          className="max-w-4xl mx-auto text-center mb-16 md:mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <motion.h2
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 relative inline-block"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+const Services = () => (
+  <section id="services" className="py-16 md:py-24 bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen">
+    <div className="container mx-auto px-4 sm:px-6">
+      <h2 className="text-3xl md:text-4xl font-bold text-center mb-14 text-gov-blue drop-shadow-sm">
+        የብልጽግና ፓርቲ ፕሮግራሞች
+      </h2>
+      <div className="flex flex-col gap-10 md:gap-14 max-w-4xl mx-auto">
+        {sections.map((section, idx) => (
+          <div
+            key={idx}
+            className={`relative border-l-4 pl-8 py-8 bg-white shadow-lg rounded-xl ${sectionColors[idx % sectionColors.length]} transition-all`}
           >
-            <span className="text-gov-blue">የብልጽግና ፓርቲ</span> <span className="text-gov-dark">ፕሮግራሞች</span>
-            <motion.div 
-              className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-gov-blue to-gov-gold rounded-full"
-              initial={{ width: 0, left: "50%" }}
-              whileInView={{ width: "100%", left: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-            />
-          </motion.h2>
-        </motion.div>
-        
-        {/* Professional Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
-          {partyPrograms.map((program, index) => {
-            const Icon = program.icon;
-            return (
-              <motion.div
-                key={program.id}
-                className="group"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: index * 0.1,
-                }}
-                viewport={{ once: true, margin: "-50px" }}
-              >
-                {/* Professional Card Design */}
-                <div className="relative h-full rounded-lg bg-white shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group-hover:translate-y-[-8px]">
-                  {/* Accent Top Border */}
-                  <div className={`h-1.5 w-full bg-gradient-to-r ${program.gradientFrom} ${program.gradientTo}`} />
-                  
-                  <div className="p-6 md:p-8">
-                    {/* Program icon with subtle effects */}
-                    <div className="mb-5 md:mb-6">
-                      <div className={`w-14 h-14 md:w-16 md:h-16 rounded-lg flex items-center justify-center bg-opacity-10 border border-opacity-20`} 
-                        style={{ 
-                          backgroundColor: `${program.color}10`,
-                          borderColor: program.color 
-                        }}>
-                        <Icon className="w-8 h-8" style={{ color: program.color }} />
-                      </div>
-                  </div>
-                  
-                    {/* Title - the only visible text element */}
-                    <h3 className="text-xl md:text-2xl font-bold text-gov-dark mb-3 md:mb-4 group-hover:text-gov-blue transition-colors duration-300">
-                      {program.title}
-                  </h3>
-                  
-                    {/* Subtle decorative element */}
-                    <div className="w-12 h-0.5 bg-gray-200 group-hover:bg-gov-gold transition-colors duration-300 mb-4" />
-                    
-                    {/* Description */}
-                    <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-                      {program.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+            <div className="absolute -left-3 top-8 w-6 h-6 rounded-full bg-white border-4 border-gov-blue flex items-center justify-center shadow">
+              <CheckCircle className="w-5 h-5 text-gov-blue" />
+            </div>
+            <h3 className="text-2xl font-bold mb-6 text-gov-blue tracking-tight drop-shadow-sm">
+              {section.title}
+            </h3>
+            <ol className="space-y-4 ml-2">
+              {section.goals.map((goal, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="inline-block mt-1">
+                    <Circle className="w-4 h-4 text-gov-gold" />
+                  </span>
+                  <span className="text-lg text-gray-800 leading-relaxed">{goal}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Services;

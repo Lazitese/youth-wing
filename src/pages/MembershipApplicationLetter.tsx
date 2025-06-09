@@ -368,24 +368,16 @@ const MembershipApplicationLetter = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Button
-                      type="submit"
+                      type="button"
                       size="lg"
-                      disabled={isSubmitting}
+                      onClick={() => navigate('/abalat-mzgeba/form')}
                       className={`w-full md:w-auto bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-[#fbbf24] text-sm md:text-lg px-3 md:px-8 py-1.5 md:py-2.5 
-                                transition-all duration-200 rounded-md shadow-sm hover:shadow-md 
-                                ${isSubmitting ? 'opacity-80' : ''}`}
+                                transition-all duration-200 rounded-md shadow-sm hover:shadow-md`}
                     >
-                      {isSubmitting ? (
-                        <span className="flex items-center justify-center gap-1 md:gap-2">
-                          <Loader2 className="h-3 w-3 md:h-5 md:w-5 animate-spin" />
-                          <span className="text-xs md:text-base">በመላክ ላይ...</span>
-                        </span>
-                      ) : (
-                        <span className="flex items-center justify-center gap-1 md:gap-2">
-                          <span className="text-xs md:text-base">ማመልከቻውን ያስገቡ</span>
-                          <ChevronRight className="h-3 w-3 md:h-5 md:w-5" />
-                        </span>
-                      )}
+                      <span className="flex items-center justify-center gap-1 md:gap-2">
+                        <span className="text-xs md:text-base">ማመልከቻውን ያስገቡ</span>
+                        <ChevronRight className="h-3 w-3 md:h-5 md:w-5" />
+                      </span>
                     </Button>
                   </motion.div>
                 </motion.div>

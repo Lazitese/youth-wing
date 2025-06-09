@@ -40,12 +40,16 @@ interface AbalatSubmission {
 interface AbalatSubmissionsProps {
   searchQuery: string;
   activeFilter: string;
+  setActiveFilter: (filter: string) => void;
 }
 
-const AbalatSubmissions: React.FC<AbalatSubmissionsProps> = ({ searchQuery, activeFilter }) => {
+const AbalatSubmissions: React.FC<AbalatSubmissionsProps> = ({ searchQuery, activeFilter, setActiveFilter }) => {
   const { toast } = useToast();
   const [submissions, setSubmissions] = useState<AbalatSubmission[]>([]);
   const [loading, setLoading] = useState(true);
+  const [viewDialogOpen, setViewDialogOpen] = useState(false);
+  const [selectedMember, setSelectedMember] = useState<AbalatSubmission | null>(null);
+  const [actionLoading, setActionLoading] = useState(false);
 
   useEffect(() => {
     fetchSubmissions();
@@ -95,6 +99,30 @@ const AbalatSubmissions: React.FC<AbalatSubmissionsProps> = ({ searchQuery, acti
     );
   });
 
+  const handleStatusChange = async (id: string, status: 'accepted' | 'rejected') => {
+    setActionLoading(true);
+    try {
+      const { error } = await supabase
+        .from('abalat_mzgeba_submissions')
+        .update({ status })
+        .eq('id', id);
+      if (error) throw error;
+      toast({
+        title: 'ተሳክቷል',
+        description: status === 'accepted' ? 'አባል ተፀድቷል' : 'አባል ተቀብሏል',
+      });
+      fetchSubmissions();
+    } catch (error) {
+      toast({
+        title: 'ስህተት',
+        description: 'ሁኔታ ማዘዣ አልተሳካም',
+        variant: 'destructive',
+      });
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center p-8">
@@ -107,7 +135,7 @@ const AbalatSubmissions: React.FC<AbalatSubmissionsProps> = ({ searchQuery, acti
     <div className="bg-white rounded-lg shadow-sm">
       <div className="mb-6 border-b border-gray-200">
         <div className="flex overflow-x-auto hide-scrollbar">
-          {["all", "active", "pending", "rejected"].map((filter) => (
+          {["all", "accepted", "pending", "rejected"].map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
@@ -118,7 +146,7 @@ const AbalatSubmissions: React.FC<AbalatSubmissionsProps> = ({ searchQuery, acti
               }`}
             >
               {filter === "all" && "ሁሉም አባላት"}
-              {filter === "active" && "ንቁ አባላት"}
+              {filter === "accepted" && "ንቁ አባላት"}
               {filter === "pending" && "በመጠባበቅ ላይ"}
               {filter === "rejected" && "ተቀባይነት ያላገኙ"}
             </button>
@@ -146,6 +174,9 @@ const AbalatSubmissions: React.FC<AbalatSubmissionsProps> = ({ searchQuery, acti
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 የተመዘገበበት ቀን
               </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                መልእክት
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -162,11 +193,11 @@ const AbalatSubmissions: React.FC<AbalatSubmissionsProps> = ({ searchQuery, acti
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                    submission.status === 'active' ? 'bg-green-100 text-green-800' :
+                    submission.status === 'accepted' ? 'bg-green-100 text-green-800' :
                     submission.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
                     'bg-red-100 text-red-800'
                   }`}>
-                    {submission.status === 'active' ? 'ንቁ' :
+                    {submission.status === 'accepted' ? 'ንቁ' :
                      submission.status === 'pending' ? 'በመጠባበቅ ላይ' :
                      'ተቀባይነት አላገኘም'}
                   </span>
@@ -174,11 +205,52 @@ const AbalatSubmissions: React.FC<AbalatSubmissionsProps> = ({ searchQuery, acti
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {new Date(submission.created_at).toLocaleDateString('am-ET')}
                 </td>
+                <td className="px-6 py-4 whitespace-nowrap flex gap-2">
+                  <Button size="sm" variant="outline" onClick={() => { setSelectedMember(submission); setViewDialogOpen(true); }}>
+                    <Eye className="w-4 h-4 mr-1" /> ይመልከቱ
+                  </Button>
+                  {submission.status === 'pending' && (
+                    <>
+                      <Button size="sm" variant="default" onClick={() => handleStatusChange(submission.id, 'accepted')} disabled={actionLoading}>
+                        {actionLoading ? <span className="animate-spin mr-1 w-4 h-4 border-2 border-t-transparent border-brand-blue rounded-full"></span> : <Check className="w-4 h-4 mr-1" />}
+                        አጽድቅ
+                      </Button>
+                      <Button size="sm" variant="destructive" onClick={() => handleStatusChange(submission.id, 'rejected')} disabled={actionLoading}>
+                        {actionLoading ? <span className="animate-spin mr-1 w-4 h-4 border-2 border-t-transparent border-red-600 rounded-full"></span> : <X className="w-4 h-4 mr-1" />}
+                        አትቀበል
+                      </Button>
+                    </>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      <Dialog open={viewDialogOpen} onOpenChange={setViewDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>የአባል ዝርዝር</DialogTitle>
+            <DialogDescription>
+              {selectedMember && (
+                <div className="space-y-2 mt-2">
+                  <div><b>ሙሉ ስም:</b> {selectedMember.full_name}</div>
+                  <div><b>ኢሜይል:</b> {selectedMember.email}</div>
+                  <div><b>ስልክ:</b> {selectedMember.phone}</div>
+                  <div><b>ወረዳ:</b> {selectedMember.woreda}</div>
+                  <div><b>ቀበሌ:</b> {selectedMember.kebele}</div>
+                  <div><b>እድሜ:</b> {selectedMember.age}</div>
+                  <div><b>የትምህርት ደረጃ:</b> {selectedMember.education_level}</div>
+                  <div><b>ሙያ:</b> {selectedMember.occupation}</div>
+                  <div><b>ሁኔታ:</b> {selectedMember.status === 'accepted' ? 'ንቁ' : selectedMember.status === 'pending' ? 'በመጠባበቅ ላይ' : 'ተቀባይነት አላገኘም'}</div>
+                  <div><b>የተመዘገበበት ቀን:</b> {new Date(selectedMember.created_at).toLocaleDateString('am-ET')}</div>
+                </div>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

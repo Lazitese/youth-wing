@@ -73,6 +73,8 @@ const Dashboard = () => {
   const [weeklyActivity, setWeeklyActivity] = useState<WeeklyActivityData[]>([]);
   const [recentActivities, setRecentActivities] = useState<RecentActivity[]>([]);
   const [upcomingTasks, setUpcomingTasks] = useState<UpcomingTask[]>([]);
+  const [pendingMembers, setPendingMembers] = useState(0);
+  const [approvedMembers, setApprovedMembers] = useState(0);
   
   const COLORS = ['#1F8CD7', '#F9DC2F', '#4CAF50', '#FF5722'];
   
@@ -145,14 +147,16 @@ const Dashboard = () => {
           genderData,
           activityData,
           activities,
-          tasks
+          tasks,
+          dashboardStats
         ] = await Promise.all([
           fetchMemberGrowthData(growthPeriod),
           fetchAgeDistribution(),
           fetchGenderDistribution(),
           fetchWeeklyActivity(),
           fetchRecentActivities(),
-          fetchUpcomingTasks()
+          fetchUpcomingTasks(),
+          import("@/lib/dashboardData").then(m => m.fetchDashboardStats())
         ]);
         
         setMemberGrowthData(growthData);
@@ -161,6 +165,8 @@ const Dashboard = () => {
         setWeeklyActivity(activityData);
         setRecentActivities(activities);
         setUpcomingTasks(tasks);
+        setPendingMembers(dashboardStats.pendingMembers);
+        setApprovedMembers(dashboardStats.approvedMembers);
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
       } finally {
@@ -359,11 +365,6 @@ const Dashboard = () => {
                 </div>
               ))
             )}
-            
-            <button className="text-xs text-brand-blue font-medium flex items-center mt-3 hover:text-brand-blue/80 transition-colors bg-brand-blue/5 px-3 py-1.5 rounded-full hover:bg-brand-blue/10">
-              ሁሉንም ይመልከቱ
-              <ArrowRight size={12} className="ml-1" />
-            </button>
           </div>
         </motion.div>
         
@@ -378,7 +379,7 @@ const Dashboard = () => {
             <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 mr-3">
               <Layers size={16} />
             </span>
-            ዛሬ እድሳት ያላቸው ነገሮች
+            የአባላት አነሳስ ሪፖርት
           </h2>
           <div className="text-gray-600 pt-2 space-y-4 relative z-10">
             {dataLoading ? (
@@ -386,22 +387,25 @@ const Dashboard = () => {
                 <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-emerald-500"></div>
               </div>
             ) : (
-              upcomingTasks.map((task, index) => (
-                <div key={task.id} className={`flex items-start pb-4 ${index < upcomingTasks.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                  <div className="w-2 h-2 mt-2 rounded-full bg-emerald-500 mr-3"></div>
-                  <div className="flex-1">
-                    <p className="text-gray-800 text-sm font-medium">{task.title}</p>
-                    <p className="text-xs text-gray-500 mt-1">{task.description}</p>
-                  </div>
-                  <div className="text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded-full">{task.dueDate === format(new Date(), 'yyyy-MM-dd') ? 'ዛሬ' : task.dueDate}</div>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between border-b pb-2">
+                  <span className="font-medium text-gray-700">ጠቅላላ አባላት</span>
+                  <span className="font-bold text-brand-blue text-lg">{memberGrowthData.length > 0 ? memberGrowthData[memberGrowthData.length-1].count : 0}</span>
                 </div>
-              ))
+                <div className="flex items-center justify-between border-b pb-2">
+                  <span className="font-medium text-gray-700">ዛሬ አዲስ አባላት</span>
+                  <span className="font-bold text-emerald-600 text-lg">{memberGrowthData.length > 1 ? memberGrowthData[memberGrowthData.length-1].count - memberGrowthData[memberGrowthData.length-2].count : memberGrowthData.length === 1 ? memberGrowthData[0].count : 0}</span>
+                </div>
+                <div className="flex items-center justify-between border-b pb-2">
+                  <span className="font-medium text-gray-700">በመጠባበቅ ላይ አባላት</span>
+                  <span className="font-bold text-amber-600 text-lg">{pendingMembers}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-gray-700">የተፈቀዱ አባላት</span>
+                  <span className="font-bold text-emerald-600 text-lg">{approvedMembers}</span>
+                </div>
+              </div>
             )}
-            
-            <button className="text-xs text-emerald-500 font-medium flex items-center mt-3 hover:text-emerald-500/80 transition-colors bg-emerald-500/5 px-3 py-1.5 rounded-full hover:bg-emerald-500/10">
-              ሁሉንም ይመልከቱ
-              <ArrowRight size={12} className="ml-1" />
-            </button>
           </div>
         </motion.div>
       </div>

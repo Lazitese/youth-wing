@@ -158,22 +158,22 @@ const PartyVisionStructure = () => {
                 color: "bg-green-500",
               },
               {
-                title: "የወጣቶች ማህበራዊ ተሳትፎ",
+                title: "ዴሞክራሲያዊነት",
                 icon: <UserCheck className="w-5 h-5" />,
                 color: "bg-purple-500",
               },
               {
-                title: "የወጣቶች ተሳትፎ",
+                title: "ተግባራዊ እውነታ",
                 icon: <Users className="w-5 h-5" />,
                 color: "bg-orange-500",
               },
               {
-                title: "የህብረተሰቡ አንደኛነት",
+                title: "የህግ የበላይነት",
                 icon: <Heart className="w-5 h-5" />,
                 color: "bg-gov-blue",
               },
               {
-                title: "የሀገር አንደኛነት",
+                title: "ሀገራዊ አንድነት ህብረ ብሔራዊነት",
                 icon: <Globe className="w-5 h-5" />,
                 color: "bg-gov-gold",
               }

@@ -96,31 +96,44 @@ export const JobApplications = () => {
   };
 
   const fetchApplications = async () => {
-    setLoading(true);
     try {
-      // Join jobs and applications to get job titles
+      setLoading(true);
+      
       const { data, error } = await supabase
-        .from("job_applications")
-        .select(
-          "*, jobs:job_id(title)"
-        )
-        .order("created_at", { ascending: false });
-
+        .from('job_applications')
+        .select(`
+          *,
+          jobs:job_id (
+            title
+          )
+        `)
+        .order('created_at', { ascending: false });
+      
       if (error) throw error;
-
-      // Transform data to include job_title
+      
+      // Transform the data to include job_title
       const transformedData = data.map(app => ({
         ...app,
-        job_title: app.jobs?.title || "Unknown Job"
+        job_title: app.jobs?.title || 'Unknown Job'
       }));
-
+      
       setApplications(transformedData);
+      
+      // Fetch unique jobs for filter
+      const uniqueJobs = [...new Set(data.map(app => app.job_id))];
+      const { data: jobsData } = await supabase
+        .from('jobs')
+        .select('id, title')
+        .in('id', uniqueJobs);
+      
+      setJobsList(jobsData || []);
+      
     } catch (error) {
-      console.error("Error fetching applications:", error);
+      console.error('Error fetching applications:', error);
       toast({
         variant: "destructive",
         title: "ስህተት",
-        description: "የስራ ማመልከቻዎችን ማግኘት አልተቻለም",
+        description: "ማመልከቻዎችን ለማግኘት አልተቻለም። እባክዎ ዳግም ይሞክሩ።",
       });
     } finally {
       setLoading(false);

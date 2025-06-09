@@ -43,7 +43,7 @@ const AdminSidebar = () => {
       icon: Library
     },
     {
-      name: "ስራዎች",
+      name: "ለስራ ፈላጊዎች",
       path: "/admin/jobs",
       icon: Briefcase
     },

@@ -132,16 +132,6 @@ const MedemerFundamentals = () => {
                 {item.content}
               </p>
               
-              <div className="flex justify-end">
-                <motion.div 
-                  whileHover={{ x: 5 }}
-                  className="text-gov-blue flex items-center text-sm font-medium cursor-pointer"
-                >
-                  <span className="mr-1">ተጨማሪ</span>
-                  <ArrowRight className="w-4 h-4" />
-                </motion.div>
-              </div>
-              
               {/* Animated border bottom */}
               <motion.div 
                 initial={{ width: 0 }}
